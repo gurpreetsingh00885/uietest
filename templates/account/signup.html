@@ -12,31 +12,40 @@
 
 {% block content %}
 <h1>{% trans "Student Sign Up" %}</h1>
+<center><div class="main" align="center">
 
 <p>{% blocktrans %}Already have an account? Then please <a href="{{ login_url }}">sign in</a>.{% endblocktrans %}</p>
+
 
 <form class="signup" id="signup_form" method="post" action="{% url 'account_signup' %}">
   {% csrf_token %}
   {{ form.non_field_errors }}
 
-  {{form.name.label_tag}}     {% render_field form.name class+="name" placeholder+="Full Name" %} {{form.name.errors}}<br/>
+  {{form.name.label_tag}}  {% render_field form.name class+="name" class="empty"  placeholder+="Full Name" %} {{form.name.errors}}<br/><br/>
 
 
-  {{form.username.label_tag}}     {% render_field form.username class+="name" %} {{form.username.errors}} <br/>
-  {{form.email.label_tag}}     {% render_field form.email class+="name"%}{{form.email.errors}} <br/>
-  {{form.roll_no.label_tag}} {% render_field form.roll_no class+="name" placeholder+="UE******" %} {{form.roll_no.errors}}<br/>
-  {{form.phone_no.label_tag}}     {% render_field form.phone_no class+="name" placeholder+="10-digit phone number" %}
+  {{form.username.label_tag}}     {% render_field form.username class+="name" class="empty" %} {{form.username.errors}} <br/><br/>
 
-  {{form.phone_no.errors}}<br/>
-  {{form.password1.label_tag}}     {% render_field form.password1 class+="name" %} {{ form.password1.errors }}<br/>
-  {{form.password2.label_tag}}     {% render_field form.password2 class+="name" %} {{ form.password2.errors }}<br/>
+  {{form.email.label_tag}}     {% render_field form.email class+="name" class="empty" %}{{form.email.errors}} <br/><br/>
 
-  <br/>
+  {{form.roll_no.label_tag}} {% render_field form.roll_no class+="name" class="empty" placeholder+="UE******" %} {{form.roll_no.errors}}<br/><br/>
+
+  {{form.phone_no.label_tag}}     {% render_field form.phone_no class+="name" class="empty" placeholder+="10-digit phone number" %}
+{{form.phone_no.errors}}<br/><br/>
+
+  {{form.password1.label_tag}}     {% render_field form.password1 class+="name" class="empty" %} {{ form.password1.errors }}<br/><br/>
+
+  {{form.password2.label_tag}}     {% render_field form.password2 class+="name"  class="empty" %} {{ form.password2.errors }}<br/><br/>
+
+  
 
   {% if redirect_field_value %}
   <input type="hidden" name="{{ redirect_field_name }}" value="{{ redirect_field_value }}" />
   {% endif %}
   <button type="submit">{% trans "Sign Up" %} &raquo;</button>
 </form>
+
+</div>
+</center>
 
 {% endblock %}
