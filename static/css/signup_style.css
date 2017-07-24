@@ -4,7 +4,7 @@
   height:500px;
   padding: 20px;
   padding-top: 10px;
-  box-shadow: 2px 2px 1px grey;
+  box-shadow: 3.5px 3.5px 2px grey;
 }
 .error {
   color: red;
