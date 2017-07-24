@@ -58,6 +58,11 @@ ACCOUNT_LOGOUT_ON_GET = False
 # ACCOUNT_LOGOUT_ON_PASSWORD_CHANGE = False
 
 
+
+
+
+
+
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
@@ -66,6 +71,7 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    'registration.middleware.NoIfModifiedSinceMiddleware',
 ]
 
 ROOT_URLCONF = 'uietest.urls'
