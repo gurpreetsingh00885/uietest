@@ -1,4 +1,8 @@
-
+.error {
+  color: red;
+  font-size: 12px;
+  list-style: none;
+}
 
 input[type=text], textarea {
   -webkit-transition: all 0.30s ease-in-out;
