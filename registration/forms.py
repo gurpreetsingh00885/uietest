@@ -37,9 +37,9 @@ class StudentSignupForm(SignupForm):
         # extra cleaning just override the clean method as usual)
         student_user = Student(
             user=user,
-            name=name,
-            branch = branch,
-            year = year
+            name=self.cleaned_data['name'],
+            branch = self.cleaned_data['branch'],
+            year = self.cleaned_data['year']
         )
         student_user.save()
 
