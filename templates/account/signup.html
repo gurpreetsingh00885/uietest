@@ -15,7 +15,7 @@
 <center><div class="main" align="center">
 
 <p>{% blocktrans %}Already have an account? Then please <a href="{{ login_url }}">sign in</a>.{% endblocktrans %}</p>
-<div class="main" align="center">
+
 <form class="signup" id="signup_form" method="post" action="{% url 'account_signup' %}">
   {% csrf_token %}
   {{ form.non_field_errors }}
@@ -28,18 +28,13 @@
   {{form.email.label_tag}}     {% render_field form.email class+="name" class="empty" %}{{form.email.errors}} <br/><br/>
 
 
-  {{form.username.label_tag}}     {% render_field form.username class+="name" %} {{form.username.errors}} <br/>
-  {{form.email.label_tag}}     {% render_field form.email class+="name"%}{{form.email.errors}} <br/>
-  {{form.roll_no.label_tag}} {% render_field form.roll_no class+="name" placeholder+="UE******" %} {{form.roll_no.errors}}<br/>
-  {{form.phone_no.label_tag}}     {% render_field form.phone_no class+="name" placeholder+="10-digit phone number" %} <br/>
-  {{form.branch.label_tag}}     {% render_field form.branch %} {{ form.branch.errors }}<br/>
-  {{form.year.label_tag}}     {% render_field form.year %} {{ form.year.errors }}<br/>
-
   {{form.roll_no.label_tag}} {% render_field form.roll_no class+="name" class="empty" placeholder+="UE******" %} {{form.roll_no.errors}}<br/><br/>
 
-  {{form.phone_no.label_tag}}     {% render_field form.phone_no class+="name" class="empty" placeholder+="10-digit phone number" %}
-{{form.phone_no.errors}}<br/><br/>
+  {{form.phone_no.label_tag}}     {% render_field form.phone_no class+="name"  class="empty" placeholder+="10-digit phone number" %} <br/><br/>
+  {{form.branch.label_tag}}     {% render_field form.branch  class="empty" %} {{ form.branch.errors }}<br/><br/>
+  {{form.year.label_tag}}     {% render_field form.year  class="empty" %} {{ form.year.errors }}<br/><br/>
 
+  
   {{form.password1.label_tag}}     {% render_field form.password1 class+="name" class="empty" %} {{ form.password1.errors }}<br/><br/>
 
   {{form.password2.label_tag}}     {% render_field form.password2 class+="name"  class="empty" %} {{ form.password2.errors }}<br/><br/>
@@ -51,8 +46,6 @@
   {% endif %}
   <button type="submit">{% trans "Sign Up" %} &raquo;</button>
 </form>
-</div>	
-
 </div>
 </center>
 

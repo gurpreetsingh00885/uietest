@@ -1,7 +1,6 @@
 .main {
   border: 2px solid black;
-  width:470px;
-  height:500px;
+  display: inline-block;
   padding: 20px;
   padding-top: 10px;
   box-shadow: 2px 2px 1px grey;
@@ -12,11 +11,8 @@
   list-style: none;
 }
 
-<<<<<<< HEAD
+
 input[type=password], input[type=text], input[type=email], textarea {
-=======
-input[type=text],input[type=password],input[type=email], textarea {
->>>>>>> 13a5c53372ff7b6fbeca8e27e1f69b4f49e72e9b
   -webkit-transition: all 0.30s ease-in-out;
   -moz-transition: all 0.30s ease-in-out;
   -ms-transition: all 0.30s ease-in-out;
@@ -34,12 +30,6 @@ input[type=text]:focus, textarea:focus {
   border: 1px solid rgba(81, 203, 238, 1);
 }
 
-<<<<<<< HEAD
-.main {
-	border: 2px solid black;
-	display: inline-block;
-}
-=======
 .empty{
   float: right;
   height: 30px;
@@ -52,5 +42,3 @@ label{
 body{
   background-color: #bed9f3;
 }
-
->>>>>>> 13a5c53372ff7b6fbeca8e27e1f69b4f49e72e9b
