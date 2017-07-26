@@ -1,10 +1,31 @@
 .main {
-  border: 2px solid black;
+  border: 2px solid white;
   display: inline-block;
   padding: 20px;
   padding-top: 10px;
-  box-shadow: 2px 2px 1px grey;
+  box-shadow: 3.5px 3.5px 2px grey;
+  background-color: white;
+  border-radius: 7px;
 }
+p{
+  font-size: 10px;
+}
+
+
+  h1 {
+  font-family: "Avant Garde", Avantgarde, "Century Gothic", CenturyGothic, "AppleGothic", sans-serif;
+  font-size: 50px;
+  padding: 40px 25px;
+  text-align: center;
+  text-transform: uppercase;
+  text-rendering: optimizeLegibility;
+   color: #2c2c2c;
+    letter-spacing: .05em;
+    text-shadow: 
+      4px 4px 0px #d5d5d5, 
+      7px 7px 0px rgba(0, 0, 0, 0.2);
+  }
+
 .error {
   color: red;
   font-size: 12px;
@@ -37,8 +58,15 @@ input[type=text]:focus, textarea:focus {
 }
 
 label{
-  display: inline-block;
+  float: left;
 }
 body{
   background-color: #bed9f3;
+}
+.butt{
+  height: 40px;
+  width: 100px;
+  background-color:#bed9f3 ;
+  border-radius: 7px;
+
 }
