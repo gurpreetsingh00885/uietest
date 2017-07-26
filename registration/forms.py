@@ -7,7 +7,6 @@ class StudentSignupForm(SignupForm):
     phone_no = forms.CharField(max_length=10, required=True, strip=True)
     roll_no = forms.CharField(max_length=10, strip=True)
 
-
     YEAR_CHOICES = (  
     ('1', '1st'),
     ('2', '2nd'),

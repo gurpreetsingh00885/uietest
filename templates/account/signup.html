@@ -23,7 +23,7 @@
   {{form.name.label_tag}}  {% render_field form.name class+="name" class="empty"  placeholder+="Full Name" %} {{form.name.errors}}<br/><br/>
 
 
-  {{form.username.label_tag}}     {% render_field form.username class+="name" class="empty" %} {{form.username.errors}} <br/><br/>
+  {{form.username.label_tag}}     {% render_field form.username class+="name" class="empty" value="something" type="hidden"%} {{form.username.errors}} <br/><br/>
 
   {{form.email.label_tag}}     {% render_field form.email class+="name" class="empty" %}{{form.email.errors}} <br/><br/>
 
