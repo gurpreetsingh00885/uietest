@@ -3,7 +3,14 @@ from django.contrib.auth.models import User
 
 class Faculty(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE)
+    name = models.CharField(max_length=100)
     department = models.CharField(max_length=50)
+
+    def __str__(self):
+        return self.name
+
+    class Meta:
+        verbose_name_plural = "Faculty Accounts"
 
 class Student(models.Model):
     YEAR_CHOICES = (
@@ -26,4 +33,15 @@ class Student(models.Model):
     roll_no = models.CharField(max_length=8)
     phone_no = models.CharField(max_length=10)
     year = models.CharField(max_length=1, choices=YEAR_CHOICES)
-    branch = models.CharField(max_length=2, choices=YEAR_CHOICES)
+    branch = models.CharField(max_length=2, choices=BRANCH_CHOICES)
+
+    def __str__(self):
+        return self.name
+
+
+    def delete(self, *args, **kwargs):
+        self.user.delete()
+        return super(Student, self).delete(*args, **kwargs)
+
+    class Meta:
+        verbose_name_plural = "Student Accounts"

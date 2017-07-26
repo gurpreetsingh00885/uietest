@@ -5,7 +5,7 @@ from allauth.account.forms import SignupForm
 class StudentSignupForm(SignupForm):
     name = forms.CharField(max_length=50, required=True, strip=True)
     phone_no = forms.CharField(max_length=10, required=True, strip=True)
-    roll_no = forms.CharField(max_length=10, required=True, strip=True)
+    roll_no = forms.CharField(max_length=10, strip=True)
 
 
     YEAR_CHOICES = (  
@@ -31,15 +31,20 @@ class StudentSignupForm(SignupForm):
     def save(self, request):
         # Save the User instance and get a reference to it
         user = super(StudentSignupForm, self).save(request)
+        user.username = self.cleaned_data['roll_no']
+        user.is_active = False
+        user.save()
         # Create an instance of your model with the extra fields
         # then save it.
         # (N.B: the are already cleaned, but if you want to do some
         # extra cleaning just override the clean method as usual)
         student_user = Student(
-            user=user,
-            name=self.cleaned_data['name'],
+            user = user,
+            name = self.cleaned_data['name'],
             branch = self.cleaned_data['branch'],
-            year = self.cleaned_data['year']
+            year = self.cleaned_data['year'],
+            roll_no = self.cleaned_data['roll_no'],
+            phone_no = self.cleaned_data['phone_no']
         )
         student_user.save()
 
@@ -47,6 +52,7 @@ class StudentSignupForm(SignupForm):
 
     def clean(self):
         form_data = self.cleaned_data
+        print(form_data)
         print(self._errors)
         if (len(form_data['roll_no'])!=8 or form_data['roll_no'][:2].lower()!="ue" or not form_data['roll_no'][2:].isdigit()):
             self.add_error("roll_no","Roll No. is not valid!")

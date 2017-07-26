@@ -51,12 +51,12 @@ INSTALLED_APPS = [
 ]
 
 ACCOUNT_EMAIL_REQUIRED = True
-# ACCOUNT_AUTHENTICATION_METHOD = "email"
+ACCOUNT_AUTHENTICATION_METHOD = "username"
 # ACCOUNT_EMAIL_VERIFICATION = "mandatory"
 # ACCOUNT_LOGIN_ON_EMAIL_CONFIRMATION = False
 ACCOUNT_LOGOUT_ON_GET = False
 # ACCOUNT_LOGOUT_ON_PASSWORD_CHANGE = False
-
+EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'    #email sent to console for testing
 
 
 
