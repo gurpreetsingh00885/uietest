@@ -3,9 +3,12 @@
   display: inline-block;
   padding: 20px;
   padding-top: 10px;
-  box-shadow: 3.5px 3.5px 2px grey;
+  -moz-box-shadow: 0 0 5px grey;
+-webkit-box-shadow: 0 0 5px grey;
+box-shadow: 0 0 5px grey;
   background-color: white;
   border-radius: 7px;
+  opacity: 1;
 }
 p{
   font-size: 10px;
@@ -21,9 +24,7 @@ p{
   text-rendering: optimizeLegibility;
    color: #2c2c2c;
     letter-spacing: .05em;
-    text-shadow: 
-      4px 4px 0px #d5d5d5, 
-      7px 7px 0px rgba(0, 0, 0, 0.2);
+    
   }
 
 .error {
@@ -61,12 +62,27 @@ label{
   float: left;
 }
 body{
-  background-color: #bed9f3;
+  background-color: white;
 }
-.butt{
-  height: 40px;
+#popUpYes
+{
   width: 100px;
-  background-color:#bed9f3 ;
-  border-radius: 7px;
+  height: 40px;
+  background-color: white;
+  color: black;
+  border-radius: 5px; /* SET COLOR IN WHITE */
+}
 
+#popUpYes:hover
+{
+  background-color: powderblue;
+  color: black;
+  border-radius: 5px; /* SET COLOR IN BLACK */
+}
+
+.eroll{
+  display: inline-block;
+  color: red;
+  background-color: white;
+  
 }

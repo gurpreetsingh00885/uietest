@@ -22,13 +22,14 @@
 
   {{form.name.label_tag}}  {% render_field form.name class+="name" class="empty"  placeholder+="Full Name" %} {{form.name.errors}}<br/><br/>
 
-
+<div style="display: none;">
   {{form.username.label_tag}}     {% render_field form.username class+="name" class="empty" value="something" type="hidden"%} {{form.username.errors}} <br/><br/>
+  </div>
 
   {{form.email.label_tag}}     {% render_field form.email class+="name" class="empty" %}{{form.email.errors}} <br/><br/>
 
 
-  {{form.roll_no.label_tag}} {% render_field form.roll_no class+="name" class="empty" placeholder+="UE******" %} {{form.roll_no.errors}}<br/><br/>
+  {{form.roll_no.label_tag}} {% render_field form.roll_no class+="name" class="empty" style="Text-transform:uppercase;" placeholder+="UE******" %} <div class="eroll">{{form.roll_no.errors}}</div><br/><br/>
 
   {{form.phone_no.label_tag}}     {% render_field form.phone_no class+="name"  class="empty" placeholder+="10-digit phone number" %} <br/><br/>
   {{form.branch.label_tag}}     {% render_field form.branch  class="empty" %} {{ form.branch.errors }}<br/><br/>
@@ -44,7 +45,7 @@
   {% if redirect_field_value %}
   <input type="hidden" name="{{ redirect_field_name }}" value="{{ redirect_field_value }}" />
   {% endif %}
-  <button type="submit" class="butt">{% trans "Sign Up" %} &raquo;</button>
+  <button type="submit" id="popUpYes">{% trans "Sign Up" %} &raquo;</button>
 </form>
 </div>
 </center>
