@@ -24,27 +24,26 @@
   {{form.name.errors}}<br><br/>
 
 <div style="display: none;">
-  {{form.username.label_tag}}     {% render_field form.username class+="name" class="empty" value="something" type="hidden"%} {{form.username.errors}}<br><br/>
+  {{form.username.label_tag}}     {% render_field form.username class+="name" class="empty" value="something" type="hidden"%} {{form.username.errors}}<br/><br/>
   </div>
 
-  {{form.email.label_tag}}     {% render_field form.email class+="name" class="empty" %}{{form.email.errors}} <br/><br/>
+  {{form.email.label_tag}}     {% render_field form.email class+="name" class="empty" %}{{form.email.errors}}<br/><br/>
 
 
-  {{form.roll_no.label_tag}} {% render_field form.roll_no class+="name" class="empty" style="Text-transform:uppercase;" placeholder+="UE******" %} <br><div class="eroll">{{form.roll_no.errors}}</div><br/>
+  {{form.roll_no.label_tag}} {% render_field form.roll_no class+="name" class="empty" style="Text-transform:uppercase;" placeholder+="UE******" %} {{form.roll_no.errors}}<br/><br/>
 
-  {{form.phone_no.label_tag}}  {% render_field form.phone_no class+="name"  class="empty" placeholder+="10-digit phone number" %}<br><div class="eroll">{{ form.phone_no.errors }}</div><br/>
+  {{form.phone_no.label_tag}}  {% render_field form.phone_no class+="name"  class="empty" placeholder+="10-digit phone number" %}{{ form.phone_no.errors }}<br/><br/>
 
-  {{form.branch.label_tag}}     {% render_field form.branch  class="empty" %} <br><div class="eroll">
-  {{ form.branch.errors }}</div><br/>
+  {{form.branch.label_tag}}     {% render_field form.branch  class="empty" %}
+  {{ form.branch.errors }}<br/><br/>
 
   {{form.year.label_tag}}     {% render_field form.year  class="empty" %} {{ form.year.errors }}<br/><br/>
 
   
-  {{form.password1.label_tag}} {% render_field form.password1 class+="name" class="empty" %} <br>
-  <div class="eroll">{{ form.password1.errors }}</div><br/>
+  {{form.password1.label_tag}} {% render_field form.password1 class+="name" class="empty" %}{{ form.password1.errors }}<br/><br/>
 
   {{form.password2.label_tag}}     {% render_field form.password2 class+="name"  class="empty" %} 
-  <br><div class="eroll">{{ form.password2.errors }}<br/>
+  {{ form.password2.errors }}<br/><br/>
 
   
 
