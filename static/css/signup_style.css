@@ -81,8 +81,11 @@ body{
 }
 
 .eroll{
-  display: inline-block;
   color: red;
-  background-color: white;
-  
+  display: inline-block;
+  font-size: 12px;
+
+}
+ul{
+  list-style: none;
 }
