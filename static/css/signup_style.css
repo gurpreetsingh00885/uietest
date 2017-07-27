@@ -107,3 +107,13 @@ ul{
   list-style: none;
 }
 
+.forgot{
+  font-size: 13px;
+}
+
+.r{
+  float:right;
+}
+.l{
+ float:left;
+}

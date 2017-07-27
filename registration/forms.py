@@ -62,9 +62,13 @@ class StudentSignupForm(SignupForm):
         if len(form_data['phone_no'])!=10 or not form_data['phone_no'].isdigit():
             self.add_error("phone_no","Phone no. is invalid!")
 
-        t = Student.objects.filter(phone_no = form_data['phone_no'])
-        if t.count()!=0:
-            self.add_error("phone_no","Phone number already in use with another account.")
+        try:
+            t = Student.objects.filter(phone_no = form_data['phone_no'])
+            if t.count()!=0:
+                self.add_error("phone_no","Phone number already in use with another account.")
+        except:
+            pass
+
 
         if form_data['password1']!=form_data['password2']:
             self.add_error("password2","Passwords didn't match!")

@@ -2,10 +2,6 @@ body{
 	background-color:white;
 }
 
-.digg{
-	display: inline-block;
-	border: 2px solid black;	
-}
 
 input[type=password], input[type=text], input[type=email], textarea {
   -webkit-transition: all 0.30s ease-in-out;
@@ -16,4 +12,20 @@ input[type=password], input[type=text], input[type=email], textarea {
   padding: 3px 0px 3px 3px;
   margin: 5px 1px 3px 0px;
   border: 1px solid #DDDDDD;
+}
+.roll{
+	float: right;
+	font-size: 10px;
+	color: blue;
+}
+
+.field{
+	float:right;
+}
+.field1{
+	float: left;
+}
+.nonfielderrors{
+	font-size: 10px;
+	color:red;
 }

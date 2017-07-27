@@ -20,7 +20,7 @@
 
 <form class="signup" id="signup_form" method="post" action="{% url 'account_signup' %}">
   {% csrf_token %}
-  <font size="2" color="red">{{ form.non_field_errors }}</font>
+  <!--<font size="2" color="red">{{ form.non_field_errors }}</font>-->
 
   {{form.name.label_tag}}  {% render_field form.name class+="name" class="empty"  placeholder+="Full Name" %} 
   <div class="errorout"><div class="errorin">{{form.name.errors}}</div></div><br/>
