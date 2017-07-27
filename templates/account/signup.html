@@ -21,10 +21,10 @@
   {{ form.non_field_errors }}
 
   {{form.name.label_tag}}  {% render_field form.name class+="name" class="empty"  placeholder+="Full Name" %} 
-  <br><div class="eroll">{{form.name.errors}}</div><br/>
+  {{form.name.errors}}<br><br/>
 
 <div style="display: none;">
-  {{form.username.label_tag}}     {% render_field form.username class+="name" class="empty" value="something" type="hidden"%} <br><div class="eroll">{{form.username.errors}}</div><br/>
+  {{form.username.label_tag}}     {% render_field form.username class+="name" class="empty" value="something" type="hidden"%} {{form.username.errors}}<br><br/>
   </div>
 
   {{form.email.label_tag}}     {% render_field form.email class+="name" class="empty" %}{{form.email.errors}} <br/><br/>
