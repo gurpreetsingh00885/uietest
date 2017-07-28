@@ -1,5 +1,6 @@
 {% extends "account/base.html" %}
 {% load static %}
+{% load widget_tweaks %}
 {% load i18n %}
 {% load account socialaccount %}
 
@@ -35,14 +36,21 @@ for a {{ site_name }} account and sign in below:{% endblocktrans %}</p>
 {% include "socialaccount/snippets/login_extra.html" %}
 
 {% else %}
-<div class="dif" align="center">
+<div class="digg" align="center">
 <p>{% blocktrans %}If you have not created an account yet, then please
 <a href="{{ signup_url }}">sign up</a> first.{% endblocktrans %}</p>
 {% endif %}
 
 <form class="login" method="POST" action="{% url 'account_login' %}">
   {% csrf_token %}
-  {{ form.as_p }}
+  
+  {{form.login.label_tag}} {% render_field form.login class+="name" style="Text-transform:uppercase;" class="empty"  placeholder="UE******" %} <br/><br/>
+
+  {{form.password.label_tag}} {% render_field form.password class+="name" class="empty"  placeholder="password" %} <br/><br/>
+
+  {{form.remember.label_tag}} {% render_field form.remember class+="name" %} <br/><br/>
+
+
   {% if redirect_field_value %}
   <input type="hidden" name="{{ redirect_field_name }}" value="{{ redirect_field_value }}" />
   {% endif %}
