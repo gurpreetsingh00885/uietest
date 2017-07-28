@@ -10,7 +10,7 @@ from .models import Student
 class StudentSignupView(SignupView):
     form_class = StudentSignupForm
     view_name = 'student_signup'
-
+    redirect_field_value = "/home/"
 
 class PDFDetailView(PDFTemplateResponseMixin, DetailView):
     model = Student

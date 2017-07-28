@@ -22,7 +22,7 @@ class Student(models.Model):
 
     BRANCH_CHOICES = (  
         ('CS', 'Computer Science & Engineering'),
-        ('IT', 'Information Technoology'),
+        ('IT', 'Information Technology'),
         ('BT', 'Biotechnology'),
         ('EC', 'Electronics and Communication Engineering'),
         ('EE', 'Electrical and Electronics Engineering'),

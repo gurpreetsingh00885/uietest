@@ -1,4 +1,5 @@
 {% load static %}
+{% load filters %}
 
 <html>
 <head>
@@ -17,7 +18,7 @@
 	<tr><td> Name : </td> <td> {{object.name}} </td></tr>
 	<tr><td> Roll Number : </td> <td> {{object.roll_no}}</td></tr>
 	<tr><td> Year : </td> <td> {{object.year}}</td></tr>
-	<tr><td> Branch : </td> <td> {{object.branch}}</td></tr>
+	<tr><td> Branch : </td> <td> {{object.branch | get_full_branch_name}}</td></tr>
 	<tr><td> Phone No. : </td> <td> {{object.phone_no}}</td></tr>
 	<tr><td> Email : </td> <td> {{object.user.email}}</td></tr>
 

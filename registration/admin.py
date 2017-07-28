@@ -1,9 +1,14 @@
 from django.contrib import admin
+from django.utils.safestring import mark_safe
+
 from registration.models import Faculty, Student
 from registration.forms import StudentSignupForm
 
 class StudentAdmin(admin.ModelAdmin):
-    search_fields = ['roll_no',]
+    readonly_fields=('application_id',)
+    search_fields = ['roll_no']
+    def application_id(self, obj):
+    	return mark_safe('<a href="/accounts/pdf/%d">%d</a>' %(obj.pk ,obj.pk))
 
 # class FacultyAdmin(admin.ModelAdmin):
 #     search_fields = ['name',]
