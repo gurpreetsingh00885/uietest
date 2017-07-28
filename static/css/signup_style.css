@@ -1,6 +1,6 @@
 .main {
   border: 2px solid white;
-  display: inline-block;
+  width: 500px;
   padding: 20px;
   padding-top: 10px;
   -webkit-box-shadow: 0 0 5px grey;
@@ -8,6 +8,7 @@
   background-color: white;
   border-radius: 7px;
   opacity: 1;
+  margin: 20px;
 }
 p{
   font-size: 10px;
@@ -87,6 +88,22 @@ body{
 
 }
 
+.errorin{
+  color:red;
+  float:right;
+  font-size: 12px;
+}
+
+.errorout{
+  display: inline-block;
+  width:100%;
+  margin: 0px;
+  padding: 0px;
+  height: 20px;
+  align-content: right;
+}
+
 ul{
   list-style: none;
 }
+

@@ -28,6 +28,7 @@ class StudentSignupForm(SignupForm):
     # Override the save method to save the extra fields
     # (otherwise the form will save the User instance only)
     def save(self, request):
+        print(self.is_valid())
         user = super(StudentSignupForm, self).save(request)
         user.username = self.cleaned_data['roll_no']
         user.is_active = False
@@ -50,16 +51,24 @@ class StudentSignupForm(SignupForm):
 
     def clean(self):
         form_data = self.cleaned_data
-        print(form_data)
         s = Student.objects.filter(roll_no = form_data['roll_no'])
         if s.count()!=0:
-            self.add_error("roll_no","Account with that roll number already exists.")
+            self.add_error("roll_no","An account with that roll number already exists.")
 
         else:
             if (len(form_data['roll_no'])!=8 or form_data['roll_no'][:2].lower()!="ue" or not form_data['roll_no'][2:].isdigit()):
-                self.add_error("roll_no","Roll No. is not valid!")
+                self.add_error("roll_no","Roll no. is invalid!")
 
         if len(form_data['phone_no'])!=10 or not form_data['phone_no'].isdigit():
-            self.add_error("phone_no","Phone No. is not valid!")
+            self.add_error("phone_no","Phone no. is invalid!")
+
+        t = Student.objects.filter(phone_no = form_data['phone_no'])
+        if t.count()!=0:
+            self.add_error("phone_no","Phone number already in use with another account.")
+
+        if form_data['password1']!=form_data['password2']:
+            self.add_error("password2","Passwords didn't match!")
+        if self._errors:
+            self.add_error(None, "Errors were encountered.")
 
         return form_data
