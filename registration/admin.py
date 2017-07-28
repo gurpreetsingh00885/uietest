@@ -8,7 +8,7 @@ class StudentAdmin(admin.ModelAdmin):
     readonly_fields=('application_id',)
     search_fields = ['roll_no']
     def application_id(self, obj):
-    	return mark_safe('<a href="/accounts/pdf/%d">%d</a>' %(obj.pk ,obj.pk))
+    	return mark_safe('<a href="/accounts/pdf/%d/%s">%d</a>' %(obj.pk, obj.phone_no ,obj.pk))
 
 # class FacultyAdmin(admin.ModelAdmin):
 #     search_fields = ['name',]

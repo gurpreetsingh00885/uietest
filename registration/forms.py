@@ -1,6 +1,7 @@
 from .models import Faculty, Student
 from django import forms
 from allauth.account.forms import SignupForm
+from django.http import HttpResponseRedirect
 
 class StudentSignupForm(SignupForm):
     name = forms.CharField(max_length=50, required=True, strip=True)
@@ -46,7 +47,6 @@ class StudentSignupForm(SignupForm):
             phone_no = self.cleaned_data['phone_no']
         )
         student_user.save()
-
         return student_user.user
 
     def clean(self):
