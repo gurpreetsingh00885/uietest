@@ -1,0 +1,72 @@
+.main {
+  border: 2px solid white;
+  display: inline-block;
+  padding: 20px;
+  padding-top: 10px;
+  box-shadow: 3.5px 3.5px 2px grey;
+  background-color: white;
+  border-radius: 7px;
+}
+p{
+  font-size: 10px;
+}
+
+
+  h1 {
+  font-family: "Avant Garde", Avantgarde, "Century Gothic", CenturyGothic, "AppleGothic", sans-serif;
+  font-size: 50px;
+  padding: 40px 25px;
+  text-align: center;
+  text-transform: uppercase;
+  text-rendering: optimizeLegibility;
+   color: #2c2c2c;
+    letter-spacing: .05em;
+    text-shadow: 
+      4px 4px 0px #d5d5d5, 
+      7px 7px 0px rgba(0, 0, 0, 0.2);
+  }
+
+.error {
+  color: red;
+  font-size: 12px;
+  list-style: none;
+}
+
+
+input[type=password], input[type=text], input[type=email], textarea {
+  -webkit-transition: all 0.30s ease-in-out;
+  -moz-transition: all 0.30s ease-in-out;
+  -ms-transition: all 0.30s ease-in-out;
+  -o-transition: all 0.30s ease-in-out;
+  outline: none;
+  padding: 3px 0px 3px 3px;
+  margin: 5px 1px 3px 0px;
+  border: 1px solid #DDDDDD;
+}
+ 
+input[type=text]:focus, textarea:focus {
+  box-shadow: 0 0 5px rgba(81, 203, 238, 1);
+  padding: 3px 0px 3px 3px;
+  margin: 5px 1px 3px 0px;
+  border: 1px solid rgba(81, 203, 238, 1);
+}
+
+.empty{
+  float: right;
+  height: 30px;
+  width: 250px;
+}
+
+label{
+  float: left;
+}
+body{
+  background-color: #bed9f3;
+}
+.butt{
+  height: 40px;
+  width: 100px;
+  background-color:#bed9f3 ;
+  border-radius: 7px;
+
+}

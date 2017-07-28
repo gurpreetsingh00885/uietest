@@ -28,7 +28,6 @@ class StudentSignupForm(SignupForm):
     # Override the save method to save the extra fields
     # (otherwise the form will save the User instance only)
     def save(self, request):
-        # Save the User instance and get a reference to it
         user = super(StudentSignupForm, self).save(request)
         user.username = self.cleaned_data['roll_no']
         user.is_active = False
@@ -52,9 +51,13 @@ class StudentSignupForm(SignupForm):
     def clean(self):
         form_data = self.cleaned_data
         print(form_data)
-        print(self._errors)
-        if (len(form_data['roll_no'])!=8 or form_data['roll_no'][:2].lower()!="ue" or not form_data['roll_no'][2:].isdigit()):
-            self.add_error("roll_no","Roll No. is not valid!")
+        s = Student.objects.filter(roll_no = form_data['roll_no'])
+        if s.count()!=0:
+            self.add_error("roll_no","Account with that roll number already exists.")
+
+        else:
+            if (len(form_data['roll_no'])!=8 or form_data['roll_no'][:2].lower()!="ue" or not form_data['roll_no'][2:].isdigit()):
+                self.add_error("roll_no","Roll No. is not valid!")
 
         if len(form_data['phone_no'])!=10 or not form_data['phone_no'].isdigit():
             self.add_error("phone_no","Phone No. is not valid!")

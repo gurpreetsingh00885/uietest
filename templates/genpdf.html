@@ -1,0 +1,32 @@
+{% load static %}
+
+<html>
+<head>
+</head>
+
+<body> 
+
+<div class="header" align="center">
+		<h1>UNIVERSITY INSTITUTE OF ENGINEERING AND TECHNOLOGY<br>
+		PANJAB UNIVERSITY,CHANDIGARH</h1>
+		E-Test signup details<br/> 
+		</div>
+<table style="border: 1px dotted gray; overflow-x: auto;" cellpadding="4">
+
+	<tr><td> Application Id: </td> <td> {{object.pk}}</td></tr>
+	<tr><td> Name : </td> <td> {{object.name}} </td></tr>
+	<tr><td> Roll Number : </td> <td> {{object.roll_no}}</td></tr>
+	<tr><td> Year : </td> <td> {{object.year}}</td></tr>
+	<tr><td> Branch : </td> <td> {{object.branch}}</td></tr>
+	<tr><td> Phone No. : </td> <td> {{object.phone_no}}</td></tr>
+	<tr><td> Email : </td> <td> {{object.user.email}}</td></tr>
+
+
+</table>
+
+
+</body>
+
+
+
+</html>
