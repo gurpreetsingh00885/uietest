@@ -1,6 +1,7 @@
 from .models import Faculty, Student
 from django import forms
 from allauth.account.forms import SignupForm
+from django.http import HttpResponseRedirect
 
 class StudentSignupForm(SignupForm):
     name = forms.CharField(max_length=50, required=True, strip=True)
@@ -28,7 +29,7 @@ class StudentSignupForm(SignupForm):
     # Override the save method to save the extra fields
     # (otherwise the form will save the User instance only)
     def save(self, request):
-        print(self.is_valid())
+        self.cleaned_data['roll_no'] = self.cleaned_data['roll_no'].upper()
         user = super(StudentSignupForm, self).save(request)
         user.username = self.cleaned_data['roll_no']
         user.is_active = False
@@ -46,7 +47,6 @@ class StudentSignupForm(SignupForm):
             phone_no = self.cleaned_data['phone_no']
         )
         student_user.save()
-
         return student_user.user
 
     def clean(self):
