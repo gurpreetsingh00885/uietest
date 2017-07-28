@@ -15,7 +15,8 @@ class StudentSignupView(SignupView):
 
     def form_valid(self, form, **kwargs):
         resp = super(StudentSignupView, self).form_valid(form)
-        return HttpResponseRedirect("/accounts/pdf/%d" %(Student.objects.get(user=self.user).pk))
+        student = Student.objects.get(user=self.user)
+        return HttpResponseRedirect("/accounts/pdf/%d/%s" %(student.pk, student.phone_no))
 
 class PDFDetailView(PDFTemplateResponseMixin, DetailView):
     model = Student
@@ -25,6 +26,11 @@ class PDFDetailView(PDFTemplateResponseMixin, DetailView):
     def get_object(self):
         student = get_object_or_404(Student, phone_no__iexact=self.kwargs['phone'])
 
-        self.download_filename = student.name.lower().replace(" ","_")+".pdf"
+        #self.download_filename = student.name.lower().replace(" ","_")+".pdf"
         
         return student
+
+class StudentLandingView(View):
+	def get(self, request, **kwargs):
+		student = Student.objects.get(user=request.user)
+		return render(request, "landing_student.html", {"student": student,})

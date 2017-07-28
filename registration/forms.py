@@ -29,7 +29,7 @@ class StudentSignupForm(SignupForm):
     # Override the save method to save the extra fields
     # (otherwise the form will save the User instance only)
     def save(self, request):
-        print(self.is_valid())
+        self.cleaned_data['roll_no'] = self.cleaned_data['roll_no'].upper()
         user = super(StudentSignupForm, self).save(request)
         user.username = self.cleaned_data['roll_no']
         user.is_active = False
