@@ -3,9 +3,8 @@
   display: inline-block;
   padding: 20px;
   padding-top: 10px;
-  -moz-box-shadow: 0 0 5px grey;
--webkit-box-shadow: 0 0 5px grey;
-box-shadow: 0 0 5px grey;
+  -webkit-box-shadow: 0 0 5px grey;
+  box-shadow: 0 0 5px grey;
   background-color: white;
   border-radius: 7px;
   opacity: 1;
@@ -84,8 +83,10 @@ body{
   color: red;
   display: inline-block;
   font-size: 12px;
+  float: left;
 
 }
+
 ul{
   list-style: none;
 }
