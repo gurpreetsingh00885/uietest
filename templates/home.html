@@ -12,21 +12,20 @@
 		<a href="http://uiet.puchd.ac.in">
 		<img src='{% static "img/UIETT.jpg" %}' class="image">
 		</a>
-		<h1>UNIVERSITY INSTITUTE OF ENGINEERING AND TECHNOLOGY<br>
-		PANJAB UNIVERSITY,CHANDIGARH</h1>
+		<center><h1><b>UNIVERSITY INSTITUTE OF ENGINEERING AND TECHNOLOGY</b><br>
+		PANJAB UNIVERSITY, CHANDIGARH</h1></center>
 		</div>
-		<br><br>
-		<h2>Welcome to UI-e-Test</h2>
-		<div align="center">
 		<br>
+		<center><h2>Welcome to UI-e-Test</h2></center>
+		<div align="center">
 		<p class="para1" class="border">
 	           UIET welcomes you to <b><b>UI-E-TEST </b></b>that is University Institute of Enginnering and Technology Electronic tests system. Tests will ne conducted by faculty of your department and respective subjects.
 		</p>
 		</div>
-		<ul>
-  <li><a href="{% url 'account_login' %}" class="round yellow">Login<span class="round">If you already have an account.</span></a></li>
-  <li><a href="{% url 'account_signup' %}" class="round red">Sign Up<span class="round">If you don't already have an account </span></a></li>
-</ul> 
+		<center>
+		<a href="/accounts/signup/"><button type="button" class="button">Sign up</button></a>
+		<a href="/accounts/signup/"><button type="button" class="button">Login</button></a>
+		</center>
 		
 	</body>
 </html>

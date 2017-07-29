@@ -1,60 +1,144 @@
-{% extends "account/base.html" %}
-{% load static %}
-{% load widget_tweaks %}
+<!DOCTYPE html>
+<html >
+<head>
+  <meta charset="UTF-8">
+  <title>SignUp/Register</title>
+  <link rel="stylesheet" href="/static/js/normalize.min.css">
+  <link rel="stylesheet" href="/static/css/style1.css">
+</head>
 
-{% load i18n %}
+<body>
+  <div class="form">
+      
+      <ul class="tab-group">
+        <li class="tab active"><a href="#signup">Sign Up</a></li>
+        <li class="tab"><a href="#login">Log In</a></li>
+      </ul>
+      
+      <div class="tab-content">
+        <div id="signup">   
+          <h1>Students are required to sign up here!</h1>
+          
+          <form action="/" method="post">
+          
+          <div class="top-row">
+            <div class="field-wrap">
+              <label>
+                Full Name<span class="req">*</span>
+              </label>
+              <input type="text" required autocomplete="off" />
+            </div>
+        
+            <div class="field-wrap">
+              <label>
+                Roll No<span class="req">*</span>
+              </label>
+              <input type="text"required autocomplete="off"/>
+            </div>
+          </div>
 
-{% block head_title %}{% trans "Signup" %}{% endblock %}
+        <div class="top-row">
+          <div class="field-wrap">
+            <label>
+              Email Address<span class="req">*</span>
+            </label>
+            <input type="email"required autocomplete="off"/>
+          </div>
 
-{% block stylesheet %}
-<link rel="stylesheet" href='{% static "css/signup_style.css" %}' type="text/css">
-{% endblock %}
+          <div class="field-wrap">
+          <label>
+          Phone Number<span class="req">*</span>
+          </label>
+          <input type="text">
+          </div>
+        </div>
 
-{% block content %}
-<center>
-<div class="main" align="center">
-<h3>{% trans "Student Sign Up" %}</h3>
-<center>
+          <div>
+          <select>
+            <option>Computer Science</option>
+            <option>Information Techonolgy</option>
+            <option>Electrical and Electronics</option>
+            <option>Electronics and communication</option>
+            <option>Mechanical</option>
+            <option>Biotechnology</option>
+          </select>
+          
 
-<p>{% blocktrans %}Already have an account? Then please <a href="{{ login_url }}">sign in</a>.{% endblocktrans %}</p>
+          
+          <select value="Branch">
+            <option>1st year</option>
+            <option>2nd year</option>
+            <option>3rd year</option>
+            <option>4th year</option>
+          </select>
 
-<form class="signup" id="signup_form" method="post" action="{% url 'account_signup' %}">
-  {% csrf_token %}
-  <!--<font size="2" color="red">{{ form.non_field_errors }}</font>-->
+         
+          <select >
+            <option>A</option>
+            <option>B</option>
+          </select>
 
-  {{form.name.label_tag}}  {% render_field form.name class+="name" class="empty"  placeholder+="Full Name" %} 
-  <div class="errorout"><div class="errorin">{{form.name.errors}}</div></div><br/>
+          <select value="Branch">
+            <option>1</option>
+            <option>2</option>
+            <option>3</option>
+          </select></div><br><br>
+          
 
-<div style="display: none;">
-  {{form.username.label_tag}}     {% render_field form.username class+="name" class="empty" value="something" type="hidden"%} {{form.username.errors}}<br/><br/>
-  </div>
+        <div class="top-row">
+          <div class="field-wrap">
+            <label>
+              Set A Password<span class="req">*</span>
+            </label>
+            <input type="password"required autocomplete="off"/>
+          </div>
+          <div class="field-wrap">
+            <label>
+              Confirm Password<span class="req">*</span>
+            </label>
+            <input type="password"required autocomplete="off"/>
+          </div>
+        </div>
 
-  {{form.email.label_tag}}     {% render_field form.email class+="name" class="empty" %}                   <div class="errorout"><div class="errorin">{{form.email.errors}}</div></div><br/>
+          <center><button type="submit" class="button button-block"/>Signup</button></center>
+          
+          </form>
 
+        </div>
+        
+        <div id="login">   
+          <h1>Already have account? Login here!</h1>
+          
+          <form action="/" method="post">
+          
+            <div class="field-wrap">
+            <label>
+              Email Address<span class="req">*</span>
+            </label>
+            <input type="email"required autocomplete="off"/>
+          </div>
+          
+          <div class="field-wrap">
+            <label>
+              Password<span class="req">*</span>
+            </label>
+            <input type="password"required autocomplete="off"/>
+          </div>
+          
+          <p class="forgot"><a href="#">Forgot Password?</a></p>
+          
+          <center><button class="button button-block"/>Log In</button></center>
+          
+          </form>
 
-  {{form.roll_no.label_tag}} {% render_field form.roll_no class+="name" class="empty" style="Text-transform:uppercase;" placeholder+="UE******" %}<div class="errorout"><div class="errorin">{{form.roll_no.errors}}</div></div><br/>
+        </div>
+        
+      </div><!-- tab-content -->
+      
+</div> <!-- /form -->
+  <script src='/static/js/jquery.min.js'></script>
 
-  {{form.phone_no.label_tag}}  {% render_field form.phone_no class+="name"  class="empty" placeholder+="10-digit phone number" %}<div class="errorout"><div class="errorin">{{ form.phone_no.errors }}</div></div><br/>
+    <script src="/static/js/index.js"></script>
 
-  {{form.branch.label_tag}}     {% render_field form.branch  class="empty" %}
-  <div class="errorout"><div class="errorin">{{ form.branch.errors }}</div></div><br/>
-
-  {{form.year.label_tag}}     {% render_field form.year  class="empty" %} <div class="errorout"><div class="errorin">{{ form.year.errors }}</div></div><br/>
-
-  
-  {{form.password1.label_tag}} {% render_field form.password1 class+="name" class="empty" %}<div class="errorout"><div class="errorin">{{ form.password1.errors }}</div></div><br/>
-
-  {{form.password2.label_tag}}     {% render_field form.password2 class+="name"  class="empty" %} 
-  <div class="errorout"><div class="errorin">{{ form.password2.errors }}</div></div><br/>
-
-  
-
-  {% if redirect_field_value %}
-  <input type="hidden" name="{{ redirect_field_name }}" value="{{ redirect_field_value }}" />
-  {% endif %}
-  <button type="submit" id="popUpYes">{% trans "Sign Up" %} &raquo;</button>
-</form>
-</div>
-</center>
-
-{% endblock %}
+</body>
+</html>
