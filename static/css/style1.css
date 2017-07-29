@@ -177,7 +177,9 @@ textarea {
 
 .forgot {
   margin-top: -20px;
-  text-align: right;
+  float:right;
+ 
+
 }
 .drop{
   
@@ -185,6 +187,101 @@ textarea {
   width: auto;
   float: left;
 }
-.fr{
+.password_reset{
+  color:black;
+  text-transform: uppercase;
   font-family: 'Titillium Web', sans-serif;
+  font-size: 50px;
+  font-weight: 300;
+  margin-top: 80px;
+}
+.passreset{
+  height:50px;
+  width: 60%;
+  background-color: rgba(19, 35, 47, 0.9);
+  padding: 8px;
+  color: white;
+  border-radius: 5px;
+    box-shadow: 0 4px 10px 4px rgba(19, 35, 47, 0.3);
+}
+.passdone{
+  height:70%;
+  width:42%;
+background-color: rgba(19, 35, 47, 0.9);
+  padding: 8px;
+  color: white;
+  border-radius: 5px;
+    box-shadow: 0 4px 10px 4px rgba(19, 35, 47, 0.3);
+
+}
+.l{
+  float: left;
+}
+.r{
+  float: right;
+}
+.button1 {
+  border: 0;
+  outline: none;
+  border-radius: 5px;
+  padding: 5px;
+  font-size: 15px;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: .1em;
+  background: #1ab188;
+  color: #ffffff;
+  -webkit-transition: all 0.5s ease;
+  transition: all 0.5s ease;
+  -webkit-appearance: none;
+  height: 35px;
+  width: 250px;
+}
+.button1:hover, .button1:focus {
+  background: #179b77;
+}
+
+.button1-block {
+  display: block;
+  
+}
+
+.button2 {
+  border: 0;
+  outline: none;
+  border-radius: 5px;
+  padding: 5px;
+  font-size: 15px;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: .1em;
+  background: #1ab188;
+  color: #ffffff;
+  -webkit-transition: all 0.5s ease;
+  transition: all 0.5s ease;
+  -webkit-appearance: none;
+  height: 35px;
+  width: 180px;
+}
+.button2:hover, .button1:focus {
+  background: #179b77;
+}
+
+.button2-block {
+  display: block;
+  
+}
+label[for="id_email"]
+{
+  display: none;
+}
+
+.addd{
+  width: 50%;
+  height: 30%;
+  background-color: rgba(19, 35, 47, 0.9);
+  padding: 8px;
+  color: white;
+  border-radius: 5px;
+    box-shadow: 0 4px 10px 4px rgba(19, 35, 47, 0.3);
 }
