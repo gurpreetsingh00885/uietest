@@ -182,4 +182,9 @@ textarea {
 .drop{
   
   font-size: 15px;
+  width: auto;
+  float: left;
+}
+.fr{
+  font-family: 'Titillium Web', sans-serif;
 }

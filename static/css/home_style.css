@@ -73,5 +73,13 @@ body{
 	background-color: rgba(19, 35, 47, 0.9);
 	font-weight: 600;
   letter-spacing: .1em;
+  font-family: 'Titillium Web', sans-serif;
   color: white;
+}
+footer{
+	float: right;
+	margin-bottom: 0px;
+	font-size: 10px;
+	font-family: sans-serif;
+	font-weight: lighter;
 }

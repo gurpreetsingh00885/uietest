@@ -1,15 +1,16 @@
 .main {
-  border: 2px solid white;
   width: 500px;
   padding: 20px;
   padding-top: 10px;
   -webkit-box-shadow: 0 0 5px grey;
   box-shadow: 0 0 5px grey;
-  background-color: white;
   border-radius: 7px;
   opacity: 1;
   margin: 20px;
-}
+  color: white;
+  background-color:rgba(19, 35, 47, 0.9);
+  font-family: font-family: 'Titillium Web', sans-serif; }
+
 p{
   font-size: 10px;
 }
@@ -61,9 +62,11 @@ input[type=text]:focus, input[type=password]:focus, input[type=email]:focus, tex
 label{
   float: left;
 }
-body{
-  background-color: white;
+body {
+  background: #c1bdba;
+  font-family: 'Titillium Web', sans-serif;
 }
+
 #popUpYes
 {
   width: 100px;
@@ -108,7 +111,7 @@ ul{
 }
 
 .forgot{
-  font-size: 13px;
+  font-size: 15px;
 }
 
 .r{
@@ -116,4 +119,29 @@ ul{
 }
 .l{
  float:left;
+}
+.button {
+  border: 0;
+  outline: none;
+  border-radius: 5px;
+  padding: 5px;
+  font-size: 15px;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: .1em;
+  background: #1ab188;
+  color: #ffffff;
+  -webkit-transition: all 0.5s ease;
+  transition: all 0.5s ease;
+  -webkit-appearance: none;
+  height: 40px;
+  width: 200px;
+}
+.button:hover, .button:focus {
+  background: #179b77;
+}
+
+.button-block {
+  display: block;
+  
 }
