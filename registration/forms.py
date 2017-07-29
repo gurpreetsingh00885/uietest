@@ -6,14 +6,14 @@ from django.contrib.auth import get_user_model
 User = get_user_model()
 
 class StudentSignupForm(SignupForm):
-    name = forms.CharField(max_length=50, required=True, strip=True)
-    phone_no = forms.CharField(max_length=10, required=True, strip=True)
-    roll_no = forms.CharField(max_length=10, strip=True)
+    name = forms.CharField(max_length=50, required=True, strip=True, widget=forms.TextInput(attrs={"placeholder":"Name"}))
+    phone_no = forms.CharField(max_length=10, required=True, strip=True, widget=forms.TextInput(attrs={"placeholder":"Phone Number"}))
+    roll_no = forms.CharField(max_length=8, strip=True , widget=forms.TextInput(attrs={"placeholder":"Roll Number (UE******)"}))
     YEAR_CHOICES = (  
-    ('1', '1st'),
-    ('2', '2nd'),
-    ('3', '3rd'),
-    ('4', '4th'),
+    ('1', '1st year'),
+    ('2', '2nd year'),
+    ('3', '3rd year'),
+    ('4', '4th year'),
 )
 
     BRANCH_CHOICES = (  
@@ -26,14 +26,14 @@ class StudentSignupForm(SignupForm):
 )
 
     SECTION_CHOICES = (
-        ('1', 'A'),
-        ('2', 'B'),
+        ('1', 'Section A'),
+        ('2', 'Section B'),
     )
 
     GROUP_CHOICES = (
-        ('1', '1'),
-        ('2', '2'),
-        ('3', '3'),
+        ('1', 'Group 1'),
+        ('2', 'Group 2'),
+        ('3', 'Group 3'),
     )
 
     branch = forms.ChoiceField(choices=BRANCH_CHOICES, required=True )

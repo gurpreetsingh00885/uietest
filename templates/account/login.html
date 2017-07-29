@@ -1,64 +1,97 @@
-{% extends "account/base.html" %}
-{% load static %}
-{% load widget_tweaks %}
-{% load i18n %}
-{% load account socialaccount %}
+<!DOCTYPE html>
+<html >
+<head>
+  <meta charset="UTF-8">
+  <title>SignUp/Register</title>
+  <link rel="stylesheet" href="/static/js/normalize.min.css">
+  <link rel="stylesheet" href="/static/css/style1.css">
+<style type="text/css">
+.errorlist {
+  color: red;
+  font-size: 13px;
+}
 
-{% block head_title %}{% trans "Sign In" %}{% endblock %}
+label {
+  display: none;
+}
+#id_username{
+  display: none;
+}
 
-{% block stylesheet %}
-<link rel="stylesheet" href='{% static "css/signup_style.css" %}' type="text/css">
-<link rel="stylesheet" href='{% static "css/login.css" %}' type="text/css">
+label[for="id_remember"]{
+  display: inline-block;
 
-{% endblock %}
+}
 
-{% block content %}
+#id_remember{
+  position: relative;
 
-<h1>{% trans "Sign In" %}</h1>
+}
 
-{% get_providers as socialaccount_providers %}
+select {
+  width: 100%;
+}
+</style>  
+</head>
 
-{% if socialaccount_providers %}
+<body onload="loadPage();">
+  <div class="form">
+      
+      <ul class="tab-group">
+        <li class="tab {{signup_active}}"><a id="signuplink" href="#signup">Sign Up</a></li>
+        <li class="tab {{login_active}}"><a id="loginlink" href="#login">Log In</a></li>
+      </ul>
+      
+      <div class="tab-content">
+        <div id="signup">
+          <h1>Students are required to sign up here!</h1>
+          
+          <form action="/accounts/signup/" method="post">
+            {%csrf_token%}
+            <table cellpadding="6x" align="center">
+            {{form2.as_table}}
+            </table>
+          <center><button type="submit" class="button button-block"/>Signup</button></center>
+          </form>
 
-<p>{% blocktrans with site.name as site_name %}Please sign in with one
-of your existing third party accounts. Or, <a href="{{ signup_url }}">sign up</a>
-for a {{ site_name }} account and sign in below:{% endblocktrans %}</p>
+        </div>
+        
+        <div id="login">   
+          <h1>Already have account? Login here!</h1>
+          
+          <form action="/accounts/login/" method="post">
+          {%csrf_token%}
+            <table cellpadding="6x" align="center">
+            {{form.as_p}}
+            </table>
+          
+          
+          
+          
+          
+          <p class="forgot"><a href="#">Forgot Password?</a></p>
+          
+          <center><button class="button button-block"/>Log In</button></center>
+          
+          </form>
 
-<div class="socialaccount_ballot">
+        </div>
+        
+      </div><!-- tab-content -->
+      
+</div> <!-- /form -->
+  <script src='/static/js/jquery.min.js'></script>
 
-  <ul class="socialaccount_providers">
-    {% include "socialaccount/snippets/provider_list.html" with process="login" %}
-  </ul>
-
-  <div class="login-or">{% trans 'or' %}</div>
-
-</div>
-
-{% include "socialaccount/snippets/login_extra.html" %}
-
-{% else %}
-<center><div class="main" align="center">
-<p>{% blocktrans %}If you have not created an account yet, then please
-<a href="{{ signup_url }}">sign up</a> first.{% endblocktrans %}</p>
-{% endif %}
-
-<form class="login" method="POST" action="{% url 'account_login' %}">
-  {% csrf_token %}
-  <div class="nonfielderrors">{{form.non_field_errors}}</div>
-  {{form.login.label_tag}}{% render_field form.login class+="name" class="empty"  placeholder="UE******" %}<div class="errorout"><div class="errorin">{{form.login.errors}}</div></div><br/><p class="roll">*Same as roll no for students; case sensitive.</p><br>
-
-  {{form.password.label_tag}} {% render_field form.password class+="name" class="empty" class="field" placeholder="password" %}<div class="errorout"><div class="errorin">{{form.pasword.errors}}</div></div> <br/><br>
-
-  <div class="field1">Remember me  {% render_field form.remember class+="name" %}</div>
-
-
-  {% if redirect_field_value %}
-  <input type="hidden" name="{{ redirect_field_name }}" value="{{ redirect_field_value }}" />
-  {% endif %}
-  <div class="field"><a class="button secondaryAction" href="{% url 'account_reset_password' %}">{% trans "Forgot Password?" %}</a></div><br><br>
- <div class="field"><button class="primaryAction" type="submit">{% trans "Sign In" %}</button></div><br>
-
-</form>
-</div>
-</center>
-{% endblock %}
+    <script src="/static/js/index.js"></script>
+<script type="text/javascript">
+  function loadPage(){
+    target = "login";
+    $('.tab-content > div').not(target).hide();
+    x = document.getElementById("loginlink");
+    $(x).parent().addClass('active');
+    $(x).parent().siblings().removeClass('active');
+    $('#login').fadeIn(0);
+  };
+  </script>
+</body>
+</html>
