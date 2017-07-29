@@ -5,7 +5,7 @@ from django.views import View
 from django.views.generic.detail import DetailView
 from easy_pdf.views import PDFTemplateResponseMixin
 from .models import Student
-from django.http import HttpResponseRedirect
+from django.http import HttpResponseRedirect, Http404
 
 class StudentSignupView(SignupView):
     form_class = StudentSignupForm
@@ -34,3 +34,21 @@ class StudentLandingView(View):
 	def get(self, request, **kwargs):
 		student = Student.objects.get(user=request.user)
 		return render(request, "landing_student.html", {"student": student,})
+
+class ActivateStudentAccountView(View):
+    def get(self, request, pk, phone, **kwargs):
+        try:
+            if request.user.is_superuser:
+                student = Student.objects.get(pk=pk, phone_no = phone)
+                print(student)
+                if student.user.is_active:
+                    student.user.is_active = False
+                else:
+                    student.user.is_active = True
+                student.user.save()
+                return HttpResponseRedirect("/admin/registration/student/%d/change/" %(student.pk))
+            else:
+                raise Http404
+        except:
+            raise Http404
+

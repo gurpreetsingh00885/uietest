@@ -13,7 +13,7 @@ SECRET_KEY = '3%^e*g*u=)xvcl3=wbdz(tli0s+-d^5c0g=w+x@f^*!#)8ngk8'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ["*"]
 
 STATICFILES_DIRS = [
     os.path.join(BASE_DIR, "static"),

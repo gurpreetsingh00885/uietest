@@ -34,7 +34,7 @@ class Student(models.Model):
     phone_no = models.CharField(max_length=10)
     year = models.CharField(max_length=1, choices=YEAR_CHOICES)
     branch = models.CharField(max_length=2, choices=BRANCH_CHOICES)
-
+    created = models.DateField(auto_now_add = True)
     def __str__(self):
         return self.name
 

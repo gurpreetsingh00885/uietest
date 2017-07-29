@@ -45,7 +45,7 @@ for a {{ site_name }} account and sign in below:{% endblocktrans %}</p>
 <form class="login" method="POST" action="{% url 'account_login' %}">
   {% csrf_token %}
   <div class="nonfielderrors">{{form.non_field_errors}}</div>
-  {{form.login.label_tag}}{% render_field form.login class+="name" style="Text-transform:uppercase;" class="empty"  placeholder="UE******" %}<div class="errorout"><div class="errorin">{{form.login.errors}}</div></div><br><p class="roll">*Same as roll no for students</p><br>
+  {{form.login.label_tag}}{% render_field form.login class+="name" class="empty"  placeholder="UE******" %}<div class="errorout"><div class="errorin">{{form.login.errors}}</div></div><br/><p class="roll">*Same as roll no for students; case sensitive.</p><br>
 
   {{form.password.label_tag}} {% render_field form.password class+="name" class="empty" class="field" placeholder="password" %}<div class="errorout"><div class="errorin">{{form.pasword.errors}}</div></div> <br/><br>
 

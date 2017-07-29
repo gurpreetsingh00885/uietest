@@ -11,23 +11,36 @@
 		<h1>UNIVERSITY INSTITUTE OF ENGINEERING AND TECHNOLOGY<br>
 		PANJAB UNIVERSITY,CHANDIGARH</h1>
 		E-Test signup details<br/> 
-		</div>
+</div>
 <table style="border: 1px dotted gray; overflow-x: auto;" cellpadding="4">
 
 	<tr><td> <b>Application Id:</b> </td> <td> {{object.pk}}</td></tr>
 	<tr><td> <b>Name :</b> </td> <td> {{object.name}} </td></tr>
-	<tr><td> <b>Username :</b> </td> <td> {{object.user.username}} </td></tr>
 	<tr><td> <b>Roll Number :</b> </td> <td> {{object.roll_no}}</td></tr>
 	<tr><td> <b>Year :</b> </td> <td> {{object.year | get_full_year}}</td></tr>
 	<tr><td> <b>Branch :</b> </td> <td> {{object.branch | get_full_branch_name}}</td></tr>
 	<tr><td> <b>Phone No. :</b> </td> <td> {{object.phone_no}}</td></tr>
 	<tr><td> <b>Email :</b> </td> <td> {{object.user.email}}</td></tr>
-
-
+	<tr><td> <b>Login ID :</b> </td> <td> {{object.user.username}} </td></tr>
+	<tr><td> <b>Application Date :</b> </td> <td> {{object.created}}</td></tr>
+	
 </table>
-<div style="margin-top:100px; margin-left: 20px;"><b>Candidate's Signature</b></div>
-<div style="margin-top:100px; margin-right: 20px;"><b>Candidate's Signature</b></div>
+<div style="margin: 70px">
+	
+I, <b>{{object.name}}</b> declare that I will solely be responsible for the usage of this account. I accept the fact that any misconduct in the usage of this service will lead to the account being suspended and strict disciplinary action.
 
+I have attached my Identification proof which verifies the details used for this application.	 	
+
+</div>
+<center><div style="margin-top:100px; stroke: dotted; float: left;"><b>Applicant's Signature</b></div>
+<hr/>
+<div style="margin: 70px">	
+The credentials/details used to signup for this account have successfully been verified. The details conform to the attached copy of Identification proof.
+</div>
+<div style="margin-top:100px; float: right;"><b>Verifying Authority's Signature</b></div>
+
+<div style=" vertical-align: bottom; margin-top: 250px; color:gray; opacity: 40%;">IMG</div>
+</center>
 </body>
 
 

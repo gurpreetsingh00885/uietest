@@ -2,6 +2,8 @@ from .models import Faculty, Student
 from django import forms
 from allauth.account.forms import SignupForm
 from django.http import HttpResponseRedirect
+from django.contrib.auth import get_user_model
+User = get_user_model()
 
 class StudentSignupForm(SignupForm):
     name = forms.CharField(max_length=50, required=True, strip=True)
@@ -29,9 +31,9 @@ class StudentSignupForm(SignupForm):
     # Override the save method to save the extra fields
     # (otherwise the form will save the User instance only)
     def save(self, request):
-        self.cleaned_data['roll_no'] = self.cleaned_data['roll_no'].upper()
+            
         user = super(StudentSignupForm, self).save(request)
-        user.username = self.cleaned_data['roll_no']
+        user.username = self.cleaned_data['roll_no']    
         user.is_active = False
         user.save()
         # Create an instance of your model with the extra fields
@@ -50,7 +52,11 @@ class StudentSignupForm(SignupForm):
         return student_user.user
 
     def clean(self):
+        if not "email" in self.errors:
+            self.errors.clear()
         form_data = self.cleaned_data
+        form_data["roll_no"] = form_data["roll_no"].upper()
+        self.cleaned_data['roll_no'] = self.cleaned_data['roll_no'].upper()
         s = Student.objects.filter(roll_no = form_data['roll_no'])
         if s.count()!=0:
             self.add_error("roll_no","An account with that roll number already exists.")
@@ -68,7 +74,6 @@ class StudentSignupForm(SignupForm):
                 self.add_error("phone_no","Phone number already in use with another account.")
         except:
             pass
-
 
         if form_data['password1']!=form_data['password2']:
             self.add_error("password2","Passwords didn't match!")
