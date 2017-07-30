@@ -288,3 +288,30 @@ label[for="id_email"]
   border-radius: 5px;
     box-shadow: 0 4px 10px 4px rgba(19, 35, 47, 0.3);
 }
+
+.button3{
+  border: 0;
+  outline: none;
+  border-radius: 5px;
+  padding: 5px;
+  font-size: 15px;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: .1em;
+  background: #1ab188;
+  color: #ffffff;
+  -webkit-transition: all 0.5s ease;
+  transition: all 0.5s ease;
+  -webkit-appearance: none;
+  height: 35px;
+  width: 250px;
+}
+.button3:hover, .button1:focus {
+  background: #c1bdba;
+  color: black;
+}
+
+.button3-block {
+  display: block;
+  
+}

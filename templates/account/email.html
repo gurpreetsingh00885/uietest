@@ -11,6 +11,8 @@
 
 {% block content %}
     <h1 class="password_reset">{% trans "E-mail Addresses" %}</h1>
+
+    <center><div class="addd">
 {% if user.emailaddress_set.all %}
 <p>{% trans 'The following e-mail addresses are associated with your account:' %}</p>
 
@@ -26,31 +28,35 @@
 
 {{ emailaddress.email }}
     {% if emailaddress.verified %}
-    <span class="verified">{% trans "Verified" %}</span>
+    <span class="verified" style="color:green;">{% trans "Verified" %}</span>
     {% else %}
-    <span class="unverified">{% trans "Unverified" %}</span>
+    <span class="unverified" style="color:red;">{% trans "Unverified" %}</span>
     {% endif %}
-      {% if emailaddress.primary %}<span class="primary">{% trans "Primary" %}</span>{% endif %}
+      {% if emailaddress.primary %}<span class="primary" style="color:yellow;">{% trans "Primary" %}</span>{% endif %}
 </label>
 </div>
   {% endfor %}
 
 <div class="buttonHolder">
-      <button class="secondaryAction" type="submit" name="action_primary" >{% trans 'Make Primary' %}</button>
-      <button class="secondaryAction" type="submit" name="action_send" >{% trans 'Re-send Verification' %}</button>
-      <button class="primaryAction" type="submit" name="action_remove" >{% trans 'Remove' %}</button>
+      <button  type="submit" name="action_primary" class="button2" >{% trans 'Make Primary' %}</button>
+      <button  type="submit" name="action_send" class="button3"  >{% trans 'Re-send Verification'%}</button>
+      <button  type="submit" name="action_remove" class="button2" >{% trans 'Remove' %}</button>
 </div>
 
 </fieldset>
 
-</form>
 
+</form>
+</div>
+<br>
+<center>
+<div class="addd">
 {% else %}
 <center><p style="font-size: 15px; color:red;"><strong>{% trans 'Warning:'%}</strong> {% trans "You currently do not have any e-mail address set up. You should really add an e-mail address so you can receive notifications, reset your password, etc." %}</p></center>
 
 {% endif %}
-<center>
-<div class="addd">
+
+
     <h2 style="font-size:20px;">{% trans "Add E-mail Address" %}</h2>
 
     <form method="post" action="{% url 'account_email' %}" class="add_email">
