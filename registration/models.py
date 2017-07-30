@@ -53,6 +53,15 @@ class StudyGroup(models.Model):
         verbose_name_plural = "Study Groups"
         unique_together = ('number', 'section', 'year', 'branch')
 
+class StudentQuerySet(models.QuerySet):
+
+    def delete(self, *args, **kwargs):
+        for obj in self:
+            obj.user.delete()
+        super(StudentQuerySet, self).delete(*args, **kwargs)
+
+
+
 class Faculty(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE)
     name = models.CharField(max_length=100)
@@ -85,6 +94,7 @@ class Student(models.Model):
         ('EE', 'Electrical and Electronics Engineering'),
         ('ME', 'Mechanical Engineering'),
     )
+    objects = StudentQuerySet.as_manager()
     name = models.CharField(max_length=100)
     user = models.OneToOneField(User, on_delete=models.CASCADE)
     roll_no = models.CharField(max_length=8)
@@ -100,8 +110,10 @@ class Student(models.Model):
 
 
     def delete(self, *args, **kwargs):
+        print(self.user)
         self.user.delete()
-        return super(Student, self).delete(*args, **kwargs)
+        print(self.user)
+        super(Student, self).delete(*args, **kwargs)
 
     class Meta:
         verbose_name_plural = "Student Accounts"

@@ -3,10 +3,17 @@ from django.utils.safestring import mark_safe
 
 from registration.models import Faculty, Student, StudyGroup
 from registration.forms import StudentSignupForm
+from django.contrib.auth import get_user_model
+
+User = get_user_model()
+
+class UserInline(admin.StackedInline):
+    model = Student
 
 class StudentAdmin(admin.ModelAdmin):
     readonly_fields=('application_id', 'status')
     search_fields = ['roll_no']
+    #inlines = [UserInline,]
     def application_id(self, obj):
         print(obj.user)
         return mark_safe('<a href="/accounts/pdf/%d/%s">%d</a> *click to download registraton form' %(obj.pk, obj.phone_no ,obj.pk))
