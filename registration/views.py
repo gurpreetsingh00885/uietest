@@ -1,22 +1,45 @@
 from django.shortcuts import render, get_object_or_404
-from allauth.account.views import SignupView
+from allauth.account.views import SignupView, LoginView
 from .forms import StudentSignupForm
 from django.views import View
 from django.views.generic.detail import DetailView
 from easy_pdf.views import PDFTemplateResponseMixin
 from .models import Student
 from django.http import HttpResponseRedirect, Http404
+from allauth.account.forms import LoginForm
+
 
 class StudentSignupView(SignupView):
     form_class = StudentSignupForm
     view_name = 'student_signup'
     redirect_field_name = 'next'
-
+    def get(self, request, *args, **kwargs):
+        return super(StudentSignupView, self).get(request, **kwargs)
 
     def form_valid(self, form, **kwargs):
         resp = super(StudentSignupView, self).form_valid(form)
         student = Student.objects.get(user=self.user)
         return HttpResponseRedirect("/accounts/pdf/%d/%s" %(student.pk, student.phone_no))
+
+    def get_context_data(self, **kwargs):
+        context = super(StudentSignupView, self).get_context_data(**kwargs)
+        context['form2'] = LoginForm()
+        return context
+
+
+class NewLoginView(LoginView):
+    form_class = LoginForm
+    view_name = 'accounts_login'
+    redirect_field_name = 'next'
+    def get(self, request, *args, **kwargs):
+        return super(NewLoginView, self).get(request, **kwargs)
+
+    
+
+    def get_context_data(self, **kwargs):
+        context = super(NewLoginView, self).get_context_data(**kwargs)
+        context['form2'] = StudentSignupForm()
+        return context
 
 class PDFDetailView(PDFTemplateResponseMixin, DetailView):
     model = Student
