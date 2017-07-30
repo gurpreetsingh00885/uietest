@@ -25,3 +25,12 @@ def get_full_year(code):
 	}
 
 	return years[code]
+
+@register.filter
+def get_section(code):
+	sections = {
+		'1': 'A',
+		'2': 'B',
+	}
+
+	return sections[code]
