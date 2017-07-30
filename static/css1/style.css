@@ -1,0 +1,40 @@
+body
+{
+
+		background: url("https://static.pexels.com/photos/511483/pexels-photo-511483.jpeg")no-repeat center center fixed;
+	 -webkit-background-size: cover;
+	 -moz-background-size: cover;
+	 -o-background-size: cover;
+	 background-size: cover;
+
+}
+
+h5
+{
+	font-weight: 400;
+}
+
+.container
+{
+	margin-top: 80px;
+	width: 500px;
+	height: 900px;
+}
+
+.tabs .indicator
+{
+	background-color: #e0f2f1;
+	height: 60px;
+	opacity: 0.3;
+}
+
+.form-container
+{
+	padding: 40px;
+	padding-top: 10px;
+}
+
+.confirmation-tabs-btn
+{
+	position: absolute;
+}

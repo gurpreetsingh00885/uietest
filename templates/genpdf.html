@@ -10,7 +10,7 @@
 <div class="header" align="center">
 		<h1>UNIVERSITY INSTITUTE OF ENGINEERING AND TECHNOLOGY<br>
 		PANJAB UNIVERSITY,CHANDIGARH</h1>
-		E-Test signup details<br/> 
+		<br/>E-Test signup details<br/>
 </div>
 <table style="border: 1px dotted gray; overflow-x: auto;" cellpadding="4">
 
@@ -19,6 +19,8 @@
 	<tr><td> <b>Roll Number :</b> </td> <td> {{object.roll_no}}</td></tr>
 	<tr><td> <b>Year :</b> </td> <td> {{object.year | get_full_year}}</td></tr>
 	<tr><td> <b>Branch :</b> </td> <td> {{object.branch | get_full_branch_name}}</td></tr>
+	<tr><td> <b>Section :</b> </td> <td> {{object.group.section | get_section}}</td></tr>
+	<tr><td> <b>Group :</b> </td> <td> {{object.group.number}}</td></tr>
 	<tr><td> <b>Phone No. :</b> </td> <td> {{object.phone_no}}</td></tr>
 	<tr><td> <b>Email :</b> </td> <td> {{object.user.email}}</td></tr>
 	<tr><td> <b>Login ID :</b> </td> <td> {{object.user.username}} </td></tr>
@@ -39,7 +41,7 @@ The credentials/details used to signup for this account have successfully been v
 </div>
 <div style="margin-top:100px; float: right;"><b>Verifying Authority's Signature</b></div>
 
-<div style=" vertical-align: bottom; margin-top: 250px; color:gray; opacity: 40%;">IMG</div>
+<div style=" vertical-align: bottom; margin-top: 150px; color:gray; opacity: 40%;">IMG</div>
 </center>
 </body>
 

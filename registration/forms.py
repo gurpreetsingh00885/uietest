@@ -1,4 +1,4 @@
-from .models import Faculty, Student
+from .models import Faculty, Student, StudyGroup
 from django import forms
 from allauth.account.forms import SignupForm
 from django.http import HttpResponseRedirect
@@ -9,7 +9,6 @@ class StudentSignupForm(SignupForm):
     name = forms.CharField(max_length=50, required=True, strip=True)
     phone_no = forms.CharField(max_length=10, required=True, strip=True)
     roll_no = forms.CharField(max_length=10, strip=True)
-
     YEAR_CHOICES = (  
     ('1', '1st'),
     ('2', '2nd'),
@@ -26,8 +25,21 @@ class StudentSignupForm(SignupForm):
     ('ME', 'Mechanical Engineering'),
 )
 
+    SECTION_CHOICES = (
+        ('1', 'A'),
+        ('2', 'B'),
+    )
+
+    GROUP_CHOICES = (
+        ('1', '1'),
+        ('2', '2'),
+        ('3', '3'),
+    )
+
     branch = forms.ChoiceField(choices=BRANCH_CHOICES, required=True )
-    year = forms.ChoiceField(choices=YEAR_CHOICES, required=True )
+    year = forms.ChoiceField(choices=YEAR_CHOICES, required=True)
+    section = forms.ChoiceField(choices=SECTION_CHOICES, required=True)
+    group_number = forms.ChoiceField(choices=GROUP_CHOICES, required=True)
     # Override the save method to save the extra fields
     # (otherwise the form will save the User instance only)
     def save(self, request):
@@ -46,7 +58,9 @@ class StudentSignupForm(SignupForm):
             branch = self.cleaned_data['branch'],
             year = self.cleaned_data['year'],
             roll_no = self.cleaned_data['roll_no'],
-            phone_no = self.cleaned_data['phone_no']
+            phone_no = self.cleaned_data['phone_no'],
+            group = StudyGroup.objects.get(branch=self.cleaned_data['branch'], year=self.cleaned_data['year'], number=self.cleaned_data['group_number'], section=self.cleaned_data['section'],),
+            section = self.cleaned_data['section'],
         )
         student_user.save()
         return student_user.user

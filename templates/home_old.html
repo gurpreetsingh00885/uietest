@@ -1,0 +1,32 @@
+{% load static %}
+
+<html>
+	<head>
+		<title>
+			Welcome to UI-e-Test platform
+		</title>
+		<link rel="stylesheet" href='{% static "css/home_style.css" %}' type="text/css">
+	</head>
+	<body>
+	<div class="header">
+		<a href="http://uiet.puchd.ac.in">
+		<img src='{% static "img/UIETT.jpg" %}' class="image">
+		</a>
+		<h1>UNIVERSITY INSTITUTE OF ENGINEERING AND TECHNOLOGY<br>
+		PANJAB UNIVERSITY,CHANDIGARH</h1>
+		</div>
+		<br><br>
+		<h2>Welcome to UI-e-Test</h2>
+		<div align="center">
+		<br>
+		<p class="para1" class="border">
+	           UIET welcomes you to <b><b>UI-E-TEST </b></b>that is University Institute of Enginnering and Technology Electronic tests system. Tests will ne conducted by faculty of your department and respective subjects.
+		</p>
+		</div>
+		<ul>
+  <li><a href="{% url 'account_login' %}" class="round yellow">Login<span class="round">If you already have an account.</span></a></li>
+  <li><a href="{% url 'account_signup' %}" class="round red">Sign Up<span class="round">If you don't already have an account </span></a></li>
+</ul> 
+		
+	</body>
+</html>
