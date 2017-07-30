@@ -168,7 +168,8 @@ textarea {
   width: 120px;
 }
 .button:hover, .button:focus {
-  background: #179b77;
+  background: #c1bdba;
+  color:black;
 }
 
 .button-block {
@@ -177,7 +178,7 @@ textarea {
 }
 
 .forgot {
-  margin-top: -20px;
+  margin-top: -10px;
   float:right;
  
 
@@ -265,7 +266,8 @@ background-color: rgba(19, 35, 47, 0.9);
   width: 180px;
 }
 .button2:hover, .button1:focus {
-  background: #179b77;
+  background: #c1bdba;
+  color: black;
 }
 
 .button2-block {

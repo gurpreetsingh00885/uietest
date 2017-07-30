@@ -62,7 +62,8 @@
   width: 120px;
 }
 .button:hover, .button:focus {
-  background: #179b77;
+  background:  #c1bdba;
+  color: black;
 }
 
 .button-block {

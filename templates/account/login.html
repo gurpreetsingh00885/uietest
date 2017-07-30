@@ -25,12 +25,12 @@ label {
 }
 
 label[for="id_remember"]{
-  display: inline-block;
+  display: none;
 
 }
 
 #id_remember{
-  
+  display:none;
 }
 
 #id_username{
@@ -66,7 +66,7 @@ select {
         </div>
     {% endfor %}
             </table><br/>
-          <center><button class="button button-block"/>Signup</button></center>
+          <center><button class="button button-block" class="button"/>Signup</button></center>
           </form>
 
         </div>
@@ -85,7 +85,7 @@ select {
           
           
           
-          <p class="forgot"><a href="/accounts/password/reset/">Forgot Password?</a></p><br>
+          <p class="forgot"><a href="/accounts/password/reset/">Forgot Password?</a></p><br><br>
          
           
           <center><button class="button button-block"/>Log In</button></center>
