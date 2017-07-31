@@ -4,7 +4,7 @@ from .forms import StudentSignupForm
 from django.views import View
 from django.views.generic.detail import DetailView
 from easy_pdf.views import PDFTemplateResponseMixin
-from .models import Student
+from .models import Student, Faculty
 from django.http import HttpResponseRedirect, Http404
 from allauth.account.forms import LoginForm
 
@@ -53,10 +53,16 @@ class PDFDetailView(PDFTemplateResponseMixin, DetailView):
         
         return student
 
-class StudentLandingView(View):
-	def get(self, request, **kwargs):
-		student = Student.objects.get(user=request.user)
-		return render(request, "landing_student.html", {"student": student,})
+class LandingView(View):
+    def get(self, request, **kwargs):
+        student = Student.objects.filter(user=request.user)
+        if student.exists():
+            return render(request, "landing_student.html", {"student": student[0],})
+        
+        faculty = Faculty.objects.filter(user=request.user)
+        if faculty.exists():
+            return render(request, "landing_faculty.html", {"faculty": faculty[0],})
+        raise Http404
 
 class ActivateStudentAccountView(View):
     def get(self, request, pk, phone, **kwargs):

@@ -62,16 +62,35 @@ class StudentQuerySet(models.QuerySet):
 
 
 
+
 class Faculty(models.Model):
+
+    DEPTT_CHOICES = (  
+        ('CS', 'Computer Science & Engineering'),
+        ('IT', 'Information Technology'),
+        ('BT', 'Biotechnology'),
+        ('EC', 'Electronics and Communication Engineering'),
+        ('EE', 'Electrical and Electronics Engineering'),
+        ('ME', 'Mechanical Engineering'),
+    )
+
     user = models.OneToOneField(User, on_delete=models.CASCADE)
     name = models.CharField(max_length=100)
-    department = models.CharField(max_length=50)
+    department = models.CharField(max_length=50, choices=DEPTT_CHOICES)
+    created = models.DateField(auto_now_add = True)
 
     def __str__(self):
         return self.name
 
+    def delete(self, *args, **kwargs):
+        self.user.delete()
+        super(Student, self).delete(*args, **kwargs)
+
     class Meta:
         verbose_name_plural = "Faculty Accounts"
+
+
+
 
 class Student(models.Model):
     YEAR_CHOICES = (
@@ -106,13 +125,11 @@ class Student(models.Model):
     group = models.ForeignKey(StudyGroup, on_delete=models.CASCADE)
 
     def __str__(self):
-        return self.name
+        return self.name + " (" + self.roll_no +")"
 
 
     def delete(self, *args, **kwargs):
-        print(self.user)
         self.user.delete()
-        print(self.user)
         super(Student, self).delete(*args, **kwargs)
 
     class Meta:
