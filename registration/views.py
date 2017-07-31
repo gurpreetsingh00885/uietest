@@ -62,6 +62,8 @@ class LandingView(View):
         faculty = Faculty.objects.filter(user=request.user)
         if faculty.exists():
             return render(request, "landing_faculty.html", {"faculty": faculty[0],})
+        if request.user.is_superuser:
+            return HttpResponseRedirect("/admin/")
         raise Http404
 
 class ActivateStudentAccountView(View):

@@ -76,6 +76,7 @@ class Faculty(models.Model):
 
     user = models.OneToOneField(User, on_delete=models.CASCADE)
     name = models.CharField(max_length=100)
+    phone_no = models.CharField(max_length=10)
     department = models.CharField(max_length=50, choices=DEPTT_CHOICES)
     created = models.DateField(auto_now_add = True)
 
