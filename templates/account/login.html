@@ -1,3 +1,5 @@
+{% load widget_tweaks %}
+{% load filters %}
 <!DOCTYPE html>
 <html >
 <head>
@@ -6,34 +8,35 @@
   <link rel="stylesheet" href="/static/js/normalize.min.css">
   <link rel="stylesheet" href="/static/css/style1.css">
 <style type="text/css">
-.errorlist {
-  color: red;
-  font-size: 13px;
+.errorlist{
+  list-style: none;
+  display: inline;
   float: right;
+  color: red;
+  margin-top: 2px;
+  margin-bottom: 5px;
+  font-size: 13px;
 }
-
-label {
+.nonfield{
   display: none;
 }
-#id_username{
+label {
   display: none;
 }
 
 label[for="id_remember"]{
   display: inline-block;
-  float: left;
-  margin:5px 0px;
-  color: #1ab188;
- 
+
 }
 
 #id_remember{
-  width: auto;
-  margin: 5px 0px;
-  margin-top: 20px;
+  
+}
 
-  }
+#id_username{
+  display: none;
 
+}
 
 select {
   width: 100%;
@@ -53,12 +56,17 @@ select {
         <div id="signup">
           <h1>Students are required to sign up here!</h1>
           
+
           <form action="/accounts/signup/" method="post">
             {%csrf_token%}
             <table cellpadding="6x" align="center">
-            {{form2.as_table}}
-            </table>
-          <center><button type="submit" class="button button-block"/>Signup</button></center>
+            {% for field in form2 %}
+        <div class="fieldWrapper" style="margin: 20px;">{{ field }}
+            {{ field.errors }}
+        </div>
+    {% endfor %}
+            </table><br/>
+          <center><button class="button button-block"/>Signup</button></center>
           </form>
 
         </div>
@@ -68,6 +76,7 @@ select {
           
           <form action="/accounts/login/" method="post">
           {%csrf_token%}
+          <div style="color: red;"><ol>{{form.non_field_errors | extract_li}}</ol></div>
             <table cellpadding="6x" align="center" >
             {{form.as_p}}
             </table>

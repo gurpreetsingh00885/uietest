@@ -34,3 +34,10 @@ def get_section(code):
 	}
 
 	return sections[code]
+
+@register.filter
+def extract_li(html):
+	try:
+		return(html.data[0].message)
+	except:
+		return ""

@@ -1,3 +1,4 @@
+{% load widget_tweaks %}
 <!DOCTYPE html>
 <html >
 <head>
@@ -6,11 +7,18 @@
   <link rel="stylesheet" href="/static/js/normalize.min.css">
   <link rel="stylesheet" href="/static/css/style1.css">
 <style type="text/css">
-.errorlist {
+.errorlist{
+  list-style: none;
+  display: inline;
+  float: right;
   color: red;
+  margin-top: 2px;
+  margin-bottom: 5px;
   font-size: 13px;
 }
-
+.nonfield{
+  display: none;
+}
 label {
   display: none;
 }
@@ -51,8 +59,13 @@ select {
           <form action="/accounts/signup/" method="post">
             {%csrf_token%}
             <table cellpadding="6x" align="center">
-            {{form.as_table}}
-            </table>
+            {% for field in form %}
+        <div class="fieldWrapper" style="margin: 22px;">
+            {{ field }}
+            {{ field.errors }}
+        </div>
+    {% endfor %}
+            </table><br/>
           <center><button class="button button-block"/>Signup</button></center>
           </form>
 
