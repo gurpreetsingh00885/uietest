@@ -34,6 +34,7 @@ INSTALLED_APPS = [
     'allauth.socialaccount',
 
     'registration',
+    'exams',
 
     'widget_tweaks',
 ]
