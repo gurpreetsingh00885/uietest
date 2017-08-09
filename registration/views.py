@@ -61,7 +61,7 @@ class LandingView(View):
         
         faculty = Faculty.objects.filter(user=request.user)
         if faculty.exists():
-            return render(request, "landing_faculty.html", {"faculty": faculty[0],})
+            return render(request, "landing_faculty.html", {"faculty": faculty[0], "tests": faculty[0].test_set.all()})
         if request.user.is_superuser:
             return HttpResponseRedirect("/admin/")
         raise Http404
