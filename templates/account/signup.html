@@ -40,21 +40,21 @@ label[for="id_remember"]{
 select {
   width: 100%;
 }
-</style>  
+</style>
 </head>
 
 <body onload="loadPage();">
   <div class="form">
-      
+
       <ul class="tab-group">
         <li class="tab {{signup_active}}"><a id="signuplink" href="#signup">Sign Up</a></li>
         <li class="tab {{login_active}}"><a id="loginlink" href="#login">Log In</a></li>
       </ul>
-      
+
       <div class="tab-content">
         <div id="signup">
           <h1>Students are required to sign up here!</h1>
-          
+
 
           <form action="/accounts/signup/" method="post">
             {%csrf_token%}
@@ -70,30 +70,30 @@ select {
           </form>
 
         </div>
-        
-        <div id="login">   
+
+        <div id="login">
           <h1>Already have account? Login here!</h1>
-          
+
           <form action="/accounts/login/" method="post">
           {%csrf_token%}
             <table cellpadding="6x" align="center">
             {{form2.as_p}}
             </table>
-          
-          
-          
-          
-          
-          <p class="forgot"><a href="/accounts/password/reset/">Forgot Password?</a></p>
-          
+
+
+
+
+
+          <p class="forgot"><a href="/accounts/password/reset/">Forgot Password?</a></p><br><br>
+
           <center><button class="button button-block"/>Log In</button></center>
-          
+
           </form>
 
         </div>
-        
+
       </div><!-- tab-content -->
-      
+
 </div> <!-- /form -->
   <script src='/static/js/jquery.min.js'></script>
 

@@ -1,12 +1,16 @@
 .main {
-  border: 2px solid white;
-  display: inline-block;
+  width: 500px;
   padding: 20px;
   padding-top: 10px;
-  box-shadow: 3.5px 3.5px 2px grey;
-  background-color: white;
+  -webkit-box-shadow: 0 0 5px grey;
+  box-shadow: 0 0 5px grey;
   border-radius: 7px;
-}
+  opacity: 1;
+  margin: 20px;
+  color: white;
+  background-color:rgba(19, 35, 47, 0.9);
+  font-family: font-family: 'Titillium Web', sans-serif; }
+
 p{
   font-size: 10px;
 }
@@ -21,9 +25,7 @@ p{
   text-rendering: optimizeLegibility;
    color: #2c2c2c;
     letter-spacing: .05em;
-    text-shadow: 
-      4px 4px 0px #d5d5d5, 
-      7px 7px 0px rgba(0, 0, 0, 0.2);
+    
   }
 
 .error {
@@ -44,7 +46,7 @@ input[type=password], input[type=text], input[type=email], textarea {
   border: 1px solid #DDDDDD;
 }
  
-input[type=text]:focus, textarea:focus {
+input[type=text]:focus, input[type=password]:focus, input[type=email]:focus, textarea:focus {
   box-shadow: 0 0 5px rgba(81, 203, 238, 1);
   padding: 3px 0px 3px 3px;
   margin: 5px 1px 3px 0px;
@@ -60,13 +62,87 @@ input[type=text]:focus, textarea:focus {
 label{
   float: left;
 }
-body{
-  background-color: #bed9f3;
+body {
+  background: #c1bdba;
+  font-family: 'Titillium Web', sans-serif;
 }
-.butt{
-  height: 40px;
-  width: 100px;
-  background-color:#bed9f3 ;
-  border-radius: 7px;
 
+#popUpYes
+{
+  width: 100px;
+  height: 40px;
+  background-color: white;
+  color: black;
+  border-radius: 5px; /* SET COLOR IN WHITE */
+}
+
+#popUpYes:hover
+{
+  background-color: powderblue;
+  color: black;
+  border-radius: 5px; /* SET COLOR IN BLACK */
+}
+
+.eroll{
+  color: red;
+  display: inline-block;
+  font-size: 12px;
+  float: left;
+
+}
+
+.errorin{
+  color:red;
+  float:right;
+  font-size: 12px;
+}
+
+.errorout{
+  display: inline-block;
+  width:100%;
+  margin: 0px;
+  padding: 0px;
+  height: 20px;
+  align-content: right;
+}
+
+ul{
+  list-style: none;
+}
+
+.forgot{
+  font-size: 15px;
+}
+
+.r{
+  float:right;
+}
+.l{
+ float:left;
+}
+.button {
+  border: 0;
+  outline: none;
+  border-radius: 5px;
+  padding: 5px;
+  font-size: 15px;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: .1em;
+  background: #1ab188;
+  color: #ffffff;
+  -webkit-transition: all 0.5s ease;
+  transition: all 0.5s ease;
+  -webkit-appearance: none;
+  height: 40px;
+  width: 200px;
+}
+.button:hover, .button:focus {
+  background: #c1bdba;
+  color:black;
+}
+
+.button-block {
+  display: block;
+  
 }

@@ -65,7 +65,7 @@ class FacultyAdmin(ReverseModelAdmin):
 
     def get_formsets_with_inlines(self, request, obj=None):
         if obj is None:
-            return super(StudentAdmin, self).get_formsets_with_inlines(request, obj)
+            return super(FacultyAdmin, self).get_formsets_with_inlines(request, obj)
         return ()
 
     def get_readonly_fields(self, request, obj=None):

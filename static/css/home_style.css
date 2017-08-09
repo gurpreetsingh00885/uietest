@@ -4,9 +4,9 @@
 	margin-left: 50px;
 }
 
-	
+
 	.para1{
-		font-size: 16px;
+		font-size: 18px;
 		font-weight:lighter;
 		text-align: center;
 		width:600px;
@@ -16,22 +16,26 @@
   		padding-right: 5px;
   		padding-bottom: 5px;
   		border-radius: 6px;
+			font-family:  "Baskerville Old Face", "Hoefler Text", Garamond, "Times New Roman", serif;
+			color: darkred;
+			text-shadow: 0.5px 0.5px 0.5px black;
 	}
 	.header img {
   float: left;
   width: 100px;
   height: 100px;
-  
+
 }
 
 .header h1 {
   position: relative;
-  top: 18px;
+  top: 0px;
   left: 10px;
-  font-size: 25px;
-  font-weight: lighter; 
-  text-transform: uppercase;
-  color:   white;}
+  font-size: 30px;
+  font-weight: lighter;
+  color:   khaki;
+ text-shadow: 0.5px 0.5px 0.5px black;
+	}
 
 	h2 {
   font-size: 50px;
@@ -39,48 +43,54 @@
   text-align: center;
   text-transform: uppercase;
   text-rendering: optimizeLegibility;
-   color: white;
+   color: darkred;
     letter-spacing: .3em;
-    
+		text-shadow: 1px 1px 1px black;
   }
- 
+
 .button {
   border: 0;
   outline: none;
-  border-radius: 5px;
+  border-radius: 3px;
   padding: 5px;
-  font-size: 15px;
-  font-weight: 600;
+  font-size: 18px;
+  font-weight: 500;
   text-transform: uppercase;
   letter-spacing: .1em;
-  background: #1ab188;
-  color: #ffffff;
+  background: olivedrab;
+  color: khaki;
   -webkit-transition: all 0.5s ease;
   transition: all 0.5s ease;
   -webkit-appearance: none;
-  height: 40px;
-  width: 120px;
+  height:45px;
+  width: 130px;
 }
 .button:hover, .button:focus {
-  background:  #c1bdba;
-  color: black;
+  background:  khaki;
+  color: olivedrab;
 }
 
 .button-block {
   display: block;
-  
+
 }
 body{
-	background-color: rgba(19, 35, 47, 0.9);
+  background-image: url("/static/img/wood.jpeg");
 	font-weight: 600;
+	background-size: cover;
+	background-repeat: no-repeat;
   letter-spacing: .1em;
-  font-family: 'Titillium Web', sans-serif;
+
   color: white;
 }
 footer{
 	float: right;
 	margin-bottom: 0px;
 	font-size: 10px;
-	font-family: sans-serif;
 	font-weight: lighter;
+	color:black;
+}
+
+.movement{
+	float: right;
 }

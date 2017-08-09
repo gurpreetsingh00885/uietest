@@ -7,9 +7,9 @@
   border-radius: 7px;
   opacity: 1;
   margin: 20px;
-  color: white;
-  background-color:rgba(19, 35, 47, 0.9);
-  font-family: font-family: 'Titillium Web', sans-serif; }
+  color: olivedrab;
+  background-color:moccasin;
+}
 
 p{
   font-size: 10px;
@@ -17,15 +17,16 @@ p{
 
 
   h1 {
-  font-family: "Avant Garde", Avantgarde, "Century Gothic", CenturyGothic, "AppleGothic", sans-serif;
-  font-size: 50px;
+    font-size: 50px;
   padding: 40px 25px;
   text-align: center;
   text-transform: uppercase;
   text-rendering: optimizeLegibility;
-   color: #2c2c2c;
+   color: darkred;
     letter-spacing: .05em;
-    
+    font-family: sans-serif;
+    text-shadow: 1px 1px 1px black;
+
   }
 
 .error {
@@ -45,7 +46,7 @@ input[type=password], input[type=text], input[type=email], textarea {
   margin: 5px 1px 3px 0px;
   border: 1px solid #DDDDDD;
 }
- 
+
 input[type=text]:focus, input[type=password]:focus, input[type=email]:focus, textarea:focus {
   box-shadow: 0 0 5px rgba(81, 203, 238, 1);
   padding: 3px 0px 3px 3px;
@@ -63,7 +64,9 @@ label{
   float: left;
 }
 body {
-  background: #c1bdba;
+  background-image:url("/static/img/wood.jpeg");
+  background-size: cover;
+	background-repeat: no-repeat;
   font-family: 'Titillium Web', sans-serif;
 }
 
@@ -129,8 +132,8 @@ ul{
   font-weight: 600;
   text-transform: uppercase;
   letter-spacing: .1em;
-  background: #1ab188;
-  color: #ffffff;
+  background: olivedrab;
+  color: khaki;
   -webkit-transition: all 0.5s ease;
   transition: all 0.5s ease;
   -webkit-appearance: none;
@@ -138,11 +141,11 @@ ul{
   width: 200px;
 }
 .button:hover, .button:focus {
-  background: #c1bdba;
-  color:black;
+  background: darkred;
+  color:khaki;
 }
 
 .button-block {
   display: block;
-  
+
 }

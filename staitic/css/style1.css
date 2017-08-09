@@ -7,24 +7,22 @@ html {
 }
 
 body {
-  background-image: url("/static/img/wood.jpeg");
-  background-size: cover;
-	background-repeat: no-repeat;
+  background: #c1bdba;
   font-family: 'Titillium Web', sans-serif;
 }
 
 a {
   text-decoration: none;
-  color: olivedrab;
+  color: #1ab188;
   -webkit-transition: .5s ease;
   transition: .5s ease;
 }
 a:hover {
-  color: darkred;
+  color: #179b77;
 }
 
 .form {
-  background-color: moccasin;
+  background: rgba(19, 35, 47, 0.9);
   padding: 40px;
   max-width: 600px;
   margin: 40px auto;
@@ -46,8 +44,8 @@ a:hover {
   display: block;
   text-decoration: none;
   padding: 7px;
-  background: khaki;
-  color: olivedrab;
+  background: rgba(160, 179, 176, 0.25);
+  color: #a0b3b0;
   float: left;
   width: 50%;
   text-align: center;
@@ -57,12 +55,12 @@ a:hover {
   font-size: 15px;
 }
 .tab-group li a:hover {
-  background: olivedrab;
-  color: khaki;
+  background: #179b77;
+  color: #ffffff;
 }
 .tab-group .active a {
-  background: olivedrab;
-  color: khaki;
+  background: #1ab188;
+  color: #ffffff;
 }
 
 .tab-content > div:last-child {
@@ -71,7 +69,7 @@ a:hover {
 
 h1 {
   text-align: center;
-  color: darkred;
+  color: #ffffff;
   font-weight: 300;
   margin: 0 0 40px;
   font-size: 15px;
@@ -82,7 +80,7 @@ label {
   -webkit-transform: translateY(-6px);
           transform: translateY(-6px);
   left: 13px;
-  color: darkred;
+  color: rgba(255, 255, 255, 0.5);
   -webkit-transition: all 0.25s ease;
   transition: all 0.25s ease;
   -webkit-backface-visibility: hidden;
@@ -91,7 +89,7 @@ label {
 }
 label .req {
   margin: 2px;
-  color: darkred;
+  color: #1ab188;
 }
 
 label.active {
@@ -105,7 +103,7 @@ label.active .req {
 }
 
 label.highlight {
-  color: khaki;
+  color: #ffffff;
 }
 
 input, textarea {
@@ -117,15 +115,15 @@ input, textarea {
   padding: 5px 10px;
   background: none;
   background-image: none;
-  border: 1px solid olivedrab;
-  color: olivedrab;
-  border-radius: 4px;
+  border: 1px solid #a0b3b0;
+  color: #ffffff;
+  border-radius: 0;
   -webkit-transition: border-color .25s ease, box-shadow .25s ease;
   transition: border-color .25s ease, box-shadow .25s ease;
 }
 input:focus, textarea:focus {
   outline: 0;
-  border-color: darkred;
+  border-color: #1ab188;
 }
 
 textarea {
@@ -138,50 +136,6 @@ textarea {
   margin-bottom: 40px;
 }
 
-#id_branch{
-  position:relative;
-  margin:0 auto;
-  padding:3px;
-  background:moccasin;
-  color:olivedrab;
-  outline:none;
-  border-radius: 4px;
-  cursor: pointer;
-}
-#id_year{
-  position:relative;
-  margin:0 auto;
-  padding:3px;
-  background:moccasin;
-  color:olivedrab;
-  outline:none;
-  border-radius: 4px;
-  cursor: pointer;
-
-}
-#id_section{
-  position:relative;
-  margin:0 auto;
-  padding:3px;
-  background:moccasin;
-  color:olivedrab;
-  outline:none;
-  border-radius: 4px;
-  cursor: pointer;
-
-}
-
-#id_group_number{
-  position:relative;
-  margin:0 auto;
-  padding:3px;
-  background:moccasin;
-  color:olivedrab;
-  outline:none;
-  border-radius: 4px;
-  cursor: pointer;
-
-}
 .top-row:after {
   content: "";
   display: table;
@@ -205,8 +159,8 @@ textarea {
   font-weight: 600;
   text-transform: uppercase;
   letter-spacing: .1em;
-  background: olivedrab;
-  color: khaki;
+  background: #1ab188;
+  color: #ffffff;
   -webkit-transition: all 0.5s ease;
   transition: all 0.5s ease;
   -webkit-appearance: none;
@@ -214,23 +168,23 @@ textarea {
   width: 120px;
 }
 .button:hover, .button:focus {
-  background: saddlebrown;
-  color:khaki;
+  background: #c1bdba;
+  color:black;
 }
 
 .button-block {
   display: block;
-
+  
 }
 
 .forgot {
-  margin-top:auto;
+  margin-top: -10px;
   float:right;
-
+ 
 
 }
 .drop{
-
+  
   font-size: 15px;
   width: auto;
   float: left;
@@ -246,18 +200,18 @@ textarea {
 .passreset{
   height:50px;
   width: 60%;
-  background-color: moccasin;
+  background-color: rgba(19, 35, 47, 0.9);
   padding: 8px;
-  color: olivedrab;
+  color: white;
   border-radius: 5px;
     box-shadow: 0 4px 10px 4px rgba(19, 35, 47, 0.3);
 }
 .passdone{
   height:70%;
   width:42%;
-background-color: moccasin;
+background-color: rgba(19, 35, 47, 0.9);
   padding: 8px;
-  color: olivedrab;
+  color: white;
   border-radius: 5px;
     box-shadow: 0 4px 10px 4px rgba(19, 35, 47, 0.3);
 
@@ -291,7 +245,7 @@ background-color: moccasin;
 
 .button1-block {
   display: block;
-
+  
 }
 
 .button2 {
@@ -318,7 +272,7 @@ background-color: moccasin;
 
 .button2-block {
   display: block;
-
+  
 }
 label[for="id_email"]
 {
@@ -359,5 +313,5 @@ label[for="id_email"]
 
 .button3-block {
   display: block;
-
+  
 }
