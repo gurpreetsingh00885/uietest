@@ -28,7 +28,6 @@ def add_question(request, pk):
     # Create the formset, specifying the form and formset we want to use.
     OptionFormSet = formset_factory(OptionForm, formset=BaseOptionFormSet)
     if request.method == 'POST':
-        print(request.POST)
         question_form = QuestionForm(request.POST)
         option_formset = OptionFormSet(request.POST)
 
@@ -113,4 +112,28 @@ class QuestionUpdate(UpdateView):
     template_name = 'exams/editquestion.html'
     def get_success_url(self, **kwargs):
         return "/tests/edit/"+str(self.object.test.pk)
+    def get_context_data(self, **kwargs):
+        context = super(QuestionUpdate, self).get_context_data(**kwargs)
+        initial = [{'value': option.value, 'correct': option.is_correct} for option in self.object.option_set.all()]
+        OptionFormSet = formset_factory(OptionForm, formset=BaseOptionFormSet)
+        option_formset = OptionFormSet(initial=initial)
+        option_formset.extra_forms.clear()
+        context['option_formset'] = option_formset
+        return context
+
+    #def post(self, request, *args, **kwargs):
+        # OptionFormSet = formset_factory(OptionForm, formset=BaseOptionFormSet)
+        # option_formset = OptionFormSet(request.POST)
+        # form = QuestionForm(request.POST)
+        # print(form)
+        # if option_formset.is_valid():
+        #     return super(QuestionUpdate, self).post(request, *args, **kwargs)
+        # else:
+        #     return render(request, "exams/editquestion.html", {'option_formset':option_formset, "form":form})
+    def form_valid(self, form):
+        OptionFormSet = formset_factory(OptionForm, formset=BaseOptionFormSet)
+        option_formset = OptionFormSet(self.request.POST)
+        if not option_formset.is_valid():
+            return render(self.request, "exams/editquestion.html", {'option_formset':option_formset, "form":form})
+        return super(QuestionUpdate, self).form_valid(form)
 edit_question = QuestionUpdate.as_view()

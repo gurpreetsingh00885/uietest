@@ -28,17 +28,20 @@ class BaseQuestionFormSet(BaseFormSet):
         if any(self.errors):
             return
 
-        for form in self.forms:
-            if form.cleaned_data:
-                print("question: ",form.cleaned_data)
-
 
 
 class BaseOptionFormSet(BaseFormSet):
+
     def clean(self):
         if any(self.errors):
             return
+        
 
-        for form in self.forms:
-            if form.cleaned_data:
-                print(form.cleaned_data)
+    def total_form_count(self):
+            if self.initial_form_count() > 0:
+                total_forms = self.initial_form_count()
+            else:
+                total_forms = self.initial_form_count() + self.extra
+            if total_forms > self.max_num > 0:
+                total_forms = self.max_num
+            return total_forms
