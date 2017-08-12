@@ -37,6 +37,7 @@ INSTALLED_APPS = [
     'exams',
 
     'widget_tweaks',
+    'preventconcurrentlogins',
 ]
 
 ACCOUNT_EMAIL_REQUIRED = True
@@ -61,6 +62,7 @@ MIDDLEWARE = [
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
     'registration.middleware.NoIfModifiedSinceMiddleware',
+    'preventconcurrentlogins.middleware.PreventConcurrentLoginsMiddleware',
 ]
 
 ROOT_URLCONF = 'uietest.urls'
