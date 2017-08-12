@@ -1,5 +1,6 @@
 from django import forms
 from django.forms.formsets import BaseFormSet
+from .models import Image
 
 class TestForm(forms.Form):
     title = forms.CharField(max_length=100, required=True)
@@ -22,6 +23,17 @@ class OptionForm(forms.Form):
         	return field
         else: 
         	return self.prefix and ('%s-%s' % (self.prefix, field)) or field
+
+
+
+class ImageForm(forms.ModelForm):
+    image = forms.ImageField(label='Image')    
+    class Meta:
+        model = Image
+        fields = ('image', )
+
+
+
 
 class BaseQuestionFormSet(BaseFormSet):
     def clean(self):

@@ -1,8 +1,8 @@
 from django.forms.formsets import formset_factory
 from django.shortcuts import redirect, render, Http404, HttpResponseRedirect
 from django.http import HttpResponse
-from .forms import TestForm, BaseOptionFormSet, QuestionForm, OptionForm
-from .models import Test, Option, Question
+from .forms import TestForm, BaseOptionFormSet, QuestionForm, OptionForm, ImageForm
+from .models import Test, Option, Question, Image
 from registration.models import Faculty, Student
 from django.forms.formsets import INITIAL_FORM_COUNT
 from django.contrib.auth.models import AnonymousUser
@@ -26,29 +26,40 @@ def add_question(request, pk):
     if not test.owner == Faculty.objects.get(user=request.user):
         raise PermissionDenied
     # Create the formset, specifying the form and formset we want to use.
-    OptionFormSet = formset_factory(OptionForm, formset=BaseOptionFormSet)
+    OptionFormSet = formset_factory(OptionForm)
+    ImageFormSet = formset_factory(form=ImageForm, extra=2)
     if request.method == 'POST':
         question_form = QuestionForm(request.POST)
         option_formset = OptionFormSet(request.POST)
+        image_formset = ImageFormSet(request.POST, request.FILES)
 
-        if question_form.is_valid() and option_formset.is_valid():
+        if question_form.is_valid() and option_formset.is_valid() and image_formset.is_valid():
+            print("Valid")
             question = Question.objects.create(statement=question_form.cleaned_data.get('statement'), test=test)
             question.save()
 
             for option_form in option_formset:
-                correct = True if request.POST['correct']==option_form.prefix else False
-                value = option_form.cleaned_data.get('value')
-                Option.objects.create(question=question, value=value, is_correct=correct)
-
+                try:
+                    correct = True if request.POST['correct']==option_form.prefix else False
+                    value = option_form.cleaned_data.get('value')
+                    Option.objects.create(question=question, value=value, is_correct=correct)
+                except:
+                    pass
+            for image_form in image_formset:
+                try:
+                    Image.objects.create(question=question, image=request.FILES[image_form.prefix+"-image"])
+                except:
+                    pass
             return HttpResponseRedirect("/tests/edit/"+str(test.pk))
                
     else:
         question_form = QuestionForm()
         option_formset = OptionFormSet()
-
+        image_formset = ImageFormSet()
     context = {
         'question_form': question_form,
         'option_formset': option_formset,
+        'image_formset': image_formset,
         'test': test,
     }
     if request.is_ajax():
@@ -119,6 +130,7 @@ class QuestionUpdate(UpdateView):
         option_formset = OptionFormSet(initial=initial)
         option_formset.extra_forms.clear()
         context['option_formset'] = option_formset
+        context['images'] = self.object.image_set.all()
         return context
 
     #def post(self, request, *args, **kwargs):

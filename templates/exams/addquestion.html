@@ -36,12 +36,18 @@
 
 
   <div class="tabbed-section-1 visible">
-    <form action="/tests/{{test.pk}}/question/add/" method="post">
+    <form action="/tests/{{test.pk}}/question/add/" method="post" enctype="multipart/form-data">
     {% csrf_token %}
     <h3>Question</h2>
 <br>
     {% render_field question_form.statement type="textarea" rows="3" cols="50" placeholder="Question Statement" %}{{question_form.statement.errors}}
 <br>
+<h3>Images (optional)</h3>
+{{ image_fromset.management_form }}
+
+{% for imageform in image_formset %}
+{{imageform.as_p}}
+{% endfor %}
 <br>
 <h3>Answers</h2>
 
