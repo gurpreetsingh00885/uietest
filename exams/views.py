@@ -220,11 +220,11 @@ class MarkQuestionView(View):
             test_pk = int(request.POST['testpk'])
             answer = Answer.objects.get(response=TestResponse.objects.get(pk=response_pk), question=Question.objects.get(pk=question_pk))
             if answer.status!="locked":
-                answer.status = request.POST['status']
-                selected_option=None
                 try:
                     selected_option=int(request.POST['selected_option'])
                     answer.selected_option = Option.objects.get(pk=selected_option)
+                    answer.status = request.POST['status']
+                    selected_option=None
                 except:
                     pass
                 answer.save()

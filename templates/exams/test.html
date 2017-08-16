@@ -17,7 +17,7 @@
 <!-- Latest compiled and minified JavaScript -->
 <script src="/static/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
 
-	
+
 
 
 	</head>
@@ -50,19 +50,19 @@
 		</tr>
 		</table>
 	<hr/>
-	{% for answer in response.answer_set.all %}
+	{% for answer in response.answer_set.all|reverseset %}
 	{% ifequal forloop.counter 1 %}
 	{% ifequal answer.status 'not_visited' %}
 	<div id="{{forloop.counter}}" class="question unanswered" style="text-align: center; display: inline-block;">{{forloop.counter}}</div>
 	{% else %}
-<div class="question {{answer.status}}" id="{{forloop.counter}}" style="text-align: center; display: inline-block;">{{forloop.counter}}</div>	
+<div class="question {{answer.status}}" id="{{forloop.counter}}" style="text-align: center; display: inline-block;">{{forloop.counter}}</div>
 	{% endifequal %}
 	{% else %}
 
 	<div class="question {{answer.status}}" id="{{forloop.counter}}" style="text-align: center; display: inline-block;">{{forloop.counter}}</div>
 	{% endifequal %}
 	{% endfor %}<br/>
-{% for answer in response.answer_set.all %}
+{% for answer in response.answer_set.all|reverseset%}
 {{forloop.counter}}. {{answer.selected_option.value}}<br/>
 {% endfor %}
 	</div>
@@ -76,6 +76,13 @@
 
 	<b><div id="statement">{{ questions.0.statement }}</div></b></font><br/>
 	<span id="question_pk" style="display: none;">{{ questions.0.pk }}</span>
+
+	<div id="images">
+		{% for imagefile in question.image_set.all %}
+		<img src="{{imagefile.image.url}}" height=250, width=400/><br/>
+		{% endfor %}
+	</div>
+
 	<div id="options">
 	{% for option in questions.0.option_set.all %}
 	<b><input type="radio" id="radio{{forloop.counter}}" value="{{option.pk}}" name="selected_option" value="{{option.pk}}">{{forloop.counter|get_option_alpha}}</b>)&nbsp;{{ option.value }}<br/>
@@ -194,7 +201,7 @@
  //    if(ele[i].checked)
  //     flag=1;
 
-	// } 
+	// }
 	// if(flag==1)
 	// document.getElementById('review').disabled=false;
 	// }
@@ -206,8 +213,17 @@
 			mark_for_review(ques_no, circle);
 			return;
 		}
+		var ques_no_div = document.getElementById("question_pk");
 		if(ques!=false){
 			ques_no = ques;
+			$.ajax({
+	                	url: "/tests/status/",
+        		        type: 'POST',
+	                	data: {'questionpk': parseInt(ques_no_div.innerHTML), 'responsepk': parseInt("{{response.pk}}")},
+        	       	 	headers: { "X-CSRFToken": "{% csrf_token %}" },
+                		success: function(result) {
+				status = result["status"];
+			}});
 		}
 		else{
 		if (ques_no<parseInt("{{totalques}}") && next==1){
@@ -220,7 +236,7 @@
 		}
 		$("#skip").show();
 		$("#previous").show();
-		
+
 		if(ques_no==1){
 			$("#previous").hide();
 
@@ -230,9 +246,9 @@
 		statementdiv.innerHTML = questiondata[ques_no-1]["statement"];
 		optionsdiv = document.getElementById("options");
 		options = "";
-		
-		var ques_no_div = document.getElementById("question_pk");
-		
+
+
+
 		ques_no_div.innerHTML=questiondata[ques_no-1]["pk"];
 		if(ques_no==parseInt("{{totalques}}")){
 			$("#skip").hide();
@@ -260,8 +276,8 @@
             });
 
 
-		
-		
+
+
 
 		$.ajax({
                 url: "/tests/status/",
@@ -317,12 +333,12 @@
  //                data: {'status': "unanswered", 'questionpk': parseInt("{{questions.0.pk}}"), 'responsepk': parseInt("{{response.pk}}"), 'testpk': parseInt("{{test.pk}}")},
  //                headers: { "X-CSRFToken": "{% csrf_token %}" },
  //                success: function(result) {
-                    
+
  //                }
  //            });
 	$(".question").click(function(e){
 		updateNumbers();
-		load_question(2,"dsd", this.id, this);
+		load_question(2,undefined, this.id, this);
 	});
 
 	$("#review").click(function(e){
@@ -354,7 +370,7 @@ var x = setInterval(function() {
   	seconds = "0"+seconds;
   document.getElementById("timer").innerHTML = "<b>"+hours + ":"
   + minutes + ":" + seconds+"</b>";
-  // If the count down is finished, write some text 
+  // If the count down is finished, write some text
   if (distance < 0) {
     clearInterval(x);
     document.getElementById("timer").innerHTML = "EXPIRED";

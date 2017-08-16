@@ -6,5 +6,10 @@ register = template.Library()
 def get_option_alpha(code):
 	return list(" ABCDEFGHIJKLMNOPQRSTUVWXYZ")[code]
 
+@register.filter
+def reverseset(queryset):
+        return queryset.order_by("pk")
+
+
 
 
