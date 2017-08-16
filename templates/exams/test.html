@@ -62,9 +62,6 @@
 	<div class="question {{answer.status}}" id="{{forloop.counter}}" style="text-align: center; display: inline-block;">{{forloop.counter}}</div>
 	{% endifequal %}
 	{% endfor %}<br/>
-{% for answer in response.answer_set.all|reverseset%}
-{{forloop.counter}}. {{answer.selected_option.value}}<br/>
-{% endfor %}
 	</div>
 	<!--for viewing questions-->
 	<div id="questions">
@@ -268,7 +265,11 @@
 			if(parseInt(questiondata[ques_no-1]["options"][index]["pk"])==parseInt(selected)){
 				checked = "checked";
 			}
-			options+="<input type='radio' id='radio"+(index+1)+"' name='selected_option' value='"+ questiondata[ques_no-1]["options"][index]["pk"] +"' "+ selected +" />";
+			else{
+				checked = "";
+			}
+			console.log(checked);
+			options+="<input type='radio' id='radio"+(index+1)+"' name='selected_option' value='"+ questiondata[ques_no-1]["options"][index]["pk"] +"' "+ checked +" />";
  		   	options+="&nbsp;<b>"+"ABCDEFGHIJKLMNOPQRSTUVWXYZ"[index]+"</b>)&nbsp;"+questiondata[ques_no-1]["options"][index]["value"]+"<br/>";
 		}
 		optionsdiv.innerHTML=options;
