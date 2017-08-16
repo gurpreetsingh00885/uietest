@@ -1,6 +1,7 @@
 from django.shortcuts import render, get_object_or_404
 from allauth.account.views import SignupView, LoginView
 from .forms import StudentSignupForm
+from django.contrib.auth.models import AnonymousUser
 from django.views import View
 from django.views.generic.detail import DetailView
 from easy_pdf.views import PDFTemplateResponseMixin
@@ -55,14 +56,19 @@ class PDFDetailView(PDFTemplateResponseMixin, DetailView):
 
 class LandingView(View):
     def get(self, request, **kwargs):
+        if request.user == AnonymousUser():
+            return HttpResponseRedirect("/accounts/login/")
         student = Student.objects.filter(user=request.user)
         if student.exists():
             return render(request, "landing_student.html", {"student": student[0],})
         
         faculty = Faculty.objects.filter(user=request.user)
         if faculty.exists():
-            return render(request, "landing_faculty.html", {"faculty": faculty[0],})
+            return render(request, "landing_faculty.html", {"faculty": faculty[0], "tests": faculty[0].test_set.all()})
+    
         raise Http404
+
+
 
 class ActivateStudentAccountView(View):
     def get(self, request, pk, phone, **kwargs):

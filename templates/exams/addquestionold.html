@@ -1,0 +1,36 @@
+<html>
+
+	<head>
+
+
+
+<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.5.0/jquery.min.js"></script>
+<script type="text/javascript" src="/static/js/formset.js">
+</script>
+
+
+	</head>
+
+	<body>
+	<h2>Add Question</h2>
+		<form action="/tests/question/add/" method="post">
+			{% csrf_token %}
+			{{ question_form.as_p }}
+		    {{ option_formset.management_form }}
+    		{% for form in option_formset.forms %}
+    		<div class="item" style="border: 1px solid black; display: inline-block;">
+      			{{ form.as_p }}
+      			<p style=""><a class="delete" href="#">Delete</a></p>
+    		</div>
+    		{% endfor %}
+
+    		<p><a id="add" href="#">Add another item</a></p>
+			<input type="submit" value="Add Question" class="button"/>
+		</form>
+
+
+
+
+	</body>
+
+</html>
