@@ -1,14 +1,17 @@
 from django.forms.formsets import formset_factory
 from django.shortcuts import redirect, render, Http404, HttpResponseRedirect
-from django.http import HttpResponse
+from django.http import HttpResponse, JsonResponse
 from .forms import TestForm, BaseOptionFormSet, QuestionForm, OptionForm, ImageForm
-from .models import Test, Option, Question, Image
+from .models import Test, Option, Question, Image, TestResponse, Answer
 from registration.models import Faculty, Student
 from django.forms.formsets import INITIAL_FORM_COUNT
 from django.contrib.auth.models import AnonymousUser
 from django.core.exceptions import PermissionDenied
 from django.template.loader import render_to_string
 from django.views.generic.edit import UpdateView
+from django.views import View
+import datetime, json
+
 
 def add_question(request, pk):
     try:
@@ -149,3 +152,87 @@ class QuestionUpdate(UpdateView):
             return render(self.request, "exams/editquestion.html", {'option_formset':option_formset, "form":form})
         return super(QuestionUpdate, self).form_valid(form)
 edit_question = QuestionUpdate.as_view()
+
+
+
+class TestView(View):
+    def get(self, request, *args, **kwargs):
+        student = None
+        try:
+            student = Student.objects.get(user=request.user)
+            return render(request, "exams/entertest.html", {"student":student})
+        except:
+            raise Http404
+        
+
+    def post(self, request, *args, **kwargs):
+        student = None
+        try:
+            student = Student.objects.get(user=request.user)
+        except:
+            raise Http404
+        testcode = request.POST['testcode']
+        try:
+            test = Test.objects.get(pk=int(testcode))
+
+            dateandtime = datetime.datetime(test.date.year, test.date.month, test.date.day, test.time.hour, test.time.minute, test.time.second)
+            seconds_left = (dateandtime - datetime.datetime.now()).total_seconds()
+            print(seconds_left)
+            if seconds_left>0:
+                return render(request, "exams/timetotest.html", {"seconds_left": seconds_left})
+            response = None
+            resp = TestResponse.objects.filter(student=student, test=test)
+            questions = test.question_set.all()
+            total_questions = questions.count()
+            if resp.exists():
+                response = resp[0]
+            else:
+                response = TestResponse.objects.create(student=student, test=test)
+                for question in questions:
+                    Answer.objects.create(response=response, question=question)
+            time_left = test.duration.total_seconds()+(dateandtime - datetime.datetime.now()).total_seconds()
+            data = [
+                {
+                    'statement': question.statement,
+                    'pk': question.pk,
+                    'options':[
+                        {
+                            'value': option.value,
+                            'pk': option.pk,
+                        } for option in question.option_set.all()
+                    ],
+                } for question in questions
+            ]
+            return render(request, "exams/test.html", {"time": int(time_left), "test": test,"question_list":json.dumps(data),"questions": questions, "totalques": total_questions, "student":student, "response":response})
+
+        except:
+            return HttpResponse("Invalid Testcode!")
+
+class MarkQuestionView(View):
+    def post(self, request, *args, **kwargs):
+        print(request.POST)
+        data = {
+            "detail": "None",
+        }
+        if request.is_ajax():
+            response_pk = int(request.POST['responsepk'])
+            question_pk = int(request.POST['questionpk'])
+            test_pk = int(request.POST['testpk'])
+            answer = Answer.objects.get(response=TestResponse.objects.get(pk=response_pk), question=Question.objects.get(pk=question_pk))
+            print(answer.pk)
+            answer.status = request.POST['status']
+            answer.save()
+            return JsonResponse(data)
+        else:
+            raise Http404
+
+
+class AnswerStatus(View):
+    def post(self, request, *args, **kwargs):
+        if request.is_ajax():
+            response_pk = int(request.POST['responsepk'])
+            question_pk = int(request.POST['questionpk'])
+            answer = Answer.objects.get(response=TestResponse.objects.get(pk=response_pk), question=Question.objects.get(pk=question_pk))
+            return JsonResponse({"status":answer.status, "v":answer.question.statement})
+        else:
+            raise Http404

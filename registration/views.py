@@ -68,6 +68,8 @@ class LandingView(View):
     
         raise Http404
 
+
+
 class ActivateStudentAccountView(View):
     def get(self, request, pk, phone, **kwargs):
         try:

@@ -1,5 +1,5 @@
 from django.db import models
-from registration.models import Faculty
+from registration.models import Faculty, Student
 
 
 
@@ -35,3 +35,26 @@ def get_image_filename(instance, filename):
 class Image(models.Model):
     question = models.ForeignKey(Question, default=None)
     image = models.ImageField(upload_to='images/%Y/%m/%d',)
+
+
+
+class TestResponse(models.Model):
+    student = models.OneToOneField(Student, default=None, on_delete=models.CASCADE, blank=False)
+    test = models.OneToOneField(Test, on_delete=models.CASCADE, blank=False)
+
+class Answer(models.Model):
+
+    STATUS_CHOICES = ( 
+        ('U', 'unanswered'),
+        ('R', 'review'),
+        ('L', 'locked'),
+        ('N', 'not_visited'),
+    )
+
+
+    response = models.ForeignKey(TestResponse, default=None, on_delete=models.CASCADE, blank=False)
+    status = models.CharField(max_length=20, choices=STATUS_CHOICES, default="not_visited")
+    question = models.OneToOneField(Question, default=None, on_delete=models.CASCADE, blank=False)
+    selected_option = models.OneToOneField(Option, on_delete=models.CASCADE, blank=True, null=True)
+
+

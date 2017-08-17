@@ -1,0 +1,14 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title></title>
+</head>
+<body>
+
+<form action="/tests/res/" method="post">{% csrf_token %}
+Code:<input type="text" name="testcode" placeholder="Test Code"/>
+<input type="submit" value="Submit">
+</form>
+
+</body>
+</html>
