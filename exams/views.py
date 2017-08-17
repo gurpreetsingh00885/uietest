@@ -178,8 +178,8 @@ class TestView(View):
             dateandtime = datetime.datetime(test.date.year, test.date.month, test.date.day, test.time.hour, test.time.minute, test.time.second)
             seconds_left = (dateandtime - datetime.datetime.now()).total_seconds()
             print(seconds_left)
-            if seconds_left>0:
-                return render(request, "exams/timetotest.html", {"seconds_left": seconds_left})
+            # if seconds_left>0:
+            #     return render(request, "exams/timetotest.html", {"seconds_left": seconds_left})
             response = None
             resp = TestResponse.objects.filter(student=student, test=test)
             questions = test.question_set.all()
@@ -203,7 +203,7 @@ class TestView(View):
                     ],
                 } for question in questions
             ]
-            return render(request, "exams/test.html", {"time": int(time_left), "test": test,"question_list":json.dumps(data),"questions": questions, "totalques": total_questions, "student":student, "response":response})
+            return render(request, "exams/test.html", {"time": int(time_left),"test": test,"question_list":json.dumps(data),"questions": questions, "totalques": total_questions, "student":student, "response":response})
 
         except:
             return HttpResponse("Invalid Testcode!")
@@ -219,9 +219,15 @@ class MarkQuestionView(View):
             question_pk = int(request.POST['questionpk'])
             test_pk = int(request.POST['testpk'])
             answer = Answer.objects.get(response=TestResponse.objects.get(pk=response_pk), question=Question.objects.get(pk=question_pk))
-            print(answer.pk)
-            answer.status = request.POST['status']
-            answer.save()
+            if answer.status!="locked":
+                answer.status = request.POST['status']
+                selected_option=None
+                try:
+                    selected_option=int(request.POST['selected_option'])
+                    answer.selected_option = Option.objects.get(pk=selected_option)
+                except:
+                    pass
+                answer.save()
             return JsonResponse(data)
         else:
             raise Http404
@@ -233,6 +239,9 @@ class AnswerStatus(View):
             response_pk = int(request.POST['responsepk'])
             question_pk = int(request.POST['questionpk'])
             answer = Answer.objects.get(response=TestResponse.objects.get(pk=response_pk), question=Question.objects.get(pk=question_pk))
-            return JsonResponse({"status":answer.status, "v":answer.question.statement})
+            selected_option="none"
+            if answer.selected_option:
+                selected_option=answer.selected_option.pk
+            return JsonResponse({"status":answer.status, "v":answer.question.statement, "selected":selected_option})
         else:
             raise Http404

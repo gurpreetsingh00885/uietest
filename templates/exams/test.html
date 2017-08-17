@@ -61,8 +61,10 @@
 
 	<div class="question {{answer.status}}" id="{{forloop.counter}}" style="text-align: center; display: inline-block;">{{forloop.counter}}</div>
 	{% endifequal %}
-	{% endfor %}
-
+	{% endfor %}<br/>
+{% for answer in response.answer_set.all %}
+{{forloop.counter}}. {{answer.selected_option.value}}<br/>
+{% endfor %}
 	</div>
 	<!--for viewing questions-->
 	<div id="questions">
@@ -76,7 +78,7 @@
 	<span id="question_pk" style="display: none;">{{ questions.0.pk }}</span>
 	<div id="options">
 	{% for option in questions.0.option_set.all %}
-	<b><input type="radio" value="{{option.pk}}" name="selected_option" value="{{option.pk}}">{{forloop.counter|get_option_alpha}}</b>.&nbsp;{{ option.value }}<br/>
+	<b><input type="radio" id="radio{{forloop.counter}}" value="{{option.pk}}" name="selected_option" value="{{option.pk}}">{{forloop.counter|get_option_alpha}}</b>)&nbsp;{{ option.value }}<br/>
 	{% endfor %}
 	</div>
 
@@ -152,7 +154,14 @@
 
 	function mark_for_review(ques_no, circle){
 		var ques_no_div = document.getElementById("question_pk");
-		var	selected_opt = document.querySelector('input[name="selected_option"]:checked').value;
+		var	selected_opt = document.querySelector('input[name="selected_option"]:checked');
+		if(selected_opt==null){
+			alert("No Option Selected!");
+			return;
+		}
+		else{
+			selected_opt=selected_opt.value;
+		}
 		console.log(selected_opt);
 		$.ajax({
                 url: "/tests/mark/",
@@ -236,7 +245,8 @@
 		
 		
 		for (index = 0; index < questiondata[ques_no-1]["options"].length; ++index) {
-			options+="<input type='radio' name='selected_option' value='"+ questiondata[ques_no-1]["options"][index]["pk"] +"/>";
+			selected="";
+			options+="<input type='radio' id='radio"+(index+1)+"' name='selected_option' value='"+ questiondata[ques_no-1]["options"][index]["pk"] +"'"+ selected +"/>";
  		   	options+="&nbsp;<b>"+"ABCDEFGHIJKLMNOPQRSTUVWXYZ"[index]+"</b>)&nbsp;"+questiondata[ques_no-1]["options"][index]["value"]+"<br/>";
 		}
 		optionsdiv.innerHTML=options;
