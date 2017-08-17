@@ -1,0 +1,38 @@
+{% load widget_tweaks %}
+
+<!DOCTYPE html>
+<html>
+<head>
+	<title></title>
+</head>
+<body>
+
+
+<form action="" method="post">{% csrf_token %}
+    {{ form.as_p }}
+<br/>
+<hr/><h3>Images</h3>
+	{% for imagefile in images %}
+	<img src="{{imagefile.image.url}}" height=350, width=550/><br/>
+	{% endfor %}
+    <br/><h3>Options</h3><hr/>
+	{{ option_formset.management_form }}
+
+	{% for form in option_formset.forms %}
+
+	<div class="item">
+  	{% render_field form.correct %}{{form.correct.errors}}
+  	{% render_field form.value type="textarea" rows="1" cols="50"%}{{form.value.errors}}
+
+  	<p style=""><a class="delete" href="#">Remove</a></p>
+	</div>
+
+	{% endfor %}
+
+    <input type="submit" value="Update" />
+</form>
+
+
+
+</body>
+</html>
