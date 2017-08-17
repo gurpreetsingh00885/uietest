@@ -143,8 +143,19 @@
                     quo : '"'
                 }[b];
             }));
+	var imageList = (("{{images}}").replace(/&(l|g|quo|)t;/g, function(a,b){
+                return {
+                    l   : '<',
+                    g   : '>',
+                    quo : '"',
+                    
+                }[b];
+            }));
+	imageList = imageList.replace(/&#39;/g, "'");
+	console.log(imageList);
 	var questiondata = JSON.parse(questionList);
-
+	var imagedata = JSON.parse(imageList);
+	console.log(imagedata);
 	function updateNumbers(){
 		document.getElementById("unvis").innerHTML=$(".not_visited").length-1;
 		document.getElementById("locke").innerHTML=$(".locked").length-1;

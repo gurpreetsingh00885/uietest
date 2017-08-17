@@ -203,7 +203,10 @@ class TestView(View):
                     ],
                 } for question in questions
             ]
-            return render(request, "exams/test.html", {"time": int(time_left),"test": test,"question_list":json.dumps(data),"questions": questions, "totalques": total_questions, "student":student, "response":response})
+
+            imgs = {str(question.pk):[image.image.url for image in list(question.image_set.all())] for question in questions if question.image_set.all()}
+
+            return render(request, "exams/test.html", {"images":imgs, "time": int(time_left),"test": test,"question_list":json.dumps(data),"questions": questions, "totalques": total_questions, "student":student, "response":response})
 
         except:
             return HttpResponse("Invalid Testcode!")
