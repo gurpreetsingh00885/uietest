@@ -238,18 +238,31 @@
 			$("#skip").hide();
 		}
 
-
-
-
-
-		
-		
-		for (index = 0; index < questiondata[ques_no-1]["options"].length; ++index) {
-			selected="";
-			options+="<input type='radio' id='radio"+(index+1)+"' name='selected_option' value='"+ questiondata[ques_no-1]["options"][index]["pk"] +"'"+ selected +"/>";
+		var selected = "";
+		var checked = ""
+		$.ajax({
+                url: "/tests/status/",
+                type: 'POST',
+                data: {'questionpk': parseInt(ques_no_div.innerHTML), 'responsepk': parseInt("{{response.pk}}")},
+                headers: { "X-CSRFToken": "{% csrf_token %}" },
+                success: function(result) {
+                	selected+=result["selected"];
+                	for (index = 0; index < questiondata[ques_no-1]["options"].length; ++index) {
+			console.log(parseInt(questiondata[ques_no-1]["options"][index]["pk"])+"  " +selected);
+			if(parseInt(questiondata[ques_no-1]["options"][index]["pk"])==parseInt(selected)){
+				checked = "checked";
+			}
+			options+="<input type='radio' id='radio"+(index+1)+"' name='selected_option' value='"+ questiondata[ques_no-1]["options"][index]["pk"] +"' "+ selected +" />";
  		   	options+="&nbsp;<b>"+"ABCDEFGHIJKLMNOPQRSTUVWXYZ"[index]+"</b>)&nbsp;"+questiondata[ques_no-1]["options"][index]["value"]+"<br/>";
 		}
 		optionsdiv.innerHTML=options;
+                }
+            });
+
+
+		
+		
+
 		$.ajax({
                 url: "/tests/status/",
                 type: 'POST',
