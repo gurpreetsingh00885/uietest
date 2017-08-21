@@ -25,7 +25,7 @@ p{
   text-rendering: optimizeLegibility;
    color: #2c2c2c;
     letter-spacing: .05em;
-    
+
   }
 
 .error {
@@ -43,9 +43,10 @@ input[type=password], input[type=text], input[type=email], textarea {
   outline: none;
   padding: 3px 0px 3px 3px;
   margin: 5px 1px 3px 0px;
-  border: 1px solid #DDDDDD;
+  background: #29B6F6;
+  border: 1px solid ;
 }
- 
+
 input[type=text]:focus, input[type=password]:focus, input[type=email]:focus, textarea:focus {
   box-shadow: 0 0 5px rgba(81, 203, 238, 1);
   padding: 3px 0px 3px 3px;
@@ -63,7 +64,7 @@ label{
   float: left;
 }
 body {
-  background: #c1bdba;
+  background: #29B6F6;
   font-family: 'Titillium Web', sans-serif;
 }
 
@@ -129,7 +130,7 @@ ul{
   font-weight: 600;
   text-transform: uppercase;
   letter-spacing: .1em;
-  background: #1ab188;
+  background: #29B6F6;
   color: #ffffff;
   -webkit-transition: all 0.5s ease;
   transition: all 0.5s ease;
@@ -144,5 +145,5 @@ ul{
 
 .button-block {
   display: block;
-  
+
 }
