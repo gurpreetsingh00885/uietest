@@ -6,15 +6,24 @@ body{
     cursor: pointer;
 }
 
-
-ul {
+#titletext{
+    margin: 0px;
+    display: block;
+    color: white;
+    text-align: center;
+    padding: 14px 16px;
+    text-decoration: none;
+}
+ul:not([margin]) {
     list-style-type: none;
-    margin: 0;
-    padding: 0;
+    margin: 0px;
+    padding: 0px;
     overflow: hidden;
     background-color: #333;
 }
-
+ol {
+    margin-bottom: 0px;
+}
 li {
     float: right;
 }
@@ -22,6 +31,7 @@ li {
 li a {
     display: block;
     color: white;
+    cursor: pointer;
     text-align: center;
     padding: 14px 16px;
     text-decoration: none;
@@ -30,10 +40,11 @@ li a {
 /* Change the link color to #111 (black) on hover */
 li a:hover {
     background-color: #111;
+    text-decoration: none;
 }
 
 .two{
-    width: 25%;
+    width: 20%;
     height: 100%;
     background-color: #ffffb3;
     float: right;
@@ -42,6 +53,8 @@ li a:hover {
 .l{
     float: left;
 }
+
+
 
 #bottom {
     height: 20%;
@@ -201,4 +214,41 @@ li a:hover {
 }
 td:not([padding]) {
   padding: 2px;
+}
+
+input[type="radio"]:not([text-align]){
+    text-align: center;
+}
+
+.modal-dialog:not([width]){
+    width: 80%;
+    overflow: hidden;
+}
+
+.disabled{
+    background-color: gray;
+    color: white;
+    border: 0px;
+}
+.disabled:before{
+    background-color: gray;
+    color: white;
+    border: 0px;
+}
+.disabled:hover{
+    background-color: gray;
+    color: white;
+    border: 0px;
+}
+
+.disabled:focus{
+    background-color: gray;
+    color: white;
+    border: 0px;
+}
+
+.disabled:active{
+    background-color: gray;
+    color: white;
+    border: 0px;
 }

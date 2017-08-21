@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Assign test</title>
+</head>
+<body>
+Assign <b>{{test.title}}</b> to study groups<br/>
+<hr/>
+
+
+{% if not add %}
+
+This test has been assigned to the following groups so far<br/><br/>
+{% for gr in test.groups.all %}
+{{gr}} <a href="/tests/deassign/{{test.pk}}/{{gr.pk}}/">Remove</a><br/>
+{% endfor %}
+<br/>
+
+<a href="/tests/assign/{{test.pk}}/?add=true">Add Group</a>
+{% else %}
+
+<form action="/tests/assign/{{test.pk}}/" method="post">
+{% csrf_token %}
+{{form.as_p}}
+<input type="submit" value="Assign"/>
+</form>
+{% endif %}
+
+<hr/>
+
+</body>
+</html>

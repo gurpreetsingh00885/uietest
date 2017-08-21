@@ -3,7 +3,7 @@
 <html>
 <head>
 <title>
-	E-tests by UIET
+	{{test.title}} - {{request.user.username}}
 	</title>
 	<link rel="stylesheet" type="text/css" href="/static/css/testpage.css"/>
 	<script type="text/javascript" src="/static/js/jquery.min.js"></script>
@@ -26,9 +26,9 @@
 <div style="position: fixed; top: 0; bottom: 0; left: 0; right: 0;">
 <!--main division-->
 	<ul>
-		<li><a class="fa fa-info-circle" style="font-size:20px;color:#f44336; float: right; padding:15px; padding-top:22px" data-toggle="modal" data-target="#exampleModalLong"> Instructions</a></li>
-		<li><a class="fa fa-user-circle" style="font-size:20px;color:#4FC3F7; float: right; padding:15px; padding-top:22px;" data-toggle="modal" data-target="#myModal"> Profile</a></li>
-		<li class="l"><a>UIET,Chandigarh</a></li>
+		<li><a class="fa fa-info-circle" id="instr" style="font-size:20px;color:#f44336; float: right; padding:15px;" data-toggle="modal" data-target="#exampleModalLong"style="width:90%;"> Instructions</a></li>
+		<li><a class="fa fa-user-circle" style="font-size:20px;color:#4FC3F7; float: right; padding:15px;" data-toggle="modal" data-target="#myModal"> Profile</a></li>
+		<li class="l"><h4 id="titletext">University Institute of Engineering and Technology</h4></li>
 	</ul>
 
 	<!--for question matrix-->
@@ -68,7 +68,7 @@
 	<!--for viewing questions-->
 	<div id="questions">
 	<div class="ScrollStyle" style="padding: 8px">
-	<p align="left" style="display: inline-block;">Question No.<b><span id="questionno">1</span></b></p><p align="right" style="display: inline-block; float:right;" id="timer"></p>
+	<div id="topofscroll"><p align="left" style="display: inline-block;">Question No.<b><span id="questionno">1</span></b></p><p align="right" style="display: inline-block; float:right;" id="timer"></p></div>
 	<hr/>
 	<font face="Open Sans" size="4px">
 
@@ -84,7 +84,7 @@
 
 	<div id="options">
 	{% for option in questions.0.option_set.all %}
-	<b><input type="radio" id="radio{{forloop.counter}}" value="{{option.pk}}" name="selected_option" value="{{option.pk}}">{{forloop.counter|get_option_alpha}}</b>)&nbsp;{{ option.value }}<br/>
+	<b><input type="radio" id="radio{{forloop.counter}}" value="{{option.pk}}" name="selected_option" value="{{option.pk}}"/>{{forloop.counter|get_option_alpha}}</b>)&nbsp;{{ option.value }}<br/>
 	{% endfor %}
 	</div>
 
@@ -135,16 +135,19 @@
 <div class="modal fade" id="exampleModalLong" tabindex="-1" role="dialog" aria-labelledby="exampleModalLongTitle" aria-hidden="true">
   <div class="modal-dialog" role="document">
     <div class="modal-content">
-      <div class="modal-header">
-        <h3 class="modal-title" id="exampleModalLongTitle">Instructions</h3>
-        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-          <span aria-hidden="true">&times;</span>
-        </button>
-      </div>
       <div class="modal-body">
-        bvbdfbvmdfbvbdnmvdnmfvndnmbv
+      <iframe frameBorder="0" src="/static/instructions.html" style="width: 100%; height: 80%; margin: 0; padding: 0"></iframe>
       </div>
-
+	  <div class="modal-footer" style="text-align left;">
+	  <div id="bottomf">
+	  {% if accepted %}
+        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+      {% else %}
+      <input type="radio" name="agreetoterms" id="termsradio"/>I accept the terms and conditions.
+      	<button type="button" class="btn btn-default" id="startbutton">Start test</button>
+      {% endif %}
+      </div>
+      </div>
     </div>
   </div>
 </div>
@@ -169,10 +172,8 @@
                 }[b];
             }));
 	imageList = imageList.replace(/&#39;/g, "'");
-	console.log(imageList);
 	var questiondata = JSON.parse(questionList);
 	var imagedata = JSON.parse(imageList);
-	console.log(imagedata);
 	function updateNumbers(){
 		document.getElementById("unvis").innerHTML=$(".not_visited").length-1;
 		document.getElementById("locke").innerHTML=$(".locked").length-1;
@@ -194,7 +195,6 @@
 		else{
 			selected_opt=selected_opt.value;
 		}
-		console.log(selected_opt);
 		$.ajax({
                 url: "/tests/mark/",
                 type: 'POST',
@@ -271,7 +271,11 @@
 		statementdiv.innerHTML = questiondata[ques_no-1]["statement"];
 		optionsdiv = document.getElementById("options");
 		options = "";
+		imagesdiv = document.getElementById("images");
+		images = "";
 
+		imagesdiv.innerHTML=images;
+		optionsdiv.innerHTML=options;
 
 
 		ques_no_div.innerHTML=questiondata[ques_no-1]["pk"];
@@ -288,18 +292,23 @@
                 headers: { "X-CSRFToken": "{% csrf_token %}" },
                 success: function(result) {
                 	selected+=result["selected"];
+                	options="";
                 	for (index = 0; index < questiondata[ques_no-1]["options"].length; ++index) {
-			console.log(parseInt(questiondata[ques_no-1]["options"][index]["pk"])+"  " +selected);
 			if(parseInt(questiondata[ques_no-1]["options"][index]["pk"])==parseInt(selected)){
 				checked = "checked";
 			}
 			else{
 				checked = "";
 			}
-			console.log(checked);
+
 			options+="<input type='radio' id='radio"+(index+1)+"' name='selected_option' value='"+ questiondata[ques_no-1]["options"][index]["pk"] +"' "+ checked +" />";
  		   	options+="&nbsp;<b>"+"ABCDEFGHIJKLMNOPQRSTUVWXYZ"[index]+"</b>)&nbsp;"+questiondata[ques_no-1]["options"][index]["value"]+"<br/>";
 		}
+		if(imagedata[questiondata[ques_no-1]["pk"]+""]){
+		for(i=0; i<imagedata[questiondata[ques_no-1]["pk"]+""].length; ++i){			images+="<img src='"+ imagedata[questiondata[ques_no-1]["pk"]+""][i] +"' style='max-height:200px; max-width:250px;'/><br/>";
+		}
+	}
+		imagesdiv.innerHTML=images;
 		optionsdiv.innerHTML=options;
                 }
             });
@@ -318,7 +327,10 @@
                		if(status2=="not_visited"){
                			status="unanswered";
                		}
-               		if(status2=="review"){
+               		else if(status2=="review"){
+               			status=status2;
+               		}
+               		else if(status2=="unanswered"){
                			status=status2;
                		}
                		$.ajax({
@@ -348,7 +360,12 @@
 		show_hide_buttons();
 		updateNumbers();
 	}
+	{% if not accepted %}
+	$('#exampleModalLong').modal({backdrop: 'static', keyboard: false});
+	$("#startbutton").disabled=true;
+	$("#startbutton").addClass("disabled");
 
+	{% endif %}
 	$("#skip").click(function(e) {
 		load_question(1);
 	});
@@ -367,13 +384,40 @@
  //            });
 	$(".question").click(function(e){
 		updateNumbers();
-		load_question(2,undefined, this.id, this);
+		load_question(2,"unanswered", this.id, this);
+	});
+
+	$("#startbutton").click(function(e){
+		if(document.getElementById('termsradio').checked){
+			$('#exampleModalLong').modal('hide');
+			$.ajax({
+       		 type: "GET",
+        	url: "/tests/accepted/{{response.pk}}/",
+        	success: function(result) {
+
+        	}
+    		});
+
+
+		}
+		else{
+			
+		}
+	});
+
+
+
+	$("#instr").click(function(e){
+		document.getElementById('bottomf').innerHTML = '<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>';
 	});
 
 	$("#review").click(function(e){
 		load_question(1, "review");
 	});
-
+	$("#termsradio").click(function(e){
+		$("#startbutton").disabled=false;
+		$("#startbutton").removeClass("disabled");
+	});
 	$("#1").addClass("highlighted");
 	updateNumbers();
 </script>
@@ -409,6 +453,8 @@ var x = setInterval(function() {
   	alert("code to submit test response will be added soon!");
   }
 }, 1000);
+document.getElementById('termsradio').checked=false;
+	
 </script>
 
 </html>
