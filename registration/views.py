@@ -8,7 +8,7 @@ from easy_pdf.views import PDFTemplateResponseMixin
 from .models import Student, Faculty
 from django.http import HttpResponseRedirect, Http404
 from allauth.account.forms import LoginForm
-
+import datetime
 
 class StudentSignupView(SignupView):
     form_class = StudentSignupForm
@@ -60,7 +60,7 @@ class LandingView(View):
             return HttpResponseRedirect("/accounts/login/")
         student = Student.objects.filter(user=request.user)
         if student.exists():
-            return render(request, "landing_student.html", {"student": student[0],})
+            return render(request, "landing_student.html", {"student": student[0], "dateandtime":datetime.datetime.now()})
         
         faculty = Faculty.objects.filter(user=request.user)
         if faculty.exists():

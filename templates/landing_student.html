@@ -1,3 +1,4 @@
+{% load test_filters %}
 <html>
 <head></head>
 
@@ -12,6 +13,38 @@ Click <a href="/accounts/logout/">here</a> to logout.
 You will be able to take tests that you are assigned by your teachers and view your grades too.
 <br/><br/>
 <hr/>
-Account Type: <h3 style="display: inline;">Student</h3>
+<h3>Upcoming Tests</h3>
+{%if student.group.test_set.all|count_test %}
+<table border="1px" cellspacing="0px" cellpadding="3px">
+<tr><td><b>Title</b></td><td><b>Date</b></td><td><b>Time</b></td><td><b>Open</b></td></tr>
+{% for testi in student.group.test_set.all %}
+{% if not testi|is_over %}
+<tr><td>{{testi.title}}</td><td>{{testi.date}}</td><td>{{testi.time}}</td><td>
+<a onclick="window.open('/tests/res/{{testi.pk}}/', '_blank', 'location=no,height=700,width=1200,scrollbars=yes,status=no');" style="color: blue;">open</span></a>
+</td></tr>
+{% endif %}
+{% endfor %}
+</table>
+{% else %}
+None
+{% endif %}
+
+<hr/>
+<h3>Tests Already Over</h3>
+{%if student.group.test_set.all|count_test_over %}
+<table border="1px" cellspacing="0px" cellpadding="3px">
+<tr><td><b>Title</b></td><td><b>Date</b></td><td><b>Time</b></td><td><b>Result</b></td></tr>
+{% for testi in student.group.test_set.all %}
+{% if testi|is_over %}
+<tr><td>{{testi.title}}</td><td>{{testi.date}}</td><td>{{testi.time}}</td><td>
+<a onclick="window.open('/tests/res/{{testi.pk}}/', '_blank', 'location=no,height=700,width=1200,scrollbars=yes,status=no');" style="color: blue;">open</span></a>
+</td></tr>
+{% endif %}
+{% endfor %}
+</table>
+{% else %}
+None
+{% endif %}
+
 </body>
 </html>

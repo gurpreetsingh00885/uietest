@@ -1,6 +1,7 @@
 from django import forms
 from django.forms.formsets import BaseFormSet
 from .models import Image
+from registration.models import StudyGroup
 
 class TestForm(forms.Form):
     title = forms.CharField(max_length=100, required=True)
@@ -24,6 +25,9 @@ class OptionForm(forms.Form):
         else: 
         	return self.prefix and ('%s-%s' % (self.prefix, field)) or field
 
+
+class AssignForm(forms.Form):
+    group = forms.ModelChoiceField(queryset=StudyGroup.objects.all(), required=True, empty_label=None)
 
 
 class ImageForm(forms.ModelForm):

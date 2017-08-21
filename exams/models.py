@@ -1,5 +1,5 @@
 from django.db import models
-from registration.models import Faculty, Student
+from registration.models import Faculty, Student, StudyGroup
 
 
 
@@ -9,7 +9,7 @@ class Test(models.Model):
     duration = models.DurationField(blank=False)
     date = models.DateField(blank=False)
     time = models.TimeField(blank=False)
-
+    groups = models.ManyToManyField(StudyGroup)
     def __str__(self):
     	return self.title + " (by " + self.owner.name + ")"
 
@@ -41,7 +41,10 @@ class Image(models.Model):
 class TestResponse(models.Model):
     student = models.OneToOneField(Student, default=None, on_delete=models.CASCADE, blank=False)
     test = models.OneToOneField(Test, on_delete=models.CASCADE, blank=False)
-
+    accepted = models.BooleanField(default=False)
+    submitted = models.BooleanField(default=False)
+    marks = models.IntegerField(default=0)
+    
 class Answer(models.Model):
 
     STATUS_CHOICES = ( 
