@@ -156,6 +156,7 @@
 
 </body>
 <script type="text/javascript">
+	document.oncontextmenu = document.body.oncontextmenu = function() {return false;}
 	var questionList = (("{{question_list}}").replace(/&(l|g|quo)t;/g, function(a,b){
                 return {
                     l   : '<',

@@ -2,12 +2,78 @@
 <html>
 <head>
 	<title></title>
+<style type="text/css">
+body{
+  text-align: center;
+  font-family: sans-serif;
+  font-weight: 100;
+}
+
+h1{
+  color: #39f;
+  font-weight: 100;
+  font-size: 40px;
+  margin: 40px 0px 20px;
+}
+
+#clockdiv{
+  font-family: sans-serif;
+  color: #fff;
+  display: inline-block;
+  font-weight: 100;
+  text-align: center;
+  font-size: 30px;
+}
+
+#clockdiv > div{
+  padding: 10px;
+  border-radius: 3px;
+  background: #00BF96;
+  display: inline-block;
+}
+
+#clockdiv div > span{
+  padding: 15px;
+  border-radius: 3px;
+  background: #00816A;
+  display: inline-block;
+}
+
+.smalltext{
+  padding-top: 5px;
+  font-size: 16px;
+}
+
+
+</style>
+
+
+
 </head>
 <body>
-This test hasn't started yet!<br/> 
-Time left until test starts:
+<div id="clockdiv" style="margin-top: 200px;">
+  <div>
+    <span class="days" id="days">2</span>
+    <div class="smalltext">Days</div>
+  </div>
+  <div>
+    <span class="hours" id="hours">21</span>
+    <div class="smalltext">Hours</div>
+  </div>
+  <div>
+    <span class="minutes" id="minutes">07</span>
+    <div class="smalltext">Minutes</div>
+  </div>
+  <div>
+    <span class="seconds" id="seconds">34</span>
+    <div class="smalltext">Seconds</div>
+  </div>
+</div>
+<h1>till the test starts</h1>
 
-<p id="demo"></p>
+
+
+
 
 <script>
 // Set the date we're counting down to
@@ -20,9 +86,28 @@ var x = setInterval(function() {
   var hours = Math.floor((distance % (60 * 60 * 24)) / (60 * 60));
   var minutes = Math.floor((distance % (60 * 60)) / (60));
   var seconds = Math.floor((distance % (60)));
-  // Display the result in the element with id="demo"
-  document.getElementById("demo").innerHTML = days + "d " + hours + "h "
-  + minutes + "m " + seconds + "s ";
+
+  
+  
+  
+
+  if(days<10)
+    document.getElementById("days").innerHTML = "0" + days;
+  else
+    document.getElementById("days").innerHTML = days;
+  if(hours<10)
+    document.getElementById("hours").innerHTML = "0"+hours;
+  else
+    document.getElementById("hours").innerHTML = hours;
+  if(minutes<10)
+    document.getElementById("minutes").innerHTML = "0"+minutes;
+  else
+    document.getElementById("minutes").innerHTML = minutes;
+
+  if(seconds<10)
+    document.getElementById("seconds").innerHTML = "0"+seconds;
+  else
+    document.getElementById("seconds").innerHTML = seconds;
   // If the count down is finished, write some text 
   if (distance < 0) {
     clearInterval(x);

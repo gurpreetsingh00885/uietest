@@ -17,7 +17,9 @@ Tests Assigned:
 <table>
 <tr><td><b>Title</b></td><td><b>Date</b></td><td><b>Time</b></td><td><b>Open</b></td></tr>
 {% for testi in student.group.test_set.all %}
-<tr><td>{{testi.title}}</td><td>{{testi.date}}</td><td>{{testi.time}}</td><td><a href="/tests/res/{{testi.pk}}/">Open</a></td></tr>
+<tr><td>{{testi.title}}</td><td>{{testi.date}}</td><td>{{testi.time}}</td><td>
+<a onclick="window.open('/tests/res/{{testi.pk}}/', '_blank', 'location=no,height=700,width=1200,scrollbars=yes,status=no');" style="color: blue;">open</span></a>
+</td></tr>
 {% endfor %}
 {% else %}
  None
