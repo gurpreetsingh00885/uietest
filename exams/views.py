@@ -189,12 +189,10 @@ class TestView(View):
                     for response in TestResponse.objects.filter(test=Test.objects.get(pk=test.pk)):
                         response.submitted = True
                         marks = 0
-                        print(response.answer_set.all())
                         for ans in response.answer_set.all():
-
                             ans.status="locked"
                             ans.save()
-                            if ans.selected_option is not None and ans.selected_option==Option.objects.get(question=ans.question, is_correct=True):
+                            if ans.selected_option and ans.selected_option==Option.objects.get(question=ans.question, is_correct=True):
                                 marks+=1
                         response.marks = marks
                         response.save()
