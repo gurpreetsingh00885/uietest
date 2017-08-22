@@ -11,7 +11,7 @@ from django.template.loader import render_to_string
 from django.views.generic.edit import UpdateView
 from django.views import View
 import datetime, json
-
+from django.forms.widgets import TextInput
 
 
 
@@ -124,29 +124,51 @@ def edit_test(request, pk):
 
 class QuestionUpdate(UpdateView):
     model = Question
-    fields = "__all__"
+    fields=["statement",]
     template_name = 'exams/editquestion.html'
+
+    def __init__(self, *args, **kwargs):
+        super(QuestionUpdate, self).__init__(*args, **kwargs)
     def get_success_url(self, **kwargs):
         return "/tests/edit/"+str(self.object.test.pk)
+
     def get_context_data(self, **kwargs):
         context = super(QuestionUpdate, self).get_context_data(**kwargs)
-        initial = [{'value': option.value, 'correct': option.is_correct} for option in self.object.option_set.all()]
+        initial = [{'value': option.value, 'correct': option.is_correct} for option in self.object.option_set.all().order_by('pk')]
         OptionFormSet = formset_factory(OptionForm, formset=BaseOptionFormSet)
         option_formset = OptionFormSet(initial=initial)
         option_formset.extra_forms.clear()
         context['option_formset'] = option_formset
         context['images'] = self.object.image_set.all()
+        self.object = self.get_object()
+        context['correct_option']="form-"+str(list(self.object.option_set.all().order_by("pk")).index(self.object.option_set.get(is_correct=True)))
         return context
 
-    #def post(self, request, *args, **kwargs):
-        # OptionFormSet = formset_factory(OptionForm, formset=BaseOptionFormSet)
-        # option_formset = OptionFormSet(request.POST)
-        # form = QuestionForm(request.POST)
-        # print(form)
-        # if option_formset.is_valid():
-        #     return super(QuestionUpdate, self).post(request, *args, **kwargs)
-        # else:
-        #     return render(request, "exams/editquestion.html", {'option_formset':option_formset, "form":form})
+    def post(self, request, *args, **kwargs):
+        OptionFormSet = formset_factory(OptionForm, formset=BaseOptionFormSet)
+        option_formset = OptionFormSet(request.POST, self.get_object())
+        form = QuestionForm(request.POST)
+        
+        self.object = self.get_object()
+        if option_formset.is_valid():
+            print(int(request.POST['correct'][5:]), "form")
+            old_correct = self.object.option_set.get(is_correct=True)
+            new_correct = self.object.option_set.all().order_by('pk')[int(request.POST['correct'][5:])]
+            print(new_correct.value)
+            old_correct.is_correct = False
+            new_correct.is_correct = True
+            old_correct.save()
+            new_correct.save()
+            for oform in option_formset:
+                x = self.object.option_set.all().order_by("pk")[int(oform.prefix[5:])]
+                x.value = oform.cleaned_data["value"]
+                x.save()
+
+            return HttpResponseRedirect(request.path)
+        else:
+            form.fields["statement"].widget=TextInput()
+            return render(request, "exams/editquestion.html", {'option_formset':option_formset, "form":form})
+    
     def form_valid(self, form):
         OptionFormSet = formset_factory(OptionForm, formset=BaseOptionFormSet)
         option_formset = OptionFormSet(self.request.POST)
@@ -179,6 +201,9 @@ class TestView(View):
             time_left = test.duration.total_seconds()+(dateandtime - datetime.datetime.now()).total_seconds()
             if resp.exists():
                 response = resp[0]
+                if response.submitted:
+                    if time_left>0:
+                        return HttpResponse("Your response was recorded. Check again for scores after the test is over.")
             else:
                 if time_left>0:
                     response = TestResponse.objects.create(student=student, test=test)
@@ -335,3 +360,19 @@ class DeAssignTestView(View):
         except:
             return Http404
         return HttpResponseRedirect("/tests/assign/"+testpk)
+
+class SubmitResponseView(View):
+    def get(self, request, responsepk, *args, **kwargs):
+        if(request.is_ajax()):
+            response = TestResponse.objects.get(pk=responsepk)
+            if response and not response.submitted:
+                    response.submitted = True
+                    marks = 0
+                    for ans in response.answer_set.all():
+                        ans.status="locked"
+                        ans.save()
+                        if ans.selected_option and ans.selected_option==Option.objects.get(question=ans.question, is_correct=True):
+                            marks+=1
+                    response.marks = marks
+                    response.save()
+            return JsonResponse({"submitted":True})
