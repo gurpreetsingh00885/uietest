@@ -36,22 +36,23 @@
 	<div id="num">
 	Total Questions: {{totalques}}
 	</div>
-		<center>Reference</center>
-		<table align="center" class="reftable">
+		<table align="center" class="reftable" style="margin-top: 8px;">
+		<th colspan="4"><center>Reference</center></th>
 		<tr align="center" valign="center">
 			<td><div class="unanswered" id="unans">x</div></td>
-			<td class="fnt">Unanswered</td>
+			<td class="fnt" style="text-align: left;">Unanswered</td>
 			<td><div class="locked" id="locke">y</div></td>
-			<td class="fnt">Locked</td>
+			<td class="fnt" style="text-align: left;">Locked</td>
 		</tr>
 		<tr align="center" valign="center">
 			<td><div class="review" id="revie">z</div></td>
-			<td class="fnt">To Be Reviewed</td>
+			<td class="fnt" style="text-align: left;">Review</td>
 			<td><div class="not_visited" id="unvis">w</div></td>
-			<td class="fnt">Unvisited</td>
+			<td class="fnt" style="text-align: left;">Unvisited</td>
 		</tr>
 		</table>
 	<hr/>
+	<center>
 	{% for answer in response.answer_set.all|reverseset %}
 	{% ifequal forloop.counter 1 %}
 	{% ifequal answer.status 'not_visited' %}
@@ -65,20 +66,20 @@
 	{% endifequal %}
 	{% endfor %}<br/>
 	</div>
+	</center>
 	<!--for viewing questions-->
-	<div id="questions">
+	<div id="topofscroll" style="background-color: #ddd; width: 80%; border-bottom: 1px solid black; border-left: 1px solid black; height: 36px; padding: 5px; position: fixed;"><h4 style="display: inline;">{{test.title}}</h4><p align="left" style="margin-left:100px; display: inline-block;">Question No.<b><span id="questionno">1</span></b></p><p align="right" style="display: inline-block; float:right;" id="timer"></p></div>
+	
+	<div id="questions" style="margin-top:32px;">
 	<div class="ScrollStyle" style="padding: 8px">
-	<div id="topofscroll"><p align="left" style="display: inline-block;">Question No.<b><span id="questionno">1</span></b></p><p align="right" style="display: inline-block; float:right;" id="timer"></p></div>
-	<hr/>
+	<br/>
 	<font face="Open Sans" size="4px">
-
-
 	<b><div id="statement">{{ questions.0.statement }}</div></b></font><br/>
 	<span id="question_pk" style="display: none;">{{ questions.0.pk }}</span>
 
 	<div id="images">
-		{% for imagefile in question.image_set.all %}
-		<img src="{{imagefile.image.url}}" height=250, width=400/><br/>
+		{% for imagefile in questions.0.image_set.all %}
+		<img src="{{imagefile.image.url}}" style='max-height:200px; max-width:250px;'/><br/>
 		{% endfor %}
 	</div>
 
@@ -91,13 +92,11 @@
 	</div>
 	</div>
 	<!--for buttons next,previous etc-->
-	<div id="bottom">
-	<center>
-		<button type="button" class="buttonlock" id="lock">Lock</button>
-		<button type="button" class="buttonwait" id="review">Review</button>
-		</center>
+	<div id="bottom" style="text-align: center">
+	<div style="display: inline-block; float: left; width:0px"><button type="button" class="buttonprevious" id="previous">previous</button></div>
+	<span><button type="button" class="buttonlock" id="lock">Lock</button>
+	<button type="button" class="buttonwait" id="review">Review</button></span>
 	<button type="button" class="buttonnext" id="skip">Next</button>
-	<button type="button" class="buttonprevious" id="previous">previous</button>
 	</div>
 	</div>
 
@@ -217,6 +216,48 @@
             });
 	}
 
+
+	function lock(ques_no, circle){
+		var ques_no_div = document.getElementById("question_pk");
+		var	selected_opt = document.querySelector('input[name="selected_option"]:checked');
+		if(selected_opt==null){
+			alert("No Option Selected!");
+			return;
+		}
+		else{
+			if(confirm("Do you really want to lock this response for this question? You won't be able to edit the response for this question later."))
+			{
+			selected_opt=selected_opt.value;
+			$("input:radio").attr('disabled', true);
+            $("#review").hide();
+            $("#lock").hide();
+			}
+			else{
+				return;
+			}
+		}
+		$.ajax({
+                url: "/tests/mark/",
+                type: 'POST',
+                data: {'status': "locked", 'questionpk': parseInt(ques_no_div.innerHTML), 'responsepk': parseInt("{{response.pk}}"), 'testpk': parseInt("{{test.pk}}"), 'selected_option': parseInt(selected_opt)},
+               		headers: { "X-CSRFToken": "{% csrf_token %}" },
+           			success: function(result2) {
+           				if(!circle){
+            				circle=document.getElementById(""+(ques_no));
+                		}
+                		if(circle){
+                			$(circle).removeClass();
+                			$(circle).addClass('question');
+                			$(circle).addClass("locked");
+                			$(".highlighted").removeClass('highlighted');
+							$(circle).addClass('highlighted');
+							updateNumbers();
+                    }
+                }
+            });
+	}
+
+
 	// function check()
 	// {
 	// document.getElementById('review').disabled=true;
@@ -233,10 +274,16 @@
 	// }
 
 	function load_question(next, status="unanswered", ques=false, circle=false) {
+		$("#review").show();
+        $("#lock").show();
 		div = document.getElementById("questionno");
 		var ques_no = parseInt(div.innerHTML);
 		if(status=="review"){
 			mark_for_review(ques_no, circle);
+			return;
+		}
+		else if(status=="locked"){
+			lock(ques_no, circle);
 			return;
 		}
 		var ques_no_div = document.getElementById("question_pk");
@@ -334,6 +381,12 @@
                		else if(status2=="unanswered"){
                			status=status2;
                		}
+               		else if(status2=="locked"){
+               			status=status2;
+               			$("input:radio").attr('disabled', true);
+               			$("#review").hide();
+               			$("#lock").hide();
+               		}
                		$.ajax({
                 			url: "/tests/mark/",
                 			type: 'POST',
@@ -351,6 +404,11 @@
 				       				$(circle).addClass('highlighted');
 				       				updateNumbers();
                     }
+                    if(status=="locked"){
+               			$("input:radio").attr('disabled', true);
+               			$("#review").hide();
+               			$("#lock").hide();
+               		}
                 }
             });
                 }
@@ -415,11 +473,17 @@
 	$("#review").click(function(e){
 		load_question(1, "review");
 	});
+
+	$("#lock").click(function(e){
+		load_question(1, "locked");
+	});
+
 	$("#termsradio").click(function(e){
 		$("#startbutton").disabled=false;
 		$("#startbutton").removeClass("disabled");
 	});
 	$("#1").addClass("highlighted");
+	$("#1").trigger("click");
 	updateNumbers();
 </script>
 
@@ -454,8 +518,9 @@ var x = setInterval(function() {
   	alert("code to submit test response will be added soon!");
   }
 }, 1000);
+{% if not accepted %}
 document.getElementById('termsradio').checked=false;
-	
+{% endif %}
 </script>
 
 </html>

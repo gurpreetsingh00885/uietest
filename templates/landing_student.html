@@ -12,9 +12,9 @@ Click <a href="/accounts/logout/">here</a> to logout.
 You will be able to take tests that you are assigned by your teachers and view your grades too.
 <br/><br/>
 <hr/>
-Tests Assigned:
 {% if student.group.test_set.all %}
-<table>
+Upcoming Tests<br/>
+<table border="1px" cellspacing="0px" cellpadding="3px">
 <tr><td><b>Title</b></td><td><b>Date</b></td><td><b>Time</b></td><td><b>Open</b></td></tr>
 {% for testi in student.group.test_set.all %}
 <tr><td>{{testi.title}}</td><td>{{testi.date}}</td><td>{{testi.time}}</td><td>
