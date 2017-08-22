@@ -37,11 +37,8 @@
 <div class="wrapper">
     <div class="sidebar" data-color="azure" data-image="">
 
-    <!--
+    <!--   you can change the color of the sidebar using: data-color="blue | azure | green | orange | red | purple" -->
 
-        Tip 1: you can change the color of the sidebar using: data-color="blue | azure | green | orange | red | purple"
-        Tip 2: you can also add an image u
-    -->
 
     	<div class="sidebar-wrapper">
             <div class="logo">
@@ -51,7 +48,7 @@
             </div>
 
             <ul class="nav">
-                <li class="active">
+                <li>
                     <a href="landing_student.html">
                         <i class="pe-7s-graph"></i>
                         <p>Dashboard</p>
@@ -67,11 +64,11 @@
                 <li>
                     <a href="test.html">
                         <i class="pe-7s-news-paper"></i>
-                        <p>test</p>
+                        <p>Test</p>
                     </a>
                 </li>
 
-                <li>
+                <li class="active">
                     <a href="notifications.html">
                         <i class="pe-7s-bell"></i>
                         <p>Notifications</p>
@@ -80,7 +77,7 @@
 				<li class="active-pro">
                     <a href="">
                         <i class="pe-7s-culture"></i>
-                        <p>Panjab University</p>
+                        <p>panjab university</p>
                     </a>
                 </li>
             </ul>
@@ -88,11 +85,11 @@
     </div>
 
     <div class="main-panel">
-        <nav class="navbar navbar-default navbar-fixed">
+		<nav class="navbar navbar-default navbar-fixed">
             <div class="container-fluid">
                 <div class="navbar-header">
 
-                    <a class="navbar-brand" href="#">Dashboard</a>
+                    <a class="navbar-brand" href="#">Notifications</a>
                 </div>
                 <div class="collapse navbar-collapse">
 
@@ -104,10 +101,11 @@
                             </a>
                         </li>
 
-                                <li><a href="/accounts/logout/">Log out</a></li>
-                              </ul>
+                        <li>
+                            <a href="#">
+                                <p>Log out</p>
+                            </a>
                         </li>
-
 						<li class="separator hidden-lg hidden-md"></li>
                     </ul>
                 </div>
@@ -115,71 +113,60 @@
         </nav>
 
 
-
-				<div class="content">
-						<div class="container-fluid">
-							<h2 style="display: inline-block;">Hi, {{student.name}}</h2>&nbsp;&nbsp;({{student.roll_no}})<br/>
-
-							<h3>You can download your registration form  <a href="/accounts/pdf/{{student.pk}}/{{student.phone_no}}">here</a>.<br/><br/></h3>
-
-								<div class="row">
-										<div class="col-md-12">
-												<div class="card">
-														<div class="card-header" data-background-color="blue">
-																<h4 class="title">Upcoming Tests</h4>
-																<p class="category">Last updated 2hrs ago</p>
-														</div>
-														<div class="card-content table-responsive table-full-width">
-																<table class="table table-hover">
-
-																		<tbody>
-																			{%if student.group.test_set.all|count_test %}
-<table border="" cellspacing="" cellpadding="10px">
-<tr><td><b>Title</b></td><td><b>Date</b></td><td><b>Time</b></td><td><b>Open</b></td></tr>
-{% for testi in student.group.test_set.all %}
-{% if not testi|is_over %}
-<tr><td>{{testi.title}}</td><td>{{testi.date}}</td><td>{{testi.time}}</td><td>
-<a onclick="window.open('/tests/res/{{testi.pk}}/', '_blank', 'location=no,height=700,width=1200,scrollbars=yes,status=no');" style="color: blue;">open</span></a>
-</td></tr>
-{% endif %}
-{% endfor %}
-</table>
-{% else %}
-None
-{% endif %}
+        <div class="content">
+            <div class="container-fluid">
+                <div class="card">
+                    <div class="card-header" data-background-color="blue">
+                        <h4 class="title">Notifications</h4>
 
 
-																		</tbody>
-																</table>
-
-														</div>
-												</div>
-										</div>
+                    </div>
+                </div>
+            </div>
+        </div>
 
 
+        <footer class="footer">
+            <div class="container-fluid">
+                <nav class="pull-left">
+                    <ul>
+                        <li>
+                            <a href="#">
+                                Home
+                            </a>
+                        </li>
+                        <li>
+                            <a href="#">
+                                Profile
+                            </a>
+                        </li>
+                        <li>
+                            <a href="#">
+                                Notifications
+                            </a>
+                        </li>
+                        <li>
+                            <a href="#">
 
+                            </a>
+                        </li>
+                    </ul>
+                </nav>
+                <p class="copyright pull-right">
+                    &copy; <script>document.write(new Date().getFullYear())</script> <a href="">UIET EDU</a>, made with love by IT department
+                </p>
+            </div>
+        </footer>
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+    </div>
+</div>
 
 
 </body>
 
-    <!--   Core JS Files   -->
+        <!--   Core JS Files   -->
     <script src="/static/js/jquery-1.10.2.js" type="text/javascript"></script>
-	<script src="/static/js/bootstrap.min.js" type="text/javascript"></script>
+	<script src="/static/js/bootstrap1.min.js" type="text/javascript"></script>
 
 	<!--  Checkbox, Radio & Switch Plugins -->
 	<script src="/static/js/bootstrap-checkbox-radio-switch.js"></script>
@@ -198,9 +185,5 @@ None
 
 	<!-- Light Bootstrap Table DEMO methods, don't include it in your project! -->
 	<script src="/static/js/demo.js"></script>
-
-	<script type="text/javascript">
-    	
-	</script>
 
 </html>
