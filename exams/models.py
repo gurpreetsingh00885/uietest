@@ -42,6 +42,8 @@ class TestResponse(models.Model):
     student = models.OneToOneField(Student, default=None, on_delete=models.CASCADE, blank=False)
     test = models.OneToOneField(Test, on_delete=models.CASCADE, blank=False)
     accepted = models.BooleanField(default=False)
+    submitted = models.BooleanField(default=False)
+    marks = models.IntegerField(default=0)
     
 class Answer(models.Model):
 

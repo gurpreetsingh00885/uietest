@@ -13,6 +13,8 @@ from django.views import View
 import datetime, json
 
 
+
+
 def add_question(request, pk):
     try:
         if not Faculty.objects.filter(user=request.user).exists():
@@ -83,7 +85,8 @@ def add_test(request):
     if request.method == 'POST':
         form = TestForm(request.POST)
         if form.is_valid():
-            Test.objects.create(title=form.cleaned_data['title'], owner=owner, duration=form.cleaned_data['duration'], time=form.cleaned_data['time'], date=form.cleaned_data['date']).save()
+            test = Test.objects.create(title=form.cleaned_data['title'], owner=owner, duration=form.cleaned_data['duration'], time=form.cleaned_data['time'], date=form.cleaned_data['date']).save()
+            #dateandtime = datetime.datetime(test.date.year, test.date.month, test.date.day, test.time.hour, test.time.minute, test.time.second)
             return HttpResponse("Added Test")           
     else:
         form = TestForm()
@@ -173,13 +176,30 @@ class TestView(View):
             resp = TestResponse.objects.filter(student=student, test=test)
             questions = test.question_set.all()
             total_questions = questions.count()
+            time_left = test.duration.total_seconds()+(dateandtime - datetime.datetime.now()).total_seconds()
             if resp.exists():
                 response = resp[0]
             else:
-                response = TestResponse.objects.create(student=student, test=test)
-                for question in questions:
-                    Answer.objects.create(response=response, question=question)
-            time_left = test.duration.total_seconds()+(dateandtime - datetime.datetime.now()).total_seconds()
+                if time_left>0:
+                    response = TestResponse.objects.create(student=student, test=test)
+                    for question in questions:
+                        Answer.objects.create(response=response, question=question)
+            if(time_left<=0):
+                if response and not response.submitted:
+                    for response in TestResponse.objects.filter(test=Test.objects.get(pk=test.pk)):
+                        response.submitted = True
+                        marks = 0
+                        print(response.answer_set.all())
+                        for ans in response.answer_set.all():
+
+                            ans.status="locked"
+                            ans.save()
+                            if ans.selected_option is not None and ans.selected_option==Option.objects.get(question=ans.question, is_correct=True):
+                                marks+=1
+                        response.marks = marks
+                        response.save()
+                return HttpResponse("This test is over. You %s." %("were Absent" if not response else "scored %d/%d marks."%(response.marks, response.answer_set.all().count())))
+
             data = [
                 {
                     'statement': question.statement,
