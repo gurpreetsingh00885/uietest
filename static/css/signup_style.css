@@ -24,9 +24,6 @@ p{
   text-rendering: optimizeLegibility;
    color: darkred;
     letter-spacing: .05em;
-    font-family: sans-serif;
-    text-shadow: 1px 1px 1px black;
-
   }
 
 .error {
@@ -44,7 +41,8 @@ input[type=password], input[type=text], input[type=email], textarea {
   outline: none;
   padding: 3px 0px 3px 3px;
   margin: 5px 1px 3px 0px;
-  border: 1px solid #DDDDDD;
+  background: #29B6F6;
+  border: 1px solid ;
 }
 
 input[type=text]:focus, input[type=password]:focus, input[type=email]:focus, textarea:focus {
@@ -64,9 +62,7 @@ label{
   float: left;
 }
 body {
-  background-image:url("/static/img/wood.jpeg");
-  background-size: cover;
-	background-repeat: no-repeat;
+  background: #29B6F6;
   font-family: 'Titillium Web', sans-serif;
 }
 
@@ -132,8 +128,8 @@ ul{
   font-weight: 600;
   text-transform: uppercase;
   letter-spacing: .1em;
-  background: olivedrab;
-  color: khaki;
+  background: #29B6F6;
+  color: #ffffff;
   -webkit-transition: all 0.5s ease;
   transition: all 0.5s ease;
   -webkit-appearance: none;

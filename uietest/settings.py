@@ -34,8 +34,10 @@ INSTALLED_APPS = [
     'allauth.socialaccount',
 
     'registration',
+    'exams',
 
     'widget_tweaks',
+    'preventconcurrentlogins',
 ]
 
 ACCOUNT_EMAIL_REQUIRED = True
@@ -60,6 +62,7 @@ MIDDLEWARE = [
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
     'registration.middleware.NoIfModifiedSinceMiddleware',
+    'preventconcurrentlogins.middleware.PreventConcurrentLoginsMiddleware',
 ]
 
 ROOT_URLCONF = 'uietest.urls'
@@ -96,7 +99,6 @@ DATABASES = {
         'PORT': '',
     }
 }
-
 
 # Password validation
 # https://docs.djangoproject.com/en/1.11/ref/settings/#auth-password-validators
@@ -139,3 +141,7 @@ STATIC_URL = '/static/'
 STATIC_ROOT = os.path.join(os.path.dirname(os.path.dirname(os.path.abspath(__file__))), 'staitic')
 
 SITE_ID = 1
+
+MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
+
+MEDIA_URL = '/media/'

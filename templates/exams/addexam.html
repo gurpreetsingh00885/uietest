@@ -1,0 +1,18 @@
+
+<html>
+<head>
+
+</head>
+<body>
+	<form action="/tests/add/" method="post" id="add_test_form">
+	{% csrf_token %}
+	{{ form.title.label_tag }} {{ form.title }} {{ form.title.errors }}<br/><br/>
+	{{ form.date.label_tag }} {{ form.date }} (yyyy-mm-dd) {{ form.date.errors }}<br/><br/>
+	{{ form.time.label_tag }} {{ form.time }} (hh:mm:ss, 24hr) {{ form.time.errors }}<br/><br/>
+	{{ form.duration.label_tag }} {{ form.duration }} (hh:mm:ss) {{ form.duration.errors }}<br/><br/>
+
+	<input type="submit" id="submit_test_form" value="Create Test"/>
+
+	</form>
+</body>
+</html>
