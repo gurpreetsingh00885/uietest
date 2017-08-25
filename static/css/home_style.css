@@ -60,9 +60,9 @@ text-shadow: 1px 1px 2px black, 0 0 25px black, 0 0 5px black;
   border: none;
   color: #FFFFFF;
   text-align: center;
-  font-size: 23px;
-  padding: 18px;
-  width: 200px;
+  font-size: 20px;
+  padding: 14px;
+  width: 160px;
   transition: all 0.5s;
   cursor: pointer;
   margin: 6px;
@@ -79,7 +79,8 @@ text-shadow: 1px 1px 2px black, 0 0 25px black, 0 0 5px black;
   opacity: 0;
   top: 0;
   right: -20px;
-  transition: 0.5s;
+  transition: 0.2s;
+  color:black;
 }
 
 .button:hover span {
@@ -91,8 +92,8 @@ text-shadow: 1px 1px 2px black, 0 0 25px black, 0 0 5px black;
   right: 0;
 }
 .button:hover {
-    background-color: #FFE57F; /* Green */
-    color: white;
+    background-color: #FFE57F; 
+    color: black;
 }
 
 body{
