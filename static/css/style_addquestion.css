@@ -33,13 +33,15 @@ li{
   float: right;
   margin-right: 10px;
   text-decoration: none;
-  padding-top: 10px;
+  
+  font-size: 30px;
+  color: red;
 }
 
 body {
   
   font-family: "RobotoDraft","Roboto",'Helvetica Neue',sans-serif;
-  background-color: powderblue;
+  background-color: #29B6F6;
   font-size: 15px;
 }
 
@@ -184,10 +186,12 @@ h1, h2, h3, h4 {
   overflow: hidden;
 }
 .item{
-  background-color: #E4EAF0;
-  padding-left: 0px;
-  padding-bottom: 20px;
-
+    background-color: rgba(19, 35, 47,0.9);
+    color:white;
+    padding-top: 10px;
+    display: inline-block;
+    box-shadow: 1px 1px grey;
+    padding-right: 10px;
 }
 
 button{
