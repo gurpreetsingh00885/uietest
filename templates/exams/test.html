@@ -26,7 +26,7 @@
 <div style="position: fixed; top: 0; bottom: 0; left: 0; right: 0;">
 <!--main division-->
 	<ul>
-		<li><a class="fa fa-info-circle" id="instr" style="font-size:20px;color:#f44336; float: right; padding:15px;" data-toggle="modal" data-target="#exampleModalLong"style="width:90%;"> Instructions</a></li>
+		<li><a class="fa fa-info-circle" id="instr" style="font-size:20px;color:#f44336; float: right; padding:15px;" data-toggle="modal" data-target="#exampleModalLong" style="width:90%;"> Instructions</a></li>
 		<li><a class="fa fa-user-circle" style="font-size:20px;color:#4FC3F7; float: right; padding:15px;" data-toggle="modal" data-target="#myModal"> Profile</a></li>
 		<li class="l"><h4 id="titletext">University Institute of Engineering and Technology</h4></li>
 	</ul>
@@ -68,8 +68,9 @@
 	</div>
 	</center>
 	<!--for viewing questions-->
-	<div id="topofscroll" style="background-color: #ddd; width: 80%; border-bottom: 1px solid black; border-left: 1px solid black; height: 36px; padding: 5px; position: fixed;"><h4 style="display: inline;">{{test.title}}</h4><p align="left" style="margin-left:100px; display: inline-block;">Question No.<b><span id="questionno">1</span></b></p><p align="right" style="display: inline-block; float:right;" id="timer"></p></div>
-	
+	<div id="topofscroll" style="background-color: #ddd; width: 80%; border-bottom: 1px solid black; border-left: 1px solid black; height: 36px; padding: 5px; position: fixed;"><h4 style="display: inline;">{{test.title}}</h4><p align="left" style="margin-left:100px; display: inline-block;">Question No.<b><span id="questionno">1</span></b></p><p align="right" style="display: inline-block; float:right;" id="timer"></p>
+	</div>
+	<div class="gap"></div>
 	<div id="questions" style="margin-top:32px;">
 	<div class="ScrollStyle" style="padding: 8px">
 	<br/>
@@ -93,10 +94,10 @@
 	</div>
 	<!--for buttons next,previous etc-->
 	<div id="bottom" style="text-align: center">
-	<div style="display: inline-block; float: left; width:0px"><button type="button" class="buttonprevious" id="previous">previous</button></div>
-	<span><button type="button" class="buttonlock" id="lock">Lock</button>
-	<button type="button" class="buttonwait" id="review">Review</button></span>
-	<button type="button" class="buttonnext" id="skip">Next</button>
+	<div style="display: inline-block; float: left; width:0px"><button type="button" class="button" id="previous">Previous</button></div>
+	<span><button type="button" class="button" id="lock">Lock</button>
+	<button type="button" class="button" id="review">Review</button></span>
+	<button type="button" class="button" id="skip">Next</button>
 	</div>
 	</div>
 
