@@ -60,6 +60,7 @@ select {
             {%csrf_token%}
             <table cellpadding="6x" align="center">
             {% for field in form %}
+            <span class="highlight"></span>
         <div class="fieldWrapper" style="margin: 22px;">
             {{ field }}
             {{ field.errors }}

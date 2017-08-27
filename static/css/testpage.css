@@ -6,15 +6,24 @@ body{
     cursor: pointer;
 }
 
-
-ul {
+#titletext{
+    margin: 0px;
+    display: block;
+    color: white;
+    text-align: center;
+    padding: 14px 16px;
+    text-decoration: none;
+}
+ul:not([margin]) {
     list-style-type: none;
-    margin: 0;
-    padding: 0;
+    margin: 0px;
+    padding: 0px;
     overflow: hidden;
     background-color: #333;
 }
-
+ol {
+    margin-bottom: 0px;
+}
 li {
     float: right;
 }
@@ -22,6 +31,7 @@ li {
 li a {
     display: block;
     color: white;
+    cursor: pointer;
     text-align: center;
     padding: 14px 16px;
     text-decoration: none;
@@ -30,23 +40,33 @@ li a {
 /* Change the link color to #111 (black) on hover */
 li a:hover {
     background-color: #111;
+    text-decoration: none;
 }
 
 .two{
-    width: 25%;
+    width: 20%;
     height: 100%;
-    background-color: #ffffb3;
+    background-color: white;
     float: right;
     border-left: 1px solid black;
 }
 .l{
     float: left;
 }
+.gap
+{
+    width: 3%;
+    background-color: white;
+    float: left;
+    height: 84%;
+
+}
+
 
 #bottom {
     height: 20%;
     width:100%;
-    background-color:#ffe6ff;
+    background-color:white;
 }
 #questions{
     height:80%;
@@ -55,14 +75,18 @@ li a:hover {
 }
 #num{
     height: 5%;
-    background-color: #ccffcc;
+    background-color:#29B6F6;
     border-bottom: 0.5px solid black;
     text-align: center;
-    font-weight: bold;
+    font-weight: bolder;
+    text-transform: uppercase;
     padding: 4px;
+    font-size: 15px;
+    color: white;
     padding-bottom: 0px;
 }
 .unanswered{
+    margin: 3px;
     color: white; 
     line-height: 30px;
     width: 30px; 
@@ -71,9 +95,11 @@ li a:hover {
     -moz-border-radius: 15px; 
     -webkit-border-radius: 15px; 
     border-radius: 15px;
+    border: 1px solid red;
 
 } 
 .locked{ 
+    margin: 3px;
     width: 30px; 
     line-height: 30px;
     height: 30px; 
@@ -82,18 +108,22 @@ li a:hover {
     -moz-border-radius: 15px; 
     -webkit-border-radius: 15px; 
     border-radius: 15px;
+    border: 1px solid green;
 } 
 .review{ 
+    margin: 3px;
     width: 30px;
     line-height: 30px;
-    color: white; 
+    color: black; 
     height: 30px; 
-    background: brown;
+    background: yellow;
     -moz-border-radius: 15px; 
     -webkit-border-radius: 15px; 
     border-radius: 15px;
+    border: 1px solid yellow;
 } 
-.not_visited{ 
+.not_visited{
+    margin: 3px;
     color: white;
     width: 30px; 
     line-height: 30px;
@@ -102,97 +132,69 @@ li a:hover {
     -moz-border-radius: 15px; 
     -webkit-border-radius: 15px; 
     border-radius: 15px;
+    border: 1px solid gray;
 }
 
 .highlighted{
+    margin: 0px;
     height: 36px;
     width:36px;
     border-radius: 18px;
     line-height: 36px;
+    box-shadow: 2px 2px 2px grey;
 } 
 .fnt{
     font-size: 13px;
     padding: 5px;
 }
-.buttonlock{
-    background-color: powderblue;
-    border: none;
-    color: black;
-    padding: 7px 15px;
-    text-align: center;
-    text-decoration: none;
+.button {
+
+
     display: inline-block;
-    font-size: 16px;
-    border-radius: 5px;
-    margin-top: 5px;
-    float: right;
-    margin-right: 5px;
-    box-shadow: 1px 1px 1px grey;
-    text-transform: uppercase;
+  border-radius: 25px;
+  background-color: #29B6F6;
+  border: none;
+  font-weight: bold;
+  color: #FFFFFF;
+  text-align: center;
+  font-size: 18px;
+  padding: 10px;
+  width: 140px;
+  transition: all 0.5s;
+  cursor: pointer;
+  margin: 6px;
+  text-transform: none;
 }
-.buttonlock:hover{
-    background-color: #13c10d;
-    color:white;
+.button span {
+  cursor: pointer;
+  display: inline-block;
+  position: relative;
+  transition: 0.5s;
 }
-.buttonnext{
-    background-color: powderblue;
-    border: none;
-    color: black;
-    padding: 7px 15px;
-    text-align: center;
-    text-decoration: none;
-    display: inline-block;
-    font-size: 16px;
-    border-radius: 5px;
-    margin-top: 5px;
-    float: right;
-    margin-right: 5px;
-    box-shadow: 1px 1px 1px grey;
-    text-transform: uppercase;
+.button span:after {
+  content: '\00bb';
+  position: absolute;
+  opacity: 0;
+  top: 0;
+  right: -20px;
+  transition: 0.2s;
+  color:black;
 }
-.buttonnext:hover{
-    background-color: #3cadf7;
-    color:white;
+
+.button:hover span {
+  padding-right: 25px;
 }
-.buttonwait{
-    background-color: powderblue;
-    border: none;
-    color: black;
-    padding: 7px 15px;
-    text-align: center;
-    text-decoration: none;
-    display: inline-block;
-    font-size: 16px;
-    border-radius: 5px;
-    margin-top: 5px;
-    float: right;
-    margin-right: 5px;
-    box-shadow: 1px 1px 1px grey;
-    text-transform: uppercase;
+
+.button:hover span:after {
+  opacity: 1;
+  right: 0;
 }
-.buttonwait:hover{
-    background-color: yellow;
-    color:black;
+.button:hover {
+    background-color: #1248C4  ; 
+    color: white;
+    font-weight: bolder;
 }
-.buttonprevious{
-    background-color: powderblue;
-    border: none;
-    color: black;
-    padding: 7px 15px;
-    text-align: center;
-    text-decoration: none;
-    display: inline-block;
-    font-size: 16px;
-    border-radius: 5px;
-    margin-top: 5px;
-    margin-right: 5px;
-    box-shadow: 1px 1px 1px grey;
-    text-transform: uppercase;
-}
-.buttonprevious:hover{
-    background-color: #3cadf7;
-    color:white;
-}
+
 .ScrollStyle
 {
     height: 100%;
@@ -201,4 +203,41 @@ li a:hover {
 }
 td:not([padding]) {
   padding: 2px;
+}
+
+input[type="radio"]:not([text-align]){
+    text-align: center;
+}
+
+.modal-dialog:not([width]){
+    width: 80%;
+    overflow: hidden;
+}
+
+.disabled{
+    background-color: gray;
+    color: white;
+    border: 0px;
+}
+.disabled:before{
+    background-color: gray;
+    color: white;
+    border: 0px;
+}
+.disabled:hover{
+    background-color: gray;
+    color: white;
+    border: 0px;
+}
+
+.disabled:focus{
+    background-color: gray;
+    color: white;
+    border: 0px;
+}
+
+.disabled:active{
+    background-color: gray;
+    color: white;
+    border: 0px;
 }

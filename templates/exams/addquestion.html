@@ -8,11 +8,11 @@
 
     <script src="/static/js/addques.js"></script>
 
-<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.5.0/jquery.min.js"></script>
+<script type="text/javascript" src="/static/js/jquery.min.js"></script>
 <script type="text/javascript" src="/static/js/formset.js">
 </script>
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/normalize/5.0.0/normalize.min.css">
-<link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+  <link rel="stylesheet" href="/static/css/normalize.min.css">
+<link rel="stylesheet" href="/static/css/w3.css">
 
       <link rel="stylesheet" href="/static/css/style_addquestion.css">
 
@@ -25,11 +25,10 @@
 <br>
 <br>
 <br>
-<br>
 
   <div class="material-tabs">
   <div class="tabbed-section__selector">
-    <a class="tabbed-section__selector-tab-1 active" href="#">MCQ</a>
+    <a class="tabbed-section__selector-tab-1 active" href="#">MCQs</a>
 
     <span class="tabbed-section__highlighter"></span>
   </div>
@@ -40,9 +39,9 @@
     {% csrf_token %}
     <h3>Question</h2>
 <br>
-    {% render_field question_form.statement type="textarea" rows="3" cols="50" placeholder="Question Statement" %}{{question_form.statement.errors}}
+    {% render_field question_form.statement type="textarea" rows="3" cols="50" placeholder="Enter Question Statement" %}{{question_form.statement.errors}}
 <br>
-<h3>Images (optional)</h3>
+<h3>Add Image/s (optional)</h3>
 {{ image_fromset.management_form }}
 
 {% for imageform in image_formset %}
@@ -59,18 +58,18 @@
 {% for form in option_formset.forms %}
 
 <div class="item">
-  {% render_field form.correct %}{{form.correct.errors}}
-  {% render_field form.value type="textarea" rows="1" cols="50"%}{{form.value.errors}}
-
-  <p style=""><a class="delete" href="#">Remove</a></p>
+  {% render_field form.correct %}{{form.correct.errors}}&nbsp;&nbsp;
+  {% render_field form.value type="textarea" rows="1" cols="50"%}
+  {{form.value.errors}}
+  &nbsp;<a class="delete" href="#">&#x2715;</a>
 </div>
 
 {% endfor %}
-<p><a id="add" href="#">Add another item</a></p>
+<center><a id="add" href="#">Add another item</a></center>
 <center>
            <button class="btn btn-lg btn-primary">Save</button>
 
-           <button class="btn btn-lg btn-danger">Cancel</button>
+           <button class="btn btn-lg btn-primary">Cancel</button>
        </center>
   </form>
   </div>

@@ -7,26 +7,26 @@ html {
 }
 
 body {
-  background-image: url("/static/img/wood.jpeg");
-  background-size: cover;
-	background-repeat: no-repeat;
-  font-family: 'Titillium Web', sans-serif;
+  background: url("/static/img/ggg.jpg") no-repeat center center fixed;
+	 background-size: cover;
+  font-family: 'Quicksand', sans-serif;
 }
 
 a {
   text-decoration: none;
-  color: olivedrab;
+  color: #29B6F6;
   -webkit-transition: .5s ease;
   transition: .5s ease;
 }
 a:hover {
-  color: darkred;
+  color: #0288D1;
 }
 
 .form {
-  background-color: moccasin;
-  padding: 40px;
-  max-width: 600px;
+  background: rgba(19, 35, 47,0.9);
+
+  padding: 47px;
+  max-width: 650px;
   margin: 40px auto;
   border-radius: 4px;
   box-shadow: 0 4px 10px 4px rgba(19, 35, 47, 0.3);
@@ -45,24 +45,24 @@ a:hover {
 .tab-group li a {
   display: block;
   text-decoration: none;
-  padding: 7px;
-  background: khaki;
-  color: olivedrab;
+  padding: 14px;
+  background: rgba(160, 179, 176, 0.25);
+  color: #a0b3b0;
   float: left;
   width: 50%;
   text-align: center;
   cursor: pointer;
   -webkit-transition: .5s ease;
   transition: .5s ease;
-  font-size: 15px;
+  font-size: 16px;
 }
 .tab-group li a:hover {
-  background: olivedrab;
-  color: khaki;
+  background: #0288D1;
+  color: #ffffff;
 }
 .tab-group .active a {
-  background: olivedrab;
-  color: khaki;
+  background: #29B6F6;
+  color: #ffffff;
 }
 
 .tab-content > div:last-child {
@@ -74,7 +74,7 @@ h1 {
   color: darkred;
   font-weight: 300;
   margin: 0 0 40px;
-  font-size: 15px;
+  font-size: 20px;
 }
 
 label {
@@ -91,7 +91,7 @@ label {
 }
 label .req {
   margin: 2px;
-  color: darkred;
+  color: #29B6F6;
 }
 
 label.active {
@@ -110,7 +110,7 @@ label.highlight {
 
 input, textarea {
   position: static;
-  font-size: 15px;
+  font-size: 18px;
   display: block;
   width: 100%;
   height: 100%;
@@ -125,7 +125,7 @@ input, textarea {
 }
 input:focus, textarea:focus {
   outline: 0;
-  border-color: darkred;
+  border-color: #29B6F6;
 }
 
 textarea {
@@ -199,23 +199,30 @@ textarea {
 .button {
   border: 0;
   outline: none;
-  border-radius: 5px;
+  border-radius: 100px;
   padding: 5px;
-  font-size: 15px;
-  font-weight: 600;
+  font-size: 18px;
   text-transform: uppercase;
   letter-spacing: .1em;
-  background: olivedrab;
-  color: khaki;
+  background: #29B6F6;
+  color: #ffffff;
   -webkit-transition: all 0.5s ease;
   transition: all 0.5s ease;
   -webkit-appearance: none;
-  height: 40px;
-  width: 120px;
+  height: 49px;
+  width: 149px;
+  display: inline-block;
+
+  cursor: pointer;
 }
 .button:hover, .button:focus {
-  background: saddlebrown;
-  color:khaki;
+  background-color: #FFE57F; /* Green */
+  color: black;
+  padding-right: 25px;
+  cursor: pointer;
+  display: inline-block;
+  position: relative;
+  transition: 0.5s;
 }
 
 .button-block {
@@ -277,7 +284,7 @@ background-color: moccasin;
   font-weight: 600;
   text-transform: uppercase;
   letter-spacing: .1em;
-  background: #1ab188;
+  background: #29B6F6;
   color: #ffffff;
   -webkit-transition: all 0.5s ease;
   transition: all 0.5s ease;
@@ -286,7 +293,7 @@ background-color: moccasin;
   width: 250px;
 }
 .button1:hover, .button1:focus {
-  background: #179b77;
+  background: #0288D1;
 }
 
 .button1-block {
@@ -303,7 +310,7 @@ background-color: moccasin;
   font-weight: 600;
   text-transform: uppercase;
   letter-spacing: .1em;
-  background: #1ab188;
+  background: #29B6F6;
   color: #ffffff;
   -webkit-transition: all 0.5s ease;
   transition: all 0.5s ease;
@@ -312,7 +319,7 @@ background-color: moccasin;
   width: 180px;
 }
 .button2:hover, .button1:focus {
-  background: #c1bdba;
+  background: #29B6F6;
   color: black;
 }
 
@@ -344,7 +351,7 @@ label[for="id_email"]
   font-weight: 600;
   text-transform: uppercase;
   letter-spacing: .1em;
-  background: #1ab188;
+  background: #29B6F6;
   color: #ffffff;
   -webkit-transition: all 0.5s ease;
   transition: all 0.5s ease;
@@ -353,11 +360,41 @@ label[for="id_email"]
   width: 250px;
 }
 .button3:hover, .button1:focus {
-  background: #c1bdba;
+  background: #29B6F6;
   color: black;
 }
-
 .button3-block {
   display: block;
 
+}
+/*Higlighters*/
+.highlight {
+  position:absolute;
+  height:60%; 
+  width:100px; 
+  top:25%; 
+  left:0;
+  pointer-events:none;
+  opacity:0.5;
+}
+
+/* active state */
+input:focus ~ .highlight {
+  -webkit-animation:inputHighlighter 0.3s ease;
+  -moz-animation:inputHighlighter 0.3s ease;
+  animation:inputHighlighter 0.3s ease;
+}
+
+/* ANIMATIONS ================ */
+@-webkit-keyframes inputHighlighter {
+  from { background:#5264AE; }
+  to  { width:0; background:transparent; }
+}
+@-moz-keyframes inputHighlighter {
+  from { background:#5264AE; }
+  to  { width:0; background:transparent; }
+}
+@keyframes inputHighlighter {
+  from { background:#5264AE; }
+  to  { width:0; background:transparent; }
 }
