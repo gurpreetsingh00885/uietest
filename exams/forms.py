@@ -16,15 +16,13 @@ class OptionForm(forms.Form):
     value = forms.CharField(max_length=100, strip=True, widget=forms.Textarea(attrs={"placeholder":"Option"}))
     def __init__(self, *args, **kwargs):
         super(OptionForm, self).__init__(*args, **kwargs)
-
-        self.fields['correct'] = forms.BooleanField( widget = forms.RadioSelect(choices=((self.prefix, 'Correct'),)))
+        self.fields['correct'] = forms.BooleanField(widget = forms.RadioSelect(choices=((self.prefix, 'Correct'),)))
 
     def add_prefix(self, field):
         if field == 'correct':
         	return field
         else: 
         	return self.prefix and ('%s-%s' % (self.prefix, field)) or field
-
 
 class AssignForm(forms.Form):
     group = forms.ModelChoiceField(queryset=StudyGroup.objects.all(), required=True, empty_label=None)

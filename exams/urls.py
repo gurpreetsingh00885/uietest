@@ -1,6 +1,6 @@
 from django.conf.urls import url, include
 from django.conf import settings
-from .views import add_question, add_test, edit_test, edit_question, TestView, MarkQuestionView, AnswerStatus, Accepted, AssignTestView, DeAssignTestView
+from .views import add_question, add_test, edit_test, edit_question, TestView, MarkQuestionView, AnswerStatus, Accepted, AssignTestView, DeAssignTestView, SubmitResponseView, ResultView
 from django.views.decorators.csrf import csrf_exempt
 
 
@@ -15,5 +15,7 @@ urlpatterns = [
 	url(r'^accepted/(?P<pk>[-\w]+)/', csrf_exempt(Accepted.as_view())),
 	url(r'^assign/(?P<pk>[-\w]+)/', AssignTestView.as_view()),
 	url(r'^deassign/(?P<testpk>[-\w]+)/(?P<grouppk>[-\w]+)/', DeAssignTestView.as_view()),
+	url(r'^submit/(?P<responsepk>[-\w]+)/', SubmitResponseView.as_view()),
+	url(r'^result/(?P<responsepk>[-\w]+)/', ResultView.as_view()),
 ] 
 

@@ -1,11 +1,6 @@
+{% extends "landing_faculty.html" %}
 {% load widget_tweaks %}
-
-<!DOCTYPE html>
-<html >
-<head>
-  <meta charset="UTF-8">
-  <title>Add Question</title>
-
+{% block scriptpre %}
     <script src="/static/js/addques.js"></script>
 
 <script type="text/javascript" src="/static/js/jquery.min.js"></script>
@@ -17,10 +12,8 @@
       <link rel="stylesheet" href="/static/css/style_addquestion.css">
 
 
-
-</head>
-
-<body>
+{% endblock %}
+{% block content %}
   <div class="material-tabs">
   <div class="tabbed-section__selector">
     <a class="tabbed-section__selector-tab-1 active" href="#">MCQs</a>
@@ -64,13 +57,14 @@
 <center>
            <button class="btn btn-lg btn-primary">Save</button>
 
-           <button class="btn btn-lg btn-primary">Cancel</button>
+           <button class="btn btn-lg btn-danger" type="reset">Clear</button>
        </center>
   </form>
   </div>
 
   </div>
 </div>
-
-</body>
-</html>
+{% endblock %}
+{% block name %}
+{{test.owner.name}}
+{% endblock %}

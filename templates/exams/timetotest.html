@@ -2,6 +2,20 @@
 <html>
 <head>
 	<title></title>
+
+	<link rel="stylesheet" type="text/css" href="/static/css/testpage.css"/>
+	<script type="text/javascript" src="/static/js/jquery.min.js"></script>
+
+<!-- Latest compiled and minified CSS -->
+<link rel="stylesheet" href="/static/css/bootstrap.min.css" crossorigin="anonymous">
+
+<!-- Optional theme -->
+<link rel="stylesheet" href="/static/css/bootstrap-theme.min.css" crossorigin="anonymous">
+
+<!-- Latest compiled and minified JavaScript -->
+<script src="/static/js/bootstrap.min.js" crossorigin="anonymous"></script>
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 <style type="text/css">
 body{
   text-align: center;
@@ -10,7 +24,7 @@ body{
 }
 
 h1{
-  color: #39f;
+  color: #01579B;
   font-weight: 100;
   font-size: 40px;
   margin: 40px 0px 20px;
@@ -28,14 +42,14 @@ h1{
 #clockdiv > div{
   padding: 10px;
   border-radius: 3px;
-  background: #00BF96;
+  background: #4FC3F7;
   display: inline-block;
 }
 
 #clockdiv div > span{
   padding: 15px;
   border-radius: 3px;
-  background: #00816A;
+  background: #01579B;
   display: inline-block;
 }
 
@@ -51,6 +65,18 @@ h1{
 
 </head>
 <body>
+	<div style="position: fixed; top: 0; bottom: 0; left: 0; right: 0;">
+
+	<ul>
+		<li><a class="fa fa-info-circle" id="instr" style="font-size:20px;color:#f44336; float: right; padding:15px;" data-toggle="modal" data-target="#exampleModalLong"style="width:90%;"> Instructions</a></li>
+		<li><a class="fa fa-user-circle" style="font-size:20px;color:#4FC3F7; float: right; padding:15px;" data-toggle="modal" data-target="#myModal"> Profile</a></li>
+		<li class="l"><h4 id="titletext">University Institute of Engineering and Technology</h4></li>
+	</ul>
+</div>
+
+
+
+
 <div id="clockdiv" style="margin-top: 200px;">
   <div>
     <span class="days" id="days">2</span>
@@ -69,7 +95,7 @@ h1{
     <div class="smalltext">Seconds</div>
   </div>
 </div>
-<h1>till the test starts</h1>
+<h1>Till the test starts</h1>
 
 
 
@@ -87,9 +113,9 @@ var x = setInterval(function() {
   var minutes = Math.floor((distance % (60 * 60)) / (60));
   var seconds = Math.floor((distance % (60)));
 
-  
-  
-  
+
+
+
 
   if(days<10)
     document.getElementById("days").innerHTML = "0" + days;
@@ -108,7 +134,7 @@ var x = setInterval(function() {
     document.getElementById("seconds").innerHTML = "0"+seconds;
   else
     document.getElementById("seconds").innerHTML = seconds;
-  // If the count down is finished, write some text 
+  // If the count down is finished, write some text
   if (distance < 0) {
     clearInterval(x);
     document.getElementById("demo").innerHTML = "EXPIRED";

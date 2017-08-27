@@ -1,23 +1,27 @@
-<html>
-<head>
-</head>
-<body>
-	
+{% extends "landing_faculty.html" %}
+{% block content %}
 	<h2>Edit Test</h2><hr/>
 	<b>Title:</b> {{test.title}}<br/>
 	<b>Date:</b> {{test.date}}<br/>
 	<b>Time:</b> {{test.time}}<br/>
 	<b>Duration:</b> {{test.duration}}<br/>
 	<hr/>
+	<h3>Assign</h3><br/>
+	Click <a href="/tests/assign/{{test.pk}}/">here</a> to assign this test to students.<br/>
+	<br/>
+	<hr/>
 	<h3>Questions</h3>
 	{% if not questions %}
-	No questions added.
+	No questions added.<br/>
 	{% endif %}
 	{% for question in questions %}
 	<br/>
-	Q.) {{question.statement}} <a href="/tests/edit/question/{{question.pk}}/">Edit</a>
+	Q{{forloop.counter}}.) {{question.statement}} <a href="/tests/edit/question/{{question.pk}}/">Edit</a>
 	<br/>
 	{% endfor %}
 	<br/>
 	<a href="/tests/{{test.pk}}/question/add/">Add Question</a>
-</body>
+	{% endblock %}
+	{% block name %}
+	{{faculty.name}}
+	{% endblock %}

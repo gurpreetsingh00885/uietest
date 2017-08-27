@@ -1,9 +1,5 @@
-
-<html>
-<head>
-
-</head>
-<body>
+{% extends "landing_faculty.html" %}
+{% block content %}
 	<form action="/tests/add/" method="post" id="add_test_form">
 	{% csrf_token %}
 	{{ form.title.label_tag }} {{ form.title }} {{ form.title.errors }}<br/><br/>
@@ -14,5 +10,15 @@
 	<input type="submit" id="submit_test_form" value="Create Test"/>
 
 	</form>
-</body>
-</html>
+{% endblock %}
+{% block name %}
+{{faculty.name}}
+{% endblock %}
+
+
+{% block script %}
+<script type="text/javascript">
+	$(".active").removeClass("active");
+	$("#addtest").addClass("active");
+</script>
+{% endblock %}

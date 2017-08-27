@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.6/css/bootstrap.min.css">
+<link rel="stylesheet" href="style.css" type="text/css">
+  
+</head>
+<body>
+
+  <h2>Edit Test</h2><hr/>
+	<b>Title:</b> {{test.title}}<br/>
+	<b>Date:</b> {{test.date}}<br/>
+	<b>Time:</b> {{test.time}}<br/>
+	<b>Duration:</b> {{test.duration}}<br/>
+	<hr/>
+	<h3>Questions</h3>
+	{% if not questions %}
+	No questions added.
+	{% endif %}
+	{% for question in questions %}
+	<br/>
+	Q.) {{question.statement}} <a href="/tests/edit/question/{{question.pk}}/" data-toggle="modal" data-target="#examplecat">Edit</a>
+	<br/>
+	{% endfor %}
+	<br/>
+	<a type="button" class="btn btn-primary" href="/tests/{{test.pk}}/question/add/">Add Question</a>
+
+
+
+
+
+
+<!-- Modal -->
+<div class="modal fade bd-example-modal-lg" id="examplecat" tabindex="-1" role="dialog" aria-labelledby="examplecatLabel" aria-hidden="true">
+  <div class="modal-dialog modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="examplecatLabel">Edit Question</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+
+        <form action="" method="post">{% csrf_token %}
+            {{ form.as_p }}
+        <br/>
+        <hr/><h3>Images</h3>
+        	{% for imagefile in images %}
+        	<img src="{{imagefile.image.url}}" height=350, width=550/><br/>
+        	{% endfor %}
+            <br/><h3>Options</h3><hr/>
+        	{{ option_formset.management_form }}
+
+        	{% for form in option_formset.forms %}
+
+        	<div class="item">
+          	{% render_field form.correct %}{{form.correct.errors}}
+          	{% render_field form.value type="textarea" rows="1" cols="50"%}{{form.value.errors}}
+
+          	<p style=""><a class="delete" href="#">Remove</a></p>
+        	</div>
+
+        	{% endfor %}
+
+
+        </form>
+
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+        <button type="submit" value="Update" class="btn btn-primary">Update</button>
+      </div>
+    </div>
+
+</body>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.slim.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/tether/1.4.0/js/tether.min.js" ></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.6/js/bootstrap.min.js"></script>
+</html>

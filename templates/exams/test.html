@@ -32,7 +32,7 @@
 	</ul>
 
 	<!--for question matrix-->
-	<div class="two">
+	<div class="two" style="border: 1px solid orange;">
 	<div id="num">
 	Total Questions: {{totalques}}
 	</div>
@@ -65,8 +65,11 @@
 	<div class="question {{answer.status}}" id="{{forloop.counter}}" style="text-align: center; display: inline-block;">{{forloop.counter}}</div>
 	{% endifequal %}
 	{% endfor %}<br/>
+</center>
+	<button id="submittest" class="btn">Submit</button>
+
 	</div>
-	</center>
+	
 	<!--for viewing questions-->
 	<div id="topofscroll" style="background-color: #ddd; width: 80%; border-bottom: 1px solid black; border-left: 1px solid black; height: 36px; padding: 5px; position: fixed;"><h4 style="display: inline;">{{test.title}}</h4><p align="left" style="margin-left:100px; display: inline-block;">Question No.<b><span id="questionno">1</span></b></p><p align="right" style="display: inline-block; float:right;" id="timer"></p>
 	</div>
@@ -141,7 +144,7 @@
 	  <div class="modal-footer" style="text-align left;">
 	  <div id="bottomf">
 	  {% if accepted %}
-        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+        <button type="button" class="btn btn-default" data-dismiss="modal" id="closeinst">Close</button>
       {% else %}
       <input type="radio" name="agreetoterms" id="termsradio"/>I accept the terms and conditions.
       	<button type="button" class="btn btn-default" id="startbutton">Start test</button>
@@ -156,6 +159,25 @@
 
 </body>
 <script type="text/javascript">
+	$(document).ready(function (e){
+		function gofullscreen(){
+			var el = document.documentElement
+, rfs = // for newer Webkit and Firefox
+       el.requestFullScreen
+    || el.webkitRequestFullScreen
+    || el.mozRequestFullScreen
+    || el.msRequestFullScreen
+;
+if(typeof rfs!="undefined" && rfs){
+  rfs.call(el);
+} else if(typeof window.ActiveXObject!="undefined"){
+  // for Internet Explorer
+  var wscript = new ActiveXObject("WScript.Shell");
+  if (wscript!=null) {
+     wscript.SendKeys("{F11}");
+  }
+}
+}
 	document.oncontextmenu = document.body.oncontextmenu = function() {return false;}
 	var questionList = (("{{question_list}}").replace(/&(l|g|quo)t;/g, function(a,b){
                 return {
@@ -275,6 +297,7 @@
 	// }
 
 	function load_question(next, status="unanswered", ques=false, circle=false) {
+		gofullscreen();
 		$("#review").show();
         $("#lock").show();
 		div = document.getElementById("questionno");
@@ -420,8 +443,10 @@
 		show_hide_buttons();
 		updateNumbers();
 	}
-	{% if not accepted %}
+
 	$('#exampleModalLong').modal({backdrop: 'static', keyboard: false});
+
+	{% if not accepted %}
 	$("#startbutton").disabled=true;
 	$("#startbutton").addClass("disabled");
 
@@ -447,7 +472,12 @@
 		load_question(2,"unanswered", this.id, this);
 	});
 
+	$("#closeinst").click(function(e){
+		gofullscreen();
+	});
+
 	$("#startbutton").click(function(e){
+		gofullscreen();
 		if(document.getElementById('termsradio').checked){
 			$('#exampleModalLong').modal('hide');
 			$.ajax({
@@ -465,7 +495,17 @@
 		}
 	});
 
-
+	$("#submittest").click(function(e){
+		if(confirm("Do you really want to submit this test? You won't be able to open this test screen after you do so. Response cannot be modified once submitted.")){
+			$.ajax({
+       		 type: "GET",
+        	url: "/tests/submit/{{response.pk}}/",
+        	success: function(result) {
+        		location.reload();
+        	}
+    		});
+		}
+	});
 
 	$("#instr").click(function(e){
 		document.getElementById('bottomf').innerHTML = '<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>';
@@ -486,6 +526,7 @@
 	$("#1").addClass("highlighted");
 	$("#1").trigger("click");
 	updateNumbers();
+});
 </script>
 
 
@@ -519,6 +560,8 @@ var x = setInterval(function() {
   	location.reload();
   }
 }, 1000);
+
+
 {% if not accepted %}
 document.getElementById('termsradio').checked=false;
 {% endif %}

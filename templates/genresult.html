@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title></title>
+</head>
+<body><br/><br/><br/><br/><br/><br/><br/><br/><br/>
+	
+	<center>
+
+		<img src="/media/img/UIETT.png" height="100" width="135"/><br/><br/><br/>
+	
+		<h1 style="font-size: 25px;">University Institute of Engineering and Technology</h1>
+	
+		<h1>Panjab University, Chandigarh</h1><br/><br/>
+	
+		<h2><u>Test Summary</u></h2>
+
+	</center>
+	<table style="border: 1px dotted gray; overflow-x: auto;" cellpadding="4" align="center">
+		
+		<tr>
+			<td>
+				<b>Test Title</b>		
+			</td>
+
+			<td>
+				{{test.title}}
+			</td>
+		</tr>
+
+		<tr>
+			<td>
+				<b>Candidate's Name</b>		
+			</td>
+
+			<td>
+				{{student.name}}
+			</td>
+		</tr>
+
+		<tr>
+			<td>
+				<b>Candidate's Roll no.</b>		
+			</td>
+
+			<td>
+				{{student.roll_no}}
+			</td>
+		</tr>
+
+		<tr>
+			<td>
+				<b>Maximum Marks</b>		
+			</td>
+
+			<td>
+				{{test.question_set.all.count}}
+			</td>
+		</tr>
+
+		<tr>
+			<td>
+				<b>Marks Obtained</b>		
+			</td>
+
+			<td>
+				{{response.marks}}
+			</td>
+		</tr>
+
+<tr>
+			<td>
+				<b>Grade Awarded</b>		
+			</td>
+
+			<td>
+				response.grade
+			</td>
+		</tr>
+
+	</table>
+
+</div><br/><br/><br/><br/><br/><br/>
+<p align="center">Details about your response are provided in the following pages of this document.</p>
+{% for image in images %}
+<img src="{{image}}"/>
+<br/><br/>
+{% endfor %}
+<br/>
+</body>
+</html>
