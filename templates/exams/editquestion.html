@@ -3,7 +3,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-	<title></title>
+	<link rel="stylesheet" type="text/css" href="/static/css/editques.css">
 </head>
 <body>
 
@@ -11,25 +11,27 @@
 <form action="" method="post">{% csrf_token %}
     {{ form.as_p }}
 <br/>
-<hr/><h3>Images</h3>
+<h3>Images</h3>
 	{% for imagefile in images %}
 	<img src="{{imagefile.image.url}}" height=350, width=550/><br/>
 	{% endfor %}
-    <br/><h3>Options</h3><hr/>
+    <br/><h3>Options</h3>
 	{{ option_formset.management_form }}
 
 	{% for form in option_formset.forms %}
 
+	<div class="mainn">
 	<div class="item">
   	{% render_field form.correct %}{{form.correct.errors}}
   	{% render_field form.value type="textarea" rows="1" cols="50"%}{{form.value.errors}}
 
-  	<p style=""><a class="delete" href="#">Remove</a></p>
+  	<a class="delete" href="#">&#x2715;</a>
 	</div>
 
 	{% endfor %}
 
     <input type="submit" value="Update" />
+    </div>
 </form>
 
 

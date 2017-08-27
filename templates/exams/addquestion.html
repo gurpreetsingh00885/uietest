@@ -21,11 +21,6 @@
 </head>
 
 <body>
-
-<br>
-<br>
-<br>
-
   <div class="material-tabs">
   <div class="tabbed-section__selector">
     <a class="tabbed-section__selector-tab-1 active" href="#">MCQs</a>
@@ -39,7 +34,7 @@
     {% csrf_token %}
     <h3>Question</h2>
 <br>
-    {% render_field question_form.statement type="textarea" rows="3" cols="50" placeholder="Enter Question Statement" %}{{question_form.statement.errors}}
+    {% render_field question_form.statement type="textarea" rows="3" cols="60" placeholder="Enter Question Statement" %}{{question_form.statement.errors}}
 <br>
 <h3>Add Image/s (optional)</h3>
 {{ image_fromset.management_form }}
@@ -59,13 +54,13 @@
 
 <div class="item">
   {% render_field form.correct %}{{form.correct.errors}}&nbsp;&nbsp;
-  {% render_field form.value type="textarea" rows="1" cols="50"%}
+  {% render_field form.value type="textarea" rows="1" cols="38"%}
   {{form.value.errors}}
   &nbsp;<a class="delete" href="#">&#x2715;</a>
 </div>
 
 {% endfor %}
-<center><a id="add" href="#">Add another item</a></center>
+<center><a id="add" href="#">Add Another Item</a></center>
 <center>
            <button class="btn btn-lg btn-primary">Save</button>
 
