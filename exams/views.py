@@ -9,9 +9,15 @@ from django.contrib.auth.models import AnonymousUser
 from django.core.exceptions import PermissionDenied
 from django.template.loader import render_to_string
 from django.views.generic.edit import UpdateView
+from django.conf import settings
 from django.views import View
 import datetime, json
 from django.forms.widgets import TextInput
+import PIL.Image as Img
+from PIL import ImageDraw, ImageFont
+import os
+from easy_pdf.views import PDFTemplateView
+import math
 
 
 
@@ -221,7 +227,9 @@ class TestView(View):
                                 marks+=1
                         response.marks = marks
                         response.save()
-                return HttpResponse("This test is over. You %s." %("were Absent" if not response else "scored %d/%d marks."%(response.marks, response.answer_set.all().count())))
+                if not response:
+                    return HttpResponse("This test is over now! You were absent.")
+                return HttpResponseRedirect("/tests/result/"+str(response.pk))
 
             data = [
                 {
@@ -376,3 +384,131 @@ class SubmitResponseView(View):
                     response.marks = marks
                     response.save()
             return JsonResponse({"submitted":True})
+
+class ResultView(PDFTemplateView):
+    template_name = 'genresult.html'
+    def get_context_data(self, **kwargs):
+        pk=kwargs.pop('responsepk')
+        response = TestResponse.objects.get(pk=int(pk))
+        test = response.test
+        student = Student.objects.get(user=self.request.user)
+        font_path = os.path.join(settings.BASE_DIR, "static/fonts/DroidSans.ttf")
+        bold_font_path = os.path.join(settings.BASE_DIR, "static/fonts/DroidSans-Bold.ttf")
+        answer_font_path = os.path.join(settings.BASE_DIR, "static/fonts/Sansation-Regular.ttf")
+        option_font_path = font_path
+        image = Img.new("RGB", (720, 1000), "WHITE")
+        draw = ImageDraw.Draw(image)
+        font = ImageFont.truetype(font_path, 14)
+        bold_font = ImageFont.truetype(bold_font_path, 14)
+        answer_font = ImageFont.truetype(answer_font_path, 14)
+        option_font = ImageFont.truetype(option_font_path, 14)
+        # #draw.text((x, y),"Sample Text",(r,g,b))
+        # for i in range(1,100):
+        #     draw.text((0, i*20),"               Sample Text WOOHOOO! %d"%(i),(0,0,0),font=font)
+        # name = self.request.user.username+str(pk)
+        # save_path = os.path.join(settings.BASE_DIR , "media/images/results/%s.png")%(name)
+        # image.save(save_path)
+
+
+        data = []
+        i = 1
+        for question in test.question_set.all():
+            data.append("!Q"+str(i)+") "+question.statement)
+            data.append("    ")
+            if(question.image_set.all()):
+                for im in question.image_set.all():
+                    data.append(im.image)
+                    data.append("    ")
+            j = 0
+            for option in question.option_set.all():
+                data.append("-  "+"ABCDEFGHIJKL"[j] + ") " +option.value)
+                j+=1
+            data.append("    ")
+            data.append("!Correct Response: ")
+            data[-1]+=(Option.objects.get(question=question, is_correct=True).value)
+            data.append("    ")
+            data.append("*Your Response: ")
+            answer = Answer.objects.get(response=response, question=question).selected_option
+            if answer and answer.selected_option:
+                answer = answer.selected_option.value
+            else:
+                answer = "None"
+            data[-1]+=answer
+            i+=1
+            data.append("    ")
+            data.append("    ")
+        data2 = []
+        c = 0
+        for line in data:
+            if(type(line)==str):
+                lines = [line[k:k+90] for k in range(0, len(line), 90)]
+                for l in range(len(lines)-1):
+                    last_word=lines[l].split(" ")[-1]
+                    lines[l] = " ".join(lines[l].split(" ")[:-1])
+                    lines[l+1] = last_word + lines[l+1]
+
+                data2.append(lines[0])
+                for l in lines[1:]:
+                    data2.append(line[0]+"  "+l)
+            else:
+                data2.append(line)
+        data = data2
+        size = len(data) * 20 # for font size 16
+        images = []
+        no_of_imgs=math.ceil(size/800)
+        pos = 0
+        image_no = 0
+        image = Img.new("RGB", (720, 1000), "WHITE")
+        draw = ImageDraw.Draw(image)
+        name = self.request.user.username+str(pk)
+        for string in data:
+            if(pos>=1000):
+                pos = 0
+                save_path = os.path.join(settings.BASE_DIR , "media/images/results/%s_%d.png")%(name, image_no)
+                images.append(("/media/images/results/%s_%d.png")%(name, image_no))
+                image.save(save_path)
+                image = Img.new("RGB", (720, 1000), "WHITE")
+                draw = ImageDraw.Draw(image)
+                image_no+=1
+            if(type(string)==str):
+                if(string[0]=="!"):
+                    draw.text((20, pos),string[1:],(0,0,0),font=bold_font)
+                elif(string[0]=="-"):
+                    draw.text((20, pos),string[1:],(0,0,0),font=option_font)
+                elif(string[0]=="*"):
+                    draw.text((20, pos),string[1:],(0,0,0),font=answer_font)
+                else:
+                    draw.text((20, pos),string[1:],(0,0,0),font=font)
+            else:
+                im = Img.open(string)
+                width = string.width
+                height = string.height
+
+                if height>400:
+                    height=400
+                if width>400:
+                    width=400
+                if(980-pos < height):
+                    pos = 0
+                    pos = 0
+                    save_path = os.path.join(settings.BASE_DIR , "media/images/results/%s_%d.png")%(name, image_no)
+                    images.append(("/media/images/results/%s_%d.png")%(name, image_no))
+                    image.save(save_path)
+                    image = Img.new("RGB", (720, 1000), "WHITE")
+                    draw = ImageDraw.Draw(image)
+                    image_no+=1
+                im.thumbnail((width,height))
+                image.paste(im, (20,pos))
+                pos+=im.size[-1]+4-20
+            pos+=20
+        save_path = os.path.join(settings.BASE_DIR , "media/images/results/%s_%d.png")%(name, image_no)
+        images.append(("/media/images/results/%s_%d.png")%(name, image_no))
+        image.save(save_path)
+
+        context ={
+            "images":images,
+            "student": student,
+            "test": test,
+            "response": response, 
+            }
+        return context
