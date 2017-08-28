@@ -1,0 +1,6 @@
+*.pyc
+
+exams/migrations/*.py
+
+registration/migrations/*.py
+
