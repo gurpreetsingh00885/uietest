@@ -335,3 +335,26 @@ class DeAssignTestView(View):
         except:
             return Http404
         return HttpResponseRedirect("/tests/assign/"+testpk)
+
+class ProfileView(View):
+    def get(self, request, *args, **kwargs):
+        print("haha")
+        faculty = Faculty.objects.filter(user=request.user)    
+        student = Student.objects.filter(user=request.user)
+        obj = None
+        context = {}
+        is_student = True
+        if faculty.exists():
+            is_student = False
+            obj = faculty[0]
+        elif student.exists():
+            obj = student[0]
+        else:
+            raise Http404
+
+        context["is_student"] = is_student
+        context["object"] = obj
+
+        return render(request, "dashboard/profile.html", context)
+
+

@@ -4,8 +4,11 @@ from django.views.generic import TemplateView
 from registration.views import PDFDetailView, StudentSignupView, LandingView, ActivateStudentAccountView, NewLoginView
 from django.conf import settings
 from django.conf.urls.static import static
+from exams.views import ProfileView
+
 
 urlpatterns = [
+    url(r'^profiledetail/', ProfileView.as_view()),
 	url(r'^admin/changestatus/student/(?P<pk>[-\w]+)/(?P<phone>[-\w]+)', ActivateStudentAccountView.as_view()),
     url(r'^admin/', admin.site.urls),
     url(r'^$', TemplateView.as_view(template_name="home.html")),
