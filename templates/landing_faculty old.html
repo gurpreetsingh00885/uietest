@@ -1,0 +1,116 @@
+<html>
+<head>
+
+
+
+
+<script type="text/javascript" src="/static/js/jquery.min.js"></script>
+
+<!-- Latest compiled and minified CSS -->
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+
+<!-- Optional theme -->
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css" integrity="sha384-rHyoN1iRsVXV4nD0JutlnGaslCJuC7uwjduW9SVrLvRYooPp2bWYgmgJQIXwl/Sp" crossorigin="anonymous">
+
+<!-- Latest compiled and minified JavaScript -->
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+
+	<script type="text/javascript">
+	$(document).on('click', '#button', function(e) {
+    e.preventDefault();
+    $.ajax({
+        type: "GET",
+        url: "/tests/add/",
+        success: function(result) {
+            formdiv = document.getElementById("addtestform");
+            formdiv.innerHTML = result+"<button id='canceladd'>Cancel</button>";
+        }
+    });
+});
+
+    $(document).on('click', '#canceladd', function(e) {
+        e.preventDefault();
+        formdiv = document.getElementById("addtestform");
+        formdiv.innerHTML = "";
+        $('#myModal').modal('hide');
+    });
+    $('#myModal').on('hide', function () {
+        console.log("d");
+    });
+
+    $(document).on('click', '#submit_test_form', function(e) {
+        e.preventDefault();
+        form = document.getElementById("add_test_form");
+        $.ajax({
+                url: $(form).attr('action'),
+                type: 'POST',
+                data: $(form).serialize(),
+                success: function(result) {
+                    formdiv = document.getElementById("addtestform");
+
+                    if(result!="Added Test") result+="<button id='canceladd'>Cancel</button>";
+                    formdiv.innerHTML = result
+                    
+                }
+            });
+    });
+    
+	</script>
+
+</head>
+
+<body>
+
+<h3 style="display: inline-block;">Hi, {{faculty.name}}</h3>&nbsp;&nbsp;({{faculty.user.username}})<br/>
+<hr/>
+Click <a href="/accounts/logout/">here</a> to logout.
+
+<br/><br/>
+You will be able to add/edit/delete tests, assign them to students and then view results too.
+<br/><br/>
+<hr/>
+Account Type: <h3 style="display: inline;">Faculty</h3>
+<hr/>
+<h3>My Exams</h3>
+<table>
+{% for test in tests %}
+
+<tr><td>{{ test.title }}</td><td><a href="/tests/edit/{{ test.pk }}">Edit</a></td></tr>
+
+{% endfor %}
+</table>
+
+<hr/>
+
+
+<button id="button" name="add_test_button" class="button" name="button" lass="btn btn-info btn-lg" data-toggle="modal" data-target="#myModal">Add Test</button>
+
+
+<!-- Modal -->
+<div id="myModal" class="modal fade" role="dialog">
+  <div class="modal-dialog">
+
+    <!-- Modal content-->
+    <div class="modal-content">
+      <div class="modal-header">
+        <h4 class="modal-title">Add New Test</h4>
+      </div>
+      <div class="modal-body">
+        
+
+        <div id="addtestform"></div>
+
+
+      </div>
+    </div>
+
+  </div>
+</div>
+
+
+
+
+
+
+</body>
+</html>

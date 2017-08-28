@@ -13,7 +13,7 @@ html, body {
 }
 
 body {
-  background: url(https://s3-us-west-2.amazonaws.com/s.cdpn.io/64/mb-bg-fb-03.jpg) no-repeat fixed center center/cover;
+background-color: #4fc1ee;
   font-family: "RobotoDraft","Roboto",'Helvetica Neue',sans-serif;
 
   font-size: 20px;
