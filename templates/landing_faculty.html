@@ -40,49 +40,8 @@
 
 		<!-- Latest compiled and minified JavaScript -->
 		<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
-
-			<script type="text/javascript">
-			$(document).on('click', '#button', function(e) {
-		    e.preventDefault();
-		    $.ajax({
-		        type: "GET",
-		        url: "/tests/add/",
-		        success: function(result) {
-		            formdiv = document.getElementById("addtestform");
-		            formdiv.innerHTML = result+"<button id='canceladd'>Cancel</button>";
-		        }
-		    });
-		});
-
-		    $(document).on('click', '#canceladd', function(e) {
-		        e.preventDefault();
-		        formdiv = document.getElementById("addtestform");
-		        formdiv.innerHTML = "";
-		        $('#myModal').modal('hide');
-		    });
-		    $('#myModal').on('hide', function () {
-		        console.log("d");
-		    });
-
-		    $(document).on('click', '#submit_test_form', function(e) {
-		        e.preventDefault();
-		        form = document.getElementById("add_test_form");
-		        $.ajax({
-		                url: $(form).attr('action'),
-		                type: 'POST',
-		                data: $(form).serialize(),
-		                success: function(result) {
-		                    formdiv = document.getElementById("addtestform");
-
-		                    if(result!="Added Test") result+="<button id='canceladd'>Cancel</button>";
-		                    formdiv.innerHTML = result
-
-		                }
-		            });
-		    });
-
-			</script>
-
+        {% block scriptpre %}
+        {% endblock %}
 </head>
 <body>
 
@@ -107,22 +66,22 @@
 
             <ul class="nav">
                 <li class="active">
-                    <a href="dashboard.html">
+                    <a href="/accounts/profile">
                         <i class="pe-7s-graph"></i>
-                        <p>Dashboard</p>
+                        <p>Home</p>
                     </a>
                 </li>
-                <li>
-                    <a href="user.html">
+                <li id="profile">
+                    <a href="/profiledetail">
                         <i class="pe-7s-user"></i>
-                        <p>User Profile</p>
+                        <p>Profile</p>
                     </a>
                 </li>
 
-                <li>
-                    <a href="test.html">
+                <li id="addtest">
+                    <a href="/tests/add">
                         <i class="pe-7s-news-paper"></i>
-                        <p>test</p>
+                        <p>add test</p>
                     </a>
                 </li>
 
@@ -148,26 +107,16 @@
 
 
                     <ul class="nav navbar-nav navbar-right">
-                        <li>
-                           <a href="">
-                               <p>Account</p>
-                            </a>
-                        </li>
 												<li class="dropdown">
 															<a href="#" class="dropdown-toggle" data-toggle="dropdown">
 																		<p>
-										Dropdown
+										{% block name %}{{faculty.name}}{% endblock %}
 										<b class="caret"></b>
 									</p>
 															</a>
 															<ul class="dropdown-menu">
-																<li><a href="#">Action</a></li>
-																<li><a href="#">Another action</a></li>
-																<li><a href="#">Something</a></li>
-																<li><a href="#">Another action</a></li>
-																<li><a href="#">Something</a></li>
-																<li class="divider"></li>
-																<li><a href="#">Separated link</a></li>
+																<li><a href="/accounts/password/change">Change Password</a></li>
+																
 															</ul>
 												</li>
 
@@ -183,11 +132,7 @@
 
 				<div class="content">
 						<div class="container-fluid">
-
-							<h2 style="display: inline-block;">Hi, {{faculty.name}}</h2>&nbsp;&nbsp;({{faculty.user.username}})
-
-							<h5>Account type : Faculty</h5>
-</br>
+                                {% block content %}
 								<div class="row">
 										<div class="col-md-12">
 												<div class="card">
@@ -213,32 +158,25 @@
 														</div>
 
 												</div>
-												<button id="button" name="add_test_button" class="button1" name="button"  data-toggle="modal" data-target="#myModal">Add Test</button>
-
+										
 										</div>
+    {% endblock %}
+</div>
 
 
 
-										<div id="myModal" class="modal fade" role="dialog">
-										  <div class="modal-dialog">
-
-										    <!-- Modal content-->
-										    <div class="modal-content">
-										      <div class="modal-header">
-										        <h4 class="modal-title">Add New Test</h4>
-										      </div>
-										      <div class="modal-body">
 
 
-										        <div id="addtestform"></div>
 
 
-										      </div>
-										    </div>
 
-										  </div>
-										</div>
+
 
 
 </body>
+{% block script %}
+{% endblock %}
+    
+    
 
+</html>

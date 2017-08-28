@@ -1,5 +1,5 @@
 {% extends "landing_student.html" %}
-
+{% load test_filters %}
 
 {% block content %}
 {% if is_student %}
@@ -29,19 +29,19 @@
                                         <div class="col-md-3">
                                             <div class="form-group">
                                                 <label>Year</label>
-                                                <input type="text" class="form-control" placeholder="Company" value="{{object.group.year}}" disabled>
+                                                <input type="text" class="form-control" placeholder="Company" value="{{object.group.year|get_full_year}}" disabled>
                                             </div>
                                         </div>
                                         <div class="col-md-4">
                                             <div class="form-group">
                                                 <label>Branch</label>
-                                                <input type="text" class="form-control" placeholder="Last Name" value="{{object.group.branch}}" disabled>
+                                                <input type="text" class="form-control" placeholder="Last Name" value="{{object.group.branch|get_full_branch_name}}" disabled>
                                             </div>
                                         </div>
                                         <div class="col-md-2">
                                             <div class="form-group">
                                                 <label>Section</label>
-                                                <input type="text" class="form-control" placeholder="Last Name" value="{{object.group.section}}" disabled>
+                                                <input type="text" class="form-control" placeholder="Last Name" value="{{object.group.section|get_section}}" disabled>
                                             </div>
                                         </div>
                                         <div class="col-md-2">

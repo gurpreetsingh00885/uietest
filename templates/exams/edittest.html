@@ -1,8 +1,5 @@
-<html>
-<head>
-</head>
-<body>
-	
+{% extends "landing_faculty.html" %}
+{% block content %}
 	<h2>Edit Test</h2><hr/>
 	<b>Title:</b> {{test.title}}<br/>
 	<b>Date:</b> {{test.date}}<br/>
@@ -24,4 +21,7 @@
 	{% endfor %}
 	<br/>
 	<a href="/tests/{{test.pk}}/question/add/">Add Question</a>
-</body>
+	{% endblock %}
+	{% block name %}
+	{{faculty.name}}
+	{% endblock %}

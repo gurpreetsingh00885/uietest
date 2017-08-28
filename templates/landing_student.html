@@ -77,11 +77,11 @@
                         <p>Profile</p>
                     </a>
                 </li>
-
+                
                 <li id="tests">
                     <a href="#">
                         <i class="pe-7s-news-paper"></i>
-                        <p>test</p>
+                        <p>Report</p>
                     </a>
                 </li>
 
@@ -151,7 +151,7 @@
 
 																		<tbody>
 {%if student.group.test_set.all|count_test %}
-<table border="" cellspacing="" cellpadding="10px">
+<table border="0px" class="table-striped" cellspacing="0px" cellpadding="3px">
 <tr><td><b>Title</b></td><td><b>Date</b></td><td><b>Time</b></td><td><b>Open</b></td></tr>
 {% for testi in student.group.test_set.all %}
 {% if not testi|is_over %}

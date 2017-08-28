@@ -91,14 +91,16 @@ def add_test(request):
     if request.method == 'POST':
         form = TestForm(request.POST)
         if form.is_valid():
-            test = Test.objects.create(title=form.cleaned_data['title'], owner=owner, duration=form.cleaned_data['duration'], time=form.cleaned_data['time'], date=form.cleaned_data['date']).save()
+            test = Test.objects.create(title=form.cleaned_data['title'], owner=owner, duration=form.cleaned_data['duration'], time=form.cleaned_data['time'], date=form.cleaned_data['date'])
             #dateandtime = datetime.datetime(test.date.year, test.date.month, test.date.day, test.time.hour, test.time.minute, test.time.second)
-            return HttpResponse("Added Test")           
+            test.save()
+            return HttpResponseRedirect("/tests/edit/"+str(test.pk))         
     else:
         form = TestForm()
 
     context = {
         "form": form,
+        "faculty": owner,
     }
 
     return render(request, 'exams/addexam.html', context)
@@ -125,7 +127,7 @@ def edit_test(request, pk):
 
     if request.method == 'GET':
         
-        return render(request, 'exams/edittest.html', {"test":test, "questions": test.question_set.all()})
+        return render(request, 'exams/edittest.html', {"test":test,"faculty":owner, "questions": test.question_set.all()})
 
 
 class QuestionUpdate(UpdateView):
@@ -148,6 +150,7 @@ class QuestionUpdate(UpdateView):
         context['images'] = self.object.image_set.all()
         self.object = self.get_object()
         context['correct_option']="form-"+str(list(self.object.option_set.all().order_by("pk")).index(self.object.option_set.get(is_correct=True)))
+        context['faculty'] = self.object.test.owner
         return context
 
     def post(self, request, *args, **kwargs):
@@ -428,13 +431,17 @@ class ResultView(PDFTemplateView):
             data[-1]+=(Option.objects.get(question=question, is_correct=True).value)
             data.append("    ")
             data.append("*Your Response: ")
-            answer = Answer.objects.get(response=response, question=question).selected_option
+            answer = Answer.objects.get(response=response, question=question)
             if answer and answer.selected_option:
                 answer = answer.selected_option.value
             else:
-                answer = "None"
+                answer = " - "
             data[-1]+=answer
             i+=1
+            if (Option.objects.get(question=question, is_correct=True).value==answer):
+                data.append("*Marks Awarded: 1")
+            else:
+                data.append("*Marks Awarded: 0")
             data.append("    ")
             data.append("    ")
         data2 = []
@@ -531,6 +538,7 @@ class ProfileView(View):
 
         context["is_student"] = is_student
         context["object"] = obj
-
-        return render(request, "dashboard/profile.html", context)
+        if is_student:
+            return render(request, "dashboard/profile.html", context)
+        return render(request, "dashboard/profile_fac.html", context)
 
