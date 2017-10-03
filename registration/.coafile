@@ -1,0 +1,4 @@
+[cli]
+bears = PEP8Bear
+default_actions = *: ApplyPatchAction
+files = templatetags/filters.py,templatetags/__init__.py

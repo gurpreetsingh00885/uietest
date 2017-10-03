@@ -46,11 +46,8 @@ ACCOUNT_AUTHENTICATION_METHOD = "username"
 # ACCOUNT_LOGIN_ON_EMAIL_CONFIRMATION = False
 ACCOUNT_LOGOUT_ON_GET = False
 # ACCOUNT_LOGOUT_ON_PASSWORD_CHANGE = False
-EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'    #email sent to console for testing
-
-
-
-
+# email sent to console for testing
+EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
 
 
 MIDDLEWARE = [
@@ -138,7 +135,8 @@ USE_TZ = True
 
 STATIC_URL = '/static/'
 
-STATIC_ROOT = os.path.join(os.path.dirname(os.path.dirname(os.path.abspath(__file__))), 'staitic')
+STATIC_ROOT = os.path.join(os.path.dirname(
+    os.path.dirname(os.path.abspath(__file__))), 'staitic')
 
 SITE_ID = 1
 

@@ -1,21 +1,23 @@
 from django.db import models
 from django.contrib.auth.models import User
 
-#############3
+# 3
+
+
 class IntegerRangeField(models.IntegerField):
     def __init__(self, verbose_name=None, name=None, min_value=None, max_value=None, **kwargs):
         self.min_value, self.max_value = min_value, max_value
         models.IntegerField.__init__(self, verbose_name, name, **kwargs)
+
     def formfield(self, **kwargs):
-        defaults = {'min_value': self.min_value, 'max_value':self.max_value}
+        defaults = {'min_value': self.min_value, 'max_value': self.max_value}
         defaults.update(kwargs)
         return super(IntegerRangeField, self).formfield(**defaults)
-#############3
-
+# 3
 
 
 class StudyGroup(models.Model):
-    BRANCH_CHOICES = (  
+    BRANCH_CHOICES = (
         ('CS', 'Computer Science & Engineering'),
         ('IT', 'Information Technology'),
         ('BT', 'Biotechnology'),
@@ -41,17 +43,20 @@ class StudyGroup(models.Model):
         ('3', '3'),
     )
     year = models.CharField(max_length=1, choices=YEAR_CHOICES, blank=False)
-    branch = models.CharField(max_length=2, choices=BRANCH_CHOICES, blank=False)
-    section = models.CharField(max_length=2, choices=SECTION_CHOICES, blank=False)
-    number = models.CharField(max_length=2, choices=NUMBER_CHOICES, blank=False)
-
+    branch = models.CharField(
+        max_length=2, choices=BRANCH_CHOICES, blank=False)
+    section = models.CharField(
+        max_length=2, choices=SECTION_CHOICES, blank=False)
+    number = models.CharField(
+        max_length=2, choices=NUMBER_CHOICES, blank=False)
 
     def __str__(self):
-        return self.branch+ ("E " if self.branch not in 'BT ME IT' else " ") + ['', '1st', '2nd', '3rd', '4th'][int(self.year)] + " year (G" + str(self.number) + ")" + " (Sec." + ["","A","B"][int(self.section)] + ") "
-    
+        return self.branch + ("E " if self.branch not in 'BT ME IT' else " ") + ['', '1st', '2nd', '3rd', '4th'][int(self.year)] + " year (G" + str(self.number) + ")" + " (Sec." + ["", "A", "B"][int(self.section)] + ") "
+
     class Meta:
         verbose_name_plural = "Study Groups"
         unique_together = ('number', 'section', 'year', 'branch')
+
 
 class StudentQuerySet(models.QuerySet):
 
@@ -61,11 +66,9 @@ class StudentQuerySet(models.QuerySet):
         super(StudentQuerySet, self).delete(*args, **kwargs)
 
 
-
-
 class Faculty(models.Model):
 
-    DEPTT_CHOICES = (  
+    DEPTT_CHOICES = (
         ('CS', 'Computer Science & Engineering'),
         ('IT', 'Information Technology'),
         ('BT', 'Biotechnology'),
@@ -78,7 +81,7 @@ class Faculty(models.Model):
     name = models.CharField(max_length=100)
     phone_no = models.CharField(max_length=10)
     department = models.CharField(max_length=50, choices=DEPTT_CHOICES)
-    created = models.DateField(auto_now_add = True)
+    created = models.DateField(auto_now_add=True)
 
     def __str__(self):
         return self.name
@@ -89,8 +92,6 @@ class Faculty(models.Model):
 
     class Meta:
         verbose_name_plural = "Faculty Accounts"
-
-
 
 
 class Student(models.Model):
@@ -121,13 +122,12 @@ class Student(models.Model):
     phone_no = models.CharField(max_length=10)
     year = models.CharField(max_length=1, choices=YEAR_CHOICES)
     branch = models.CharField(max_length=2, choices=BRANCH_CHOICES)
-    created = models.DateField(auto_now_add = True)
+    created = models.DateField(auto_now_add=True)
     section = models.CharField(max_length=2, choices=SECTION_CHOICES)
     group = models.ForeignKey(StudyGroup, on_delete=models.CASCADE)
 
     def __str__(self):
-        return self.name + " (" + self.roll_no +")"
-
+        return self.name + " (" + self.roll_no + ")"
 
     def delete(self, *args, **kwargs):
         self.user.delete()

@@ -1,0 +1,4 @@
+[cli]
+bears = PEP8Bear
+default_actions = *: ApplyPatchAction
+files = migrations/0001_initial.py,migrations/__init__.py,templatetags/__init__.py,templatetags/test_filters.py

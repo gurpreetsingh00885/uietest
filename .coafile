@@ -1,0 +1,4 @@
+[cli]
+bears = PEP8Bear
+default_actions = *: ApplyPatchAction
+files = exams/admin.py,exams/apps.py,exams/forms.py,exams/__init__.py,exams/models.py,exams/tests.py,exams/urls.py,exams/views.py,registration/admin.py,registration/apps.py,registration/forms.py,registration/__init__.py,registration/middleware.py,registration/models.py,registration/tests.py,registration/utils.py,registration/views.py,uietest/__init__.py,uietest/settings.py,uietest/urls.py,uietest/wsgi.py
