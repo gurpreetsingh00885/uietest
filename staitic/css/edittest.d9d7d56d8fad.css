@@ -1,0 +1,23 @@
+body{
+	background-color: #29B6F6;
+}
+
+.intro{
+	
+	display: inline-block;
+	width: 100%;
+	background-color: rgba(19, 35, 47,0.9);
+	color: white;
+	padding: 5px;
+	text-align: center;
+	border-radius: 4px;
+  box-shadow: 0 6px 6px rgba(0, 0, 0, 0.19), 0 6px 6px rgba(0, 0, 0, 0.23) !important;
+}
+h2{
+	text-transform: uppercase;
+}
+a{
+	text-decoration: none;
+	font-weight: bolder;
+	color: black;
+}

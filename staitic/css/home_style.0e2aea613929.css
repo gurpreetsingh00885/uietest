@@ -1,0 +1,86 @@
+.image{
+	width:100px;
+	height:100px;
+	margin-left: 50px;
+}
+
+	
+	.para1{
+		font-size: 16px;
+		font-weight:lighter;
+		text-align: center;
+		width:600px;
+  		height: 100px;
+  		padding-top: 13px;
+  		padding-left: 5px;
+  		padding-right: 5px;
+  		padding-bottom: 5px;
+  		border-radius: 6px;
+	}
+	.header img {
+  float: left;
+  width: 100px;
+  height: 100px;
+  
+}
+
+.header h1 {
+  position: relative;
+  top: 18px;
+  left: 10px;
+  font-size: 25px;
+  font-weight: lighter; 
+  text-transform: uppercase;
+  color:   white;}
+
+	h2 {
+  font-size: 50px;
+  padding: 40px 25px;
+  text-align: center;
+  text-transform: uppercase;
+  text-rendering: optimizeLegibility;
+   color: white;
+    letter-spacing: .3em;
+    
+  }
+ 
+.button {
+  border: 0;
+  outline: none;
+  border-radius: 5px;
+  padding: 5px;
+  font-size: 15px;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: .1em;
+  background: #1ab188;
+  color: #ffffff;
+  -webkit-transition: all 0.5s ease;
+  transition: all 0.5s ease;
+  -webkit-appearance: none;
+  height: 40px;
+  width: 120px;
+}
+.button:hover, .button:focus {
+  background:  #c1bdba;
+  color: black;
+}
+
+.button-block {
+  display: block;
+  
+}
+body{
+  background-image: url("/static/img/skk.995341aeb43f.png");
+	font-weight: 600;
+  letter-spacing: .1em;
+  font-family: 'Titillium Web', sans-serif;
+  color: white;
+}
+footer{
+	float: right;
+	margin-bottom: 0px;
+	font-size: 10px;
+	font-family: sans-serif;
+	font-weight: lighter;
+}

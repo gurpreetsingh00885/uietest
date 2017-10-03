@@ -1,118 +1,86 @@
 .image{
 	width:100px;
 	height:100px;
-	margin-left: 30px;
+	margin-left: 50px;
 }
 
-
+	
 	.para1{
-		font-size: 22px;
-		font-weight: lighter;
+		font-size: 16px;
+		font-weight:lighter;
 		text-align: center;
 		width:600px;
   		height: 100px;
-  		padding-top: 5px;
+  		padding-top: 13px;
   		padding-left: 5px;
   		padding-right: 5px;
-  		padding-bottom: 3px;
-  		border-radius: 9px;
-
+  		padding-bottom: 5px;
+  		border-radius: 6px;
 	}
 	.header img {
   float: left;
-  width: 180px;
-  height: 130px;
+  width: 100px;
+  height: 100px;
+  
 }
 
 .header h1 {
   position: relative;
   top: 18px;
-  right: 70px;
+  left: 10px;
   font-size: 25px;
-  font-weight: lighter;
+  font-weight: lighter; 
   text-transform: uppercase;
-  color:  white ;
-
-}
+  color:   white;}
 
 	h2 {
-  font-size: 65px;
-  padding: 30px 10px;
+  font-size: 50px;
+  padding: 40px 25px;
   text-align: center;
   text-transform: uppercase;
   text-rendering: optimizeLegibility;
    color: white;
-   letter-spacing: .2em;
-   text-shadow: 1px 1px 2px black, 0 0 25px black, 0 0 5px black;
-
-
-
+    letter-spacing: .3em;
+    
   }
-
+ 
 .button {
-
-
-	display: inline-block;
-  border-radius: 100px;
-  background-color: #29B6F6;
-  border: none;
-  color: #FFFFFF;
-  text-align: center;
-  font-size: 20px;
-  padding: 14px;
-  width: 160px;
-  transition: all 0.5s;
-  cursor: pointer;
-  margin: 6px;
+  border: 0;
+  outline: none;
+  border-radius: 5px;
+  padding: 5px;
+  font-size: 15px;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: .1em;
+  background: #1ab188;
+  color: #ffffff;
+  -webkit-transition: all 0.5s ease;
+  transition: all 0.5s ease;
+  -webkit-appearance: none;
+  height: 40px;
+  width: 120px;
 }
-.button span {
-  cursor: pointer;
-  display: inline-block;
-  position: relative;
-  transition: 0.5s;
-}
-.button span:after {
-  content: '\00bb';
-  position: absolute;
-  opacity: 0;
-  top: 0;
-  right: -20px;
-  transition: 0.2s;
-  color:black;
+.button:hover, .button:focus {
+  background:  #c1bdba;
+  color: black;
 }
 
-.button:hover span {
-  padding-right: 25px;
+.button-block {
+  display: block;
+  
 }
-
-.button:hover span:after {
-  opacity: 1;
-  right: 0;
-}
-.button:hover {
-    background-color: #FFE57F; 
-    color: black;
-}
-
 body{
-	background: url("/static/img/ggg.jpg") no-repeat center center fixed;
-	 background-size: cover;
-	 color: #fff;
-	 background-color: grey;
-	   text-align: center;
-	   font-family: 'Quicksand', sans-serif;
-
+  background-image: url("/static/img/skk.png");
+	font-weight: 600;
+  letter-spacing: .1em;
+  font-family: 'Titillium Web', sans-serif;
+  color: white;
 }
 footer{
-
-	position: fixed;
-	    height: 50px;
-
-	    bottom: 0px;
-	    left: 0px;
-	    right: 0px;
-	    margin-bottom: 0px;
-	font-size: 14px;
+	float: right;
+	margin-bottom: 0px;
+	font-size: 10px;
 	font-family: sans-serif;
 	font-weight: lighter;
 }
