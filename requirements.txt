@@ -23,7 +23,7 @@ kombu==4.1.0
 lxml==3.8.0
 oauthlib==2.0.2
 olefile==0.44
-Pillow==4.2.1
+Pillow==8.2.0
 pip-autoremove==0.9.0
 psycopg2==2.7.2
 pycparser==2.18
