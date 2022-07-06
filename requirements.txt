@@ -20,7 +20,7 @@ html5lib==1.0b10
 httplib2==0.10.3
 idna==2.5
 kombu==4.1.0
-lxml==3.8.0
+lxml==4.9.1
 oauthlib==2.0.2
 olefile==0.44
 Pillow==4.2.1
